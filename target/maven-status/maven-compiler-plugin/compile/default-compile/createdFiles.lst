@@ -1,9 +1,0 @@
-ch/heigvd/amt/projet1/model/Authentification.class
-ch/heigvd/amt/projet1/presentation/RegisterServlet.class
-ch/heigvd/amt/projet1/presentation/ProfilServlet.class
-ch/heigvd/amt/projet1/presentation/LogoutServlet.class
-ch/heigvd/amt/projet1/presentation/LoginServlet.class
-ch/heigvd/amt/projet1/business/TestQuestion.class
-ch/heigvd/amt/projet1/presentation/QuestionsServlet.class
-ch/heigvd/amt/projet1/business/Checker.class
-ch/heigvd/amt/projet1/business/AuthorisationFilter.class

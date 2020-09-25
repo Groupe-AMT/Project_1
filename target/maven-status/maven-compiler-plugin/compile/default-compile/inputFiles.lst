@@ -1,3 +1,9 @@
-/home/jerome/HEIG/Labo/AMT/Project_1/src/main/java/ch/heigvd/amt/projet1/model/Questions.java
-/home/jerome/HEIG/Labo/AMT/Project_1/src/main/java/ch/heigvd/amt/projet1/business/TestQuestion.java
-/home/jerome/HEIG/Labo/AMT/Project_1/src/main/java/ch/heigvd/amt/projet1/presentation/WelcomeServlet.java
+/home/user1/Downloads/Project_1-master/src/main/java/ch/heigvd/amt/projet1/business/Checker.java
+/home/user1/Downloads/Project_1-master/src/main/java/ch/heigvd/amt/projet1/presentation/ProfilServlet.java
+/home/user1/Downloads/Project_1-master/src/main/java/ch/heigvd/amt/projet1/model/Authentification.java
+/home/user1/Downloads/Project_1-master/src/main/java/ch/heigvd/amt/projet1/presentation/LoginServlet.java
+/home/user1/Downloads/Project_1-master/src/main/java/ch/heigvd/amt/projet1/presentation/RegisterServlet.java
+/home/user1/Downloads/Project_1-master/src/main/java/ch/heigvd/amt/projet1/business/AuthorisationFilter.java
+/home/user1/Downloads/Project_1-master/src/main/java/ch/heigvd/amt/projet1/business/TestQuestion.java
+/home/user1/Downloads/Project_1-master/src/main/java/ch/heigvd/amt/projet1/presentation/QuestionsServlet.java
+/home/user1/Downloads/Project_1-master/src/main/java/ch/heigvd/amt/projet1/presentation/LogoutServlet.java

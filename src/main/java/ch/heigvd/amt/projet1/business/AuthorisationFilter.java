@@ -45,7 +45,11 @@ public class AuthorisationFilter implements Filter {
             return true;
         if(URI.startsWith("/Projet_1/login"))
             return true;
+        if(URI.startsWith("/Projet_1/logout"))
+            return true;
         if(URI.startsWith("/Projet_1/register"))
+            return true;
+        if(URI.startsWith("/Projet_1/index.jsp"))
             return true;
         return false;
     }

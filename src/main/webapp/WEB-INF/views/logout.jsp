@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@include file="fragments/Header.jsp"%>
-<c:set var ="pageTitle" value="login stackFlow"/>
+<c:set var ="pageTitle" value="logout stackFlow"/>
 <style>
     .ID{
         max-width: 800px;
@@ -33,7 +33,7 @@
 
 </style>
 
-<div id="login" class="ID" style="margin-top: 300px">
+<div id="logout" class="ID" style="margin-top: 300px">
     <c:if test="${errors!=null}">
         <ul>
             <c:forEach items="${errors}" var="error">
@@ -41,21 +41,13 @@
             </c:forEach>
         </ul>
     </c:if>
+    <h1>Logout</h1>
+    <form id ="logout-form" action="logout.do" method="post">
 
-    ${login}
-    ${uname}
-    <form id ="login-form" action="login.do" method="post">
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
 
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-
-    <button type="submit">Login</button>
+    <button type="submit">logout</button>
     </form>
-    <form action="/Projet_1/register">
-        <button type="submit" >Register right Here!</button>
-    </form>
+
 </div>
 
 <%@include file="fragments/Footer.jsp"%>

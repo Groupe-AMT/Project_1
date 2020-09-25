@@ -21,7 +21,7 @@ public class LoginServlet extends javax.servlet.http.HttpServlet {
         if(session.getAttribute("login")==null)
             request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
         else
-            response.sendRedirect("/Projet_1");
+            request.getRequestDispatcher("/WEB-INF/views/logout.jsp").forward(request, response);
 
     }
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {

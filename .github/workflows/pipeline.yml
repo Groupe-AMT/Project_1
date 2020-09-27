@@ -46,9 +46,14 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.OPENAFFECT_PAT }}
 
-      - name: build Docker Image
-        run: |
-              docker build -t open-affect/projet1 .
-              docker tag open-affect/projet1 ghcr.io/openaffect/projet1
-              docker push ghcr.io/openaffect/projet1
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./Dockerfile
+          push: true
+          tags: open-affect/projet1
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
       

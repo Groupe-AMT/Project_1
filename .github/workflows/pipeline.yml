@@ -40,7 +40,7 @@ jobs:
         run: mvn clean package
 
       - name: build Docker Image
-          run:|
+        run: |
               echo ${{secrets.OPENAFFECT_PAT}} | docker login ghcr.io -u dev-openaffect --password-stdin
               docker build -t open-affect/projet1 .
               docker tag open-affect/projet1 ghcr.io/openaffect/projet1

@@ -42,6 +42,6 @@ jobs:
       - name: Build Docker Image 
         run: |
           echo ${{ secrets.OPENAFFECT_PAT }} | docker login ghcr.io -u hans-arn --password-stdin
-          docker build -t Groupe-AMT/Project_1  .
-          docker tag Groupe-AMT/Project_1 ghcr.io/Groupe-AMT/Project_1
-          docker push ghcr.io/Groupe-AMT/Project_1
+          docker build -t groupe-amt/project_1  .
+          docker tag groupe-amt/project_1  ghcr.io/groupe-amt/project_1 
+          docker push ghcr.io/groupe-amt/project_1 

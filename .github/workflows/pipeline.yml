@@ -38,10 +38,16 @@ jobs:
           
       - name: Build with Maven
         run: mvn clean package
+        
+      - name: Login to GitHub Package Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.OPENAFFECT_PAT }}
 
       - name: build Docker Image
         run: |
-              echo ${{secrets.OPENAFFECT_PAT}} | docker login ghcr.io -u dev-openaffect --password-stdin
               docker build -t open-affect/projet1 .
               docker tag open-affect/projet1 ghcr.io/openaffect/projet1
               docker push ghcr.io/openaffect/projet1

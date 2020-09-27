@@ -15,3 +15,4 @@ Toutes les pages -> systeme de recherche de tag ou autre ...
 - Se mettre dans le dossier dockerizator,
 - Lancer la commande bash build-image.sh
 - En cas de modification du fichier .war le supprimer avant de construire l'image.
+# github Actions

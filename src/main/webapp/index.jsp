@@ -34,4 +34,3 @@
 </div>
 
 <%@include file="WEB-INF/views/fragments/Footer.jsp"%>
-

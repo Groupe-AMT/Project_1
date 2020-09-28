@@ -1,0 +1,7 @@
+#starts shell script in payara container :
+sudo docker exec -it app_deployment /bin/bash
+
+
+#in container bash, starts asadmin script :
+cd /appserver/bin/
+asadmin

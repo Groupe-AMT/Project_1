@@ -2,11 +2,14 @@
 package ch.heigvd.amt.projet1.model;
 
 
-class Answer extends VotableMessage{
+import java.util.ArrayList;
+import java.util.List;
+
+class Answer extends Message{
     // Variables 
     List<Comment> Comments = new ArrayList<Comment>();
 
-    // Getter
+    // GetterX
     public List<Comment> getComments(){
         return this.Comments;
     }
@@ -19,14 +22,8 @@ class Answer extends VotableMessage{
         this.Comments.add(com);
         return this.Comments;
     }
-
-    // Changing the addToDB function
-    //@Override
-    public void addToDB(){
-        /* 
-        This method is use to add to the database the created VotableMessage 
-        with all its information.
-        */
-
+    public Answer(String author, String content){
+        super(author,content);
     }
+
 }

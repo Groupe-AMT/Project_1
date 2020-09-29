@@ -1,7 +1,7 @@
+package ch.heigvd.amt.projet1.model;
 
 
-
-class Message() {
+class Message {
     // Variables
     String author;
     String content;
@@ -10,8 +10,7 @@ class Message() {
     public Message (String author, String content){
         this.author = author;
         this.content = content;
-
-        addToDB();
+        //TODO: add to db here
     }
 
     // Getter
@@ -24,14 +23,6 @@ class Message() {
     }
 
     // Changing the addToDB function
-    @Override
-    public addToDB(){
-        /* 
-        This method is use to add to the database the created VotableMessage 
-        with all its information.
-        */
-
-    }
 
     // Changing the toString function
     @Override

@@ -5,7 +5,7 @@ package ch.heigvd.amt.projet1.model;
 class Question extends VotableMessage implements IEntity{
     // Variables
     String Subject;
-    QuestionId id;
+    QuestionId id; //contient un UUID qui identifie la question de façon unique (à utiliser comme id dans la DB)
     List<String> Tags = new ArrayList<String>();
     List<Answer> Answers = new ArrayList<Answer>();
 

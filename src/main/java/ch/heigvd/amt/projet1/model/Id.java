@@ -17,4 +17,8 @@ public abstract class Id {
         UUID.fromString(string_id);
     }
 
+    public String asString(){
+        return this.id.toString();
+    }
+
 }

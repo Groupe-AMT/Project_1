@@ -4,7 +4,7 @@ package ch.heigvd.amt.projet1.model;
 import java.util.ArrayList;
 import java.util.List;
 
-class Question extends Message implements IEntity{
+public class Question extends Message implements IEntity{
     // Variables
     String Subject;
     QuestionId id; //contient un UUID qui identifie la question de façon unique (à utiliser comme id dans la DB)

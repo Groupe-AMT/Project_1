@@ -38,7 +38,6 @@ public class VotableMessage extends Message{
         return this.downVote;
     }
 
-    // Changing the addToDB function
 
 
     // Changing the toString function

@@ -45,7 +45,6 @@ public class Question extends VotableMessage implements IEntity{
         return this.Answers;
     } 
 
-    // Changing the addToDB function
 
 
 }

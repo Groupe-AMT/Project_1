@@ -10,7 +10,6 @@ public class Message {
     public Message (String author, String content){
         this.author = author;
         this.content = content;
-        //TODO: add to db here
     }
 
     // Getter
@@ -22,7 +21,6 @@ public class Message {
         return this.content;
     }
 
-    // Changing the addToDB function
 
     // Changing the toString function
     @Override

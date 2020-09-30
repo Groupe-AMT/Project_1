@@ -1,7 +1,7 @@
 package ch.heigvd.amt.projet1.model;
 
 
-class Message {
+public class Message {
     // Variables
     String author;
     String content;

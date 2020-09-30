@@ -1,7 +1,7 @@
+package ch.heigvd.amt.projet1.model;
 
 
-
-class VotableMessage extends Message(){
+public class VotableMessage extends Message{
     // Variables
     int upVote = 0;
     int downVote = 0;
@@ -14,6 +14,10 @@ class VotableMessage extends Message(){
     public int getdownVote(){
         return this.downVote;
     }
+
+    public VotableMessage(String author, String content){
+        super(author, content);
+        }
 
     // add votes
     public int addupVote(){
@@ -35,22 +39,15 @@ class VotableMessage extends Message(){
     }
 
     // Changing the addToDB function
-    @Override
-    public addToDB(){
-        /* 
-        This method is use to add to the database the created VotableMessage 
-        with all its information.
-        */
 
-    }
 
     // Changing the toString function
     @Override
-    public String toString() 
+    public String toString()
     { 
         return("Author = " + this.author +"\n"+
-                "Up votes = " + this.upVote.toString() + "\n"+
-                "Down votes = " + this.downVote.toString() + "\n"+
+                "Up votes = " + String.valueOf(this.upVote) + "\n"+
+                "Down votes = " + String.valueOf(this.downVote) + "\n"+
                 "Content = \n" + this.content); 
     } 
 }

@@ -22,7 +22,7 @@ public class Person implements IEntity<Person,PersonId> {
     private String hashedPassword;
     @Override
     public PersonId getId() {
-        return null;
+        return id;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class Person implements IEntity<Person,PersonId> {
                 throw new IllegalArgumentException("Password is mandatory");
             }
             //to hash
-            hashedPassword = clearTextPassword.toLowerCase();
+            hashedPassword = clearTextPassword.toUpperCase();
             return this;
         }
         public Person build(){

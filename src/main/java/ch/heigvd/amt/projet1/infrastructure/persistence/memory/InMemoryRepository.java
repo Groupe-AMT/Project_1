@@ -3,11 +3,13 @@ package ch.heigvd.amt.projet1.infrastructure.persistence.memory;
 import ch.heigvd.amt.projet1.domain.IEntity;
 import ch.heigvd.amt.projet1.domain.IRepository;
 import ch.heigvd.amt.projet1.domain.Id;
+import ch.heigvd.amt.projet1.domain.person.PersonId;
 
 import javax.swing.text.html.parser.Entity;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -16,7 +18,7 @@ private Map<ID,ENTITY> store = new ConcurrentHashMap<>();
 
     @Override
     public void save(ENTITY entity) {
-        entity.getId();
+        PersonId a = (PersonId) entity.getId();
         store.put(entity.getId(),entity);
     }
 

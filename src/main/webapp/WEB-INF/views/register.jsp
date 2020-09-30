@@ -40,13 +40,17 @@
         </ul>
     </c:if>
 
-    ${register}
     <form id ="register-form" action="register.do" method="post">
-        <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required>
-
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
+        <label for="username"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="username" required>
+        <label for="firstname"><b>First name</b></label>
+        <input type="text" placeholder="Enter firstname" name="firstname" required>
+        <label for="lastname"><b>Last name</b></label>
+        <input type="text" placeholder="Enter Username" name="lastname" required>
+        <label for="email"><b>email</b></label>
+        <input type="text" placeholder="Enter Username" name="email" required>
+        <label for="password"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" required>
 
         <button type="submit">Register</button>
     </form>

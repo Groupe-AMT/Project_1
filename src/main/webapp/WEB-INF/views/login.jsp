@@ -42,18 +42,16 @@
         </ul>
     </c:if>
 
-    ${login}
-    ${uname}
     <form id ="login-form" action="login.do" method="post">
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
+    <label for="username"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="username" required>
 
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
+    <label for="password"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password" required>
 
     <button type="submit">Login</button>
     </form>
-    <form action="/Projet_1/register">
+    <form action="${pageContext.request.contextPath}/register">
         <button type="submit" >Register right Here!</button>
     </form>
 </div>

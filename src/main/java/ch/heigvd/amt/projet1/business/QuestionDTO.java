@@ -6,8 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionDTO {
-    List<Question> content;
-
+    private List<Question> content;
+    public List<Question> getContent(){
+        return this.content;
+    }
+    public void setContent(List<Question> content1){
+        this.content = content1;
+    }
+    public void addContent(Question question){
+        this.content.add(question);
+    }
     public QuestionDTO(){
         this.content = new ArrayList<Question>();
 

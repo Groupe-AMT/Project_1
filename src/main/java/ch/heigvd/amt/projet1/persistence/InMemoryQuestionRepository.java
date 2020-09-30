@@ -18,24 +18,54 @@ public class InMemoryQuestionRepository implements IQuestionRepository {
 
     }
     public Optional<Question> findById(QuestionId id){ //trouve la question avec l'identifiant id dans content_list et renvoie un optional rempli avec soit un null soit la réponse
-        Optional<Question> answer = null;
-        //TODO: fill answer with question that has the correct id
+        Question temp_answer = null; //content of answer;
+        List<Question> temp_content = content_list.getContent();
+        Iterator iterator = temp_content.iterator();
+        while(iterator.hasNext()){
+            Question temp = (Question) iterator.next();
+            if(temp.getQuestionId().getId().equals(id)){ //if we find the right element we put it in the answer
+                temp_answer = temp;
+            }
+        }
+        Optional<Question> answer = Optional.ofNullable(temp_answer);
         return answer;
 
     }
     public List<Question> findAll() { //renvoie content_list
         List<Question> answer = new ArrayList<Question>();
-        //TODO: fill answer with all questions in db
+        List<Question> temp_content = content_list.getContent();
+        Iterator iterator = temp_content.iterator();
+        while(iterator.hasNext()){
+            Question temp = (Question) iterator.next();
+            answer.add(temp);
+        }
         return answer;
     }
     public List<Question> findByTag(String tag){ //renvoie les questions dans content_list qui contiennent tag dans leur liste de tags
         List<Question> answer = new ArrayList<Question>();
-        //TODO : fill answer with rows that have tag in their tag list
+        List<Question> temp_content = content_list.getContent();
+        Iterator iterator = temp_content.iterator();
+        while(iterator.hasNext()){
+            Question temp = (Question) iterator.next();
+            if(temp.getTags().contains(tag) == true){
+                answer.add(temp);
+            }
+        }
         return answer;
     }
     public List<Question> findByAuthor(String author){ //renvoie les questions dans content_list qui ont pour auteur author
         List<Question> answer = new ArrayList<Question>();
-        //TODO : fill with rows that have author in their author column
+        List<Question> temp_content = content_list.getContent();
+        Iterator iterator = temp_content.iterator();
+        while(iterator.hasNext()){
+            Question temp = (Question) iterator.next();
+            if(temp.getAuthor().equals(author)){
+                answer.add(temp);
+            }
+        }
         return answer;
+    }
+    public InMemoryQuestionRepository(){
+        this.content_list = new QuestionDTO();
     }
 }

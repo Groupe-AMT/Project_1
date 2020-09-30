@@ -33,7 +33,7 @@ public class Question extends VotableMessage {
         return this.Answers;
     }
 
-    public QuestionId getId(){return this.id;} //pas de setter pour id car unique et crée à l'instanciation
+    public QuestionId getQuestionId(){return this.id;} //pas de setter pour id car unique et crée à l'instanciation
 
     // Function for adding an answer
     public List<Answer> addAnswer(Answer answer){

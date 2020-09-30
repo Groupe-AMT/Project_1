@@ -1,7 +1,7 @@
 package ch.heigvd.amt.projet1.model;
 
 
-public class Message {
+public class Message implements IEntity{
     // Variables
     String author;
     String content;

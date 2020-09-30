@@ -12,10 +12,20 @@ import static java.util.Optional.empty;
 public class InMemoryQuestionRepository implements IQuestionRepository {
     QuestionDTO content_list; //contient la mémoire de la base de donnée en mémoire
     public void Save(Question question){ //met question dans content_list
-
+        this.content_list.addContent(question);
     }
     public void Remove(QuestionId id){ //enlève la question avec l'identifiant id de content_list
-
+        Question answer = null;
+        List<Question> temp_content = content_list.getContent();
+        Iterator iterator = temp_content.iterator();
+        while(iterator.hasNext()){
+            Question temp = (Question) iterator.next();
+            if(temp.getQuestionId().equals(id)){
+                answer = temp;
+            }
+        }
+        temp_content.remove(answer);
+        content_list.setContent(temp_content);
     }
     public Optional<Question> findById(QuestionId id){ //trouve la question avec l'identifiant id dans content_list et renvoie un optional rempli avec soit un null soit la réponse
         Question temp_answer = null; //content of answer;

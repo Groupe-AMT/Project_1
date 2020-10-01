@@ -45,11 +45,11 @@
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>QuestionPageEndpoint</servlet-name>
-    <servlet-class>ch.heigvd.amt.projet1.ui.web.QuestionPageEndpoint</servlet-class>
+    <servlet-name>QuestionsServlet</servlet-name>
+    <servlet-class>ch.heigvd.amt.projet1.ui.web.QuestionsServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>QuestionPageEndpoint</servlet-name>
+    <servlet-name>QuestionsServlet</servlet-name>
     <url-pattern>/questions</url-pattern>
   </servlet-mapping>
 

@@ -13,6 +13,9 @@ public abstract class Id {
         }
         this.id=id;
     }
+    public UUID getId(){
+        return this.id;
+    }
     public String asString(){return id.toString();}
 
 }

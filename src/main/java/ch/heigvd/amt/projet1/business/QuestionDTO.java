@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class QuestionDTO {
-    static private List<Question> content;
+    private List<Question> content;
     public List<Question> getContent(){
         return this.content;
     }

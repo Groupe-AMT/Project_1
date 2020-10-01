@@ -11,6 +11,9 @@ import static java.util.Optional.empty;
 
 public class InMemoryQuestionRepository implements IQuestionRepository {
     QuestionDTO content_list; //contient la mémoire de la base de donnée en mémoire
+    public QuestionDTO getContentList(){
+        return content_list;
+    }
     public void Save(Question question){ //met question dans content_list
         this.content_list.addContent(question);
     }

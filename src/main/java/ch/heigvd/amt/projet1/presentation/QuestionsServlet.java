@@ -3,6 +3,7 @@ package ch.heigvd.amt.projet1.presentation;
 import ch.heigvd.amt.projet1.business.QuestionDTO;
 import ch.heigvd.amt.projet1.business.TestQuestion;
 import ch.heigvd.amt.projet1.model.Question;
+import ch.heigvd.amt.projet1.persistence.InMemoryQuestionRepository;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -20,7 +21,7 @@ import java.util.List;
  * to this component (by calling forwarding the request).
  */
 public class QuestionsServlet extends javax.servlet.http.HttpServlet {
-    QuestionDTO Qs = new QuestionDTO();
+    static InMemoryQuestionRepository Qs = new InMemoryQuestionRepository();
     private TestQuestion service;
 
     @Override
@@ -31,8 +32,8 @@ public class QuestionsServlet extends javax.servlet.http.HttpServlet {
 
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
 
-        if (Qs.getContent() != null){
-            request.setAttribute("Qs", Qs.getContent());
+        if (Qs.getContentList().getContent() != null){
+            request.setAttribute("Qs", Qs.getContentList().getContent());
         }
 
         request.getRequestDispatcher("/WEB-INF/views/questions.jsp").forward(request, response);
@@ -45,10 +46,10 @@ public class QuestionsServlet extends javax.servlet.http.HttpServlet {
             String tags = request.getParameter("tags_form");
             String cont = request.getParameter("content_form");
 
-            Qs.addContent(new Question("Anonymous", cont, subj, Arrays.asList(tags.split("/"))));
+            Qs.getContentList().addContent(new Question("Anonymous", cont, subj, Arrays.asList(tags.split("/"))));
 
-            if (Qs.getContent() != null){
-                request.setAttribute("Qs", Qs.getContent());
+            if (Qs.getContentList().getContent() != null){
+                request.setAttribute("Qs", Qs.getContentList().getContent());
             }
 
             request.getRequestDispatcher("/WEB-INF/views/questions.jsp").forward(request, response);

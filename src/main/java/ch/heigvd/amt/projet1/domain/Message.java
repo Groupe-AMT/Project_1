@@ -1,10 +1,10 @@
-package ch.heigvd.amt.projet1.model;
+package ch.heigvd.amt.projet1.domain;
 
 
 public class Message implements IEntity{
     // Variables
-    String author;
-    String content;
+    protected String author;
+    protected String content;
 
     // Constructor
     public Message (String author, String content){

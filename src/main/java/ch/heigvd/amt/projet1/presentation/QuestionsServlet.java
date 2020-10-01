@@ -1,8 +1,7 @@
 package ch.heigvd.amt.projet1.presentation;
 
-import ch.heigvd.amt.projet1.business.QuestionDTO;
 import ch.heigvd.amt.projet1.business.TestQuestion;
-import ch.heigvd.amt.projet1.model.Question;
+import ch.heigvd.amt.projet1.domain.question.Question;
 import ch.heigvd.amt.projet1.persistence.InMemoryQuestionRepository;
 
 import javax.servlet.ServletConfig;
@@ -11,7 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
+
 @WebServlet("/questions.do")
 /**
  * The QuoteServlet is the Controller in the pattern. It receives HTTP requests, decides that the

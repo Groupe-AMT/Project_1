@@ -1,4 +1,4 @@
-package ch.heigvd.amt.projet1.model;
+package ch.heigvd.amt.projet1.domain;
 
 import java.util.UUID;
 

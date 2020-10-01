@@ -1,5 +1,8 @@
-package ch.heigvd.amt.projet1.model;
+package ch.heigvd.amt.projet1.domain.question;
 
+
+import ch.heigvd.amt.projet1.domain.Answer;
+import ch.heigvd.amt.projet1.domain.VotableMessage;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package ch.heigvd.amt.projet1.model;
+package ch.heigvd.amt.projet1.domain;
 
 
 class Comment extends Message{

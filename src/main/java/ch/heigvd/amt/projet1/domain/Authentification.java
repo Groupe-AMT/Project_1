@@ -1,11 +1,11 @@
-package ch.heigvd.amt.projet1.model;
+package ch.heigvd.amt.projet1.domain;
 
+import javax.imageio.spi.ServiceRegistry;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Authentification {
     private static Map<String,String> auth = new HashMap<>();
-
     static {
         auth.put("laure","dinateur");
         auth.put("pierre","kiroul");

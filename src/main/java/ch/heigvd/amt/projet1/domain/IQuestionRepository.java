@@ -1,4 +1,6 @@
-package ch.heigvd.amt.projet1.model;
+package ch.heigvd.amt.projet1.domain;
+
+import ch.heigvd.amt.projet1.domain.question.Question;
 
 import java.util.Collection;
 

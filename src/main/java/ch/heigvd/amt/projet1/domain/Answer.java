@@ -1,11 +1,11 @@
 
-package ch.heigvd.amt.projet1.model;
+package ch.heigvd.amt.projet1.domain;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-class Answer extends VotableMessage{
+public class Answer extends VotableMessage{
     // Variables 
     List<Comment> Comments = new ArrayList<Comment>();
 

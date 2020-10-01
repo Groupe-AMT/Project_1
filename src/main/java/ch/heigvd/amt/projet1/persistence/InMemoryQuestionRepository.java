@@ -1,13 +1,11 @@
 package ch.heigvd.amt.projet1.persistence;
 
 import ch.heigvd.amt.projet1.business.QuestionDTO;
-import ch.heigvd.amt.projet1.model.IQuestionRepository;
-import ch.heigvd.amt.projet1.model.Question;
-import ch.heigvd.amt.projet1.model.QuestionId;
+import ch.heigvd.amt.projet1.domain.IQuestionRepository;
+import ch.heigvd.amt.projet1.domain.question.Question;
+import ch.heigvd.amt.projet1.domain.question.QuestionId;
 
 import java.util.*;
-
-import static java.util.Optional.empty;
 
 public class InMemoryQuestionRepository implements IQuestionRepository {
     QuestionDTO content_list; //contient la mémoire de la base de donnée en mémoire

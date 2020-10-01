@@ -1,6 +1,6 @@
 package ch.heigvd.amt.projet1.business;
 
-import ch.heigvd.amt.projet1.model.Question;
+import ch.heigvd.amt.projet1.domain.question.Question;
 
 import java.util.ArrayList;
 import java.util.Collections;

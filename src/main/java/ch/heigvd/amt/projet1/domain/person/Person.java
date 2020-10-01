@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.mindrot.jbcrypt.BCrypt;
 
 @Getter
 @Setter
@@ -31,7 +32,7 @@ public class Person implements IEntity<Person,PersonId> {
     }
     public boolean authenticate(String clearTextPassword){
         //to Hash
-        return clearTextPassword.toUpperCase().equals(hashedPassword);
+        return  BCrypt.checkpw(clearTextPassword, hashedPassword);
     }
     public static class PersonBuilder{
         public PersonBuilder clearTextPassword(String clearTextPassword){
@@ -39,7 +40,7 @@ public class Person implements IEntity<Person,PersonId> {
                 throw new IllegalArgumentException("Password is mandatory");
             }
             //to hash
-            hashedPassword = clearTextPassword.toUpperCase();
+            hashedPassword = BCrypt.hashpw(clearTextPassword, BCrypt.gensalt());
             return this;
         }
         public Person build(){

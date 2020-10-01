@@ -3,10 +3,11 @@ package ch.heigvd.amt.projet1.business;
 import ch.heigvd.amt.projet1.model.Question;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class QuestionDTO {
-    private List<Question> content;
+    static private List<Question> content;
     public List<Question> getContent(){
         return this.content;
     }
@@ -18,6 +19,6 @@ public class QuestionDTO {
     }
     public QuestionDTO(){
         this.content = new ArrayList<Question>();
-
+        this.content.add(new Question("test", "test", "test", Collections.singletonList("testing")));
     }
 }

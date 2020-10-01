@@ -52,4 +52,13 @@
     <servlet-name>QuestionPageEndpoint</servlet-name>
     <url-pattern>/questions</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ProfilePageEndpoint</servlet-name>
+    <servlet-class>ch.heigvd.amt.projet1.ui.web.ProfilePageEndpoint</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProfilePageEndpoint</servlet-name>
+    <url-pattern>/profil</url-pattern>
+  </servlet-mapping>
 </web-app>

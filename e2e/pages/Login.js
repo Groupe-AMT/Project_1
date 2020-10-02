@@ -6,8 +6,8 @@ module.exports = {
 
   // Locators
   fields: {
-    usr_name: "uname",
-    password: "psw"
+    usr_name: "username",
+    password: "password"
   },
   submitButton: "Login",
 

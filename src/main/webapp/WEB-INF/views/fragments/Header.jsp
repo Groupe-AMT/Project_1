@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -37,9 +38,18 @@
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
+                <c:choose>
+                    <c:when test="${currentUser!=null}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Projet_1/logout.do">Logout</a>
+                    </li>
+                    </c:when>
+                    <c:otherwise>
                 <li class="nav-item">
                     <a class="nav-link" href="/Projet_1/login">Login</a>
                 </li>
+                    </c:otherwise>
+                </c:choose>
                 <li class="nav-item">
                     <a class="nav-link" href="/Projet_1/questions">Questions</a>
                 </li>

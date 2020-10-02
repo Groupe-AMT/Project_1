@@ -1,4 +1,4 @@
-package ch.heigvd.amt.projet1.business;
+package ch.heigvd.amt.projet1.application.questionmanagement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,4 +9,5 @@ public class TestQuestion {
         result.add(new String("Don't cry because it's over, smile because it happened. test tes t"));
         return result;
     }
+    public TestQuestion(){};
 }

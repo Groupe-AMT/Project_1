@@ -1,7 +1,16 @@
 package ch.heigvd.amt.projet1.ui.web;
 
+import ch.heigvd.amt.projet1.application.ServiceQuestion;
+import ch.heigvd.amt.projet1.application.identitymanagement.IdentityManagementFacade;
+import ch.heigvd.amt.projet1.application.identitymanagement.QuestionManagementFacade;
+import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.CurrentUserDTO;
+import ch.heigvd.amt.projet1.application.questionmanagement.QuestionCommand;
+import ch.heigvd.amt.projet1.application.questionmanagement.QuestionException;
+import ch.heigvd.amt.projet1.application.questionmanagement.QuestionsDTO;
 import ch.heigvd.amt.projet1.application.questionmanagement.TestQuestion;
+import ch.heigvd.amt.projet1.domain.person.Person;
 import ch.heigvd.amt.projet1.domain.question.Question;
+import ch.heigvd.amt.projet1.domain.question.QuestionQuery;
 import ch.heigvd.amt.projet1.infrastructure.persistence.memory.InMemoryQuestionRepository;
 import ch.heigvd.amt.projet1.infrastructure.persistence.memory.InMemoryQuestionRepository;
 
@@ -13,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 @WebServlet("/questions.do")
 /**
@@ -23,7 +33,8 @@ import java.util.Arrays;
  * to this component (by calling forwarding the request).
  */
 public class QuestionsServlet<TestQuestion> extends javax.servlet.http.HttpServlet {
-    static InMemoryQuestionRepository Qs = new InMemoryQuestionRepository();
+    ServiceQuestion serviceQuestion = ServiceQuestion.getServiceQuestion();
+    private QuestionManagementFacade questionManagementFacade = serviceQuestion.getQuestionManagementFacade();
     private TestQuestion service;
 
     @Override
@@ -32,11 +43,14 @@ public class QuestionsServlet<TestQuestion> extends javax.servlet.http.HttpServl
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+/*
         if (Qs.getContentList().getContent() != null){
             request.setAttribute("Qs", Qs.getContentList().getContent());
         }
 
+*/
+        QuestionsDTO questionsDTO = questionManagementFacade.getQuestions(QuestionQuery.builder().build());
+        request.setAttribute("Qs",questionsDTO);
         request.getRequestDispatcher("/WEB-INF/views/questions.jsp").forward(request, response);
     }
 
@@ -44,15 +58,20 @@ public class QuestionsServlet<TestQuestion> extends javax.servlet.http.HttpServl
         HttpSession session = request.getSession(true);
         if (session.getAttribute("currentUser")!=null) {
             String subj = request.getParameter("subject_form");
-            String tags = request.getParameter("tags_form");
+            List<String> tags = Arrays.asList(request.getParameter("tags_form").split("/").clone());
             String cont = request.getParameter("content_form");
-
-            Qs.getContentList().addContent(new Question("Anonymous", cont, subj, Arrays.asList(tags.split("/"))));
-
-            if (Qs.getContentList().getContent() != null){
-                request.setAttribute("Qs", Qs.getContentList().getContent());
+            try{
+                CurrentUserDTO currentUserDTO = (CurrentUserDTO)session.getAttribute("currentUser");
+            QuestionCommand questionCommand = QuestionCommand.builder()
+                    .author(currentUserDTO.getUsername())
+                    .content(cont)
+                    .subject(subj)
+                    .tags(tags)
+                    .build();
+            questionManagementFacade.saveQuestion(questionCommand);
+            }catch (QuestionException e){
+                request.getSession().setAttribute("errors", List.of(e.getMessage()));
             }
-
             request.getRequestDispatcher("/WEB-INF/views/questions.jsp").forward(request, response);
 
         }

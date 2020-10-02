@@ -31,7 +31,7 @@ public class Person implements IEntity<Person,PersonId> {
         return this.toBuilder().id(new PersonId(id.asString())).build();
     }
     public boolean authenticate(String clearTextPassword){
-        //to Hash
+
         return  BCrypt.checkpw(clearTextPassword, hashedPassword);
     }
     public static class PersonBuilder{
@@ -39,7 +39,6 @@ public class Person implements IEntity<Person,PersonId> {
             if(clearTextPassword == null || clearTextPassword.isEmpty()){
                 throw new IllegalArgumentException("Password is mandatory");
             }
-            //to hash
             hashedPassword = BCrypt.hashpw(clearTextPassword, BCrypt.gensalt());
             return this;
         }

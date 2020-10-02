@@ -18,7 +18,6 @@ private Map<ID,ENTITY> store = new ConcurrentHashMap<>();
 
     @Override
     public void save(ENTITY entity) {
-        PersonId a = (PersonId) entity.getId();
         store.put(entity.getId(),entity);
     }
 

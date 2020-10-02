@@ -15,7 +15,7 @@
         box-shadow: 0 0 50px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.25);
     }
     div.QuestionDiv{
-        width: 100%
+        width: 100%;
         height: 40px;
 
         margin: 5px;

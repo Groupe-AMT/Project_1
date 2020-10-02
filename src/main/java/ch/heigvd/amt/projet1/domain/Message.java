@@ -1,25 +1,25 @@
 package ch.heigvd.amt.projet1.domain;
 
 
-public class Message implements IEntity{
+import ch.heigvd.amt.projet1.domain.person.Person;
+
+public abstract class Message<ENTITY,ID>{
     // Variables
-    protected String author;
+    protected Person author;
     protected String content;
-    protected MessageId msg_id;
-    public MessageId getId(){return this.msg_id;}
-    public Message deepClone(){
-        return new Message(this.author, this.content);
-    }
+    protected ID msg_id;
+    public ID getId(){return this.msg_id;}
+
     // Constructor
-    public Message (String author, String content){
+    public Message (Person author, String content){
         this.author = author;
         this.content = content;
-        this.msg_id = new MessageId();
+        this.msg_id = (ID) new MessageId();
     }
 
     // Getter
-    public String getAuthor(){
-        return this.author;
+    public Person getAuthor(){
+        return this.author.deepClone();
     }
 
     public String getContent(){
@@ -31,7 +31,9 @@ public class Message implements IEntity{
     @Override
     public String toString() 
     { 
-        return("Author = " + this.author +"\n"+
+        return("Author = " + this.author.getUsername() +"\n"+
                 "Content = \n" + this.content); 
-    } 
+    }
+
+    protected abstract Object deepClone();
 }

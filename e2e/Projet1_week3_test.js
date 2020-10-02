@@ -2,7 +2,7 @@ Feature('Projet1_week3');
 
 let now = new Date();
 
-let root = "http://localhost:9000/Projet_1/";
+let root = "http://172.17.0.2:9080/Projet_1/";
 
 let usr = "laure";
 let pass = "dinateur";
@@ -116,6 +116,7 @@ Scenario('Question - logging and sending it', (I, Login, SendQuestion) => {
     I.see(test_message.subject);
 });
 
+/*
 Scenario('Question - find it without being logged', (I) => {
     I.amOnPage(root);
     
@@ -123,6 +124,7 @@ Scenario('Question - find it without being logged', (I) => {
 
     I.see(test_message.subject);
 });
+*/
 
 Scenario('Question - logging and seeing it', (I, Login) => {
     I.amOnPage(root);

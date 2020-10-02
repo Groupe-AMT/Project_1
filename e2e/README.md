@@ -11,3 +11,4 @@ npx codeceptjs run <test_file name>
 ### Tests disponibles
 * generation_test.js , un test de connection et un de navigation sur un forum pour personnes agés.
 * Project1_week1_test.js , un test des fonctionnalitées de la première semaine.
+* Project1_week3_test.js , un test des fonctionnalitées de la troisième semaine (ajout des questions).

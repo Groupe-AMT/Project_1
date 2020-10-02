@@ -20,14 +20,14 @@ let test_message={
 }
 
 // Tests d'enregistrement
-let registeringU = "bouboule";
-let registeringP = "mange";
+let registeringU = "laure";
+let registeringP = "dinateur";
 Scenario('Registration - new account', (I, Register) => {
     I.amOnPage(root);
     I.see("Register right Here!");
     I.click("Register right Here!");
-    Register.sendForm(usr+now.getMilliseconds().toString(), pass, fname, lname, now.getMilliseconds().toString()+mail);
-    I.see("Logout");
+    Register.sendForm(usr, pass, fname, lname, mail);
+    I.see("Question");
 });
 
 Scenario('Registration - existing account', (I, Register) => {
@@ -43,23 +43,21 @@ let workingU = "laure";
 let workingP = "dinateur";
 Scenario('Login - good credentials', (I, Login) => {
     I.amOnPage(root);
-    Login.sendForm(workingU, WorkingP);
-    I.see("Accueil");
+    Login.sendForm(workingU, workingP);
+    I.see("Question");
 });
 
 let notWorkingU = "pasbon";
-let workingP = "dinateur";
 Scenario('Login - wrong User', (I, Login) => {
     I.amOnPage(root);
-    Login.sendForm(workingU, WorkingP);
-    I.see("Error : user not found register");
+    Login.sendForm(notWorkingU, workingP);
+    I.see("Error : user not found");
 });
 
-let workingU = "laure";
 let notWorkingP = "dinateureeeeeeeeeeee";
 Scenario('Login - wrong Pass', (I, Login) => {
     I.amOnPage(root);
-    Login.sendForm(workingU, WorkingP);
+    Login.sendForm(workingU, notWorkingP);
     I.see("Verification of credentials failed");
 });
 
@@ -70,8 +68,7 @@ Scenario('Login Logout', (I, Login) => {
     
     I.see("Acceuil");
     I.click("Logout");
-    I.click("logout");
-    I.see("Username");
+    I.see("Login");
 });
 
 // Tests de parcours des pages
@@ -79,12 +76,12 @@ Scenario('Login Logout', (I, Login) => {
 Scenario('Browse - NOT logged', (I) => {
     I.amOnPage(root);
     I.see("Register right Here!");
-    I.click("Accueil");
+    I.click("Acceuil");
     I.see("Register right Here!");
     I.click("Login");
     I.see("Register right Here!");
     I.click("Questions");
-    I.see("Send");
+    I.see("Question");
     I.click("Profil");
     I.see("Register right Here!");
 });
@@ -97,12 +94,12 @@ Scenario('Browse - logged', (I, Login) => {
     I.see("Acceuil");
     I.click("Acceuil");
     I.see("Acceuil");
-    I.click("Logout");
-    I.see("Logout");
     I.click("Questions");
     I.see("Question");
     I.click("Profil");
     I.see("John Doe");
+    I.click("Logout");
+    I.see("Login");
 });
 
 // Tests de Questions

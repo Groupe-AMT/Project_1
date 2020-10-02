@@ -42,15 +42,15 @@
 
     <form id ="register-form" action="register.do" method="post">
         <label for="username"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="username" required>
+        <input type="text" placeholder="Enter your Username" name="username" required>
         <label for="firstname"><b>First name</b></label>
-        <input type="text" placeholder="Enter firstname" name="firstname" required>
+        <input type="text" placeholder="Enter your Firstname" name="firstname" required>
         <label for="lastname"><b>Last name</b></label>
-        <input type="text" placeholder="Enter Username" name="lastname" required>
+        <input type="text" placeholder="Enter your Lastname" name="lastname" required>
         <label for="email"><b>email</b></label>
-        <input type="text" placeholder="Enter Username" name="email" required>
+        <input type="text" placeholder="Enter your email" name="email" required>
         <label for="password"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="password" required>
+        <input type="password" placeholder="Enter your Password" name="password" required>
 
         <button type="submit">Register</button>
     </form>

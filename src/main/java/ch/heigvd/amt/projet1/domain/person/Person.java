@@ -59,4 +59,21 @@ public class Person implements IEntity<Person,PersonId> {
             return new Person(id,username,email,firstname,lastName,hashedPassword);
         }
     }
+
+    // Getters
+    public String getEmail() {
+        return email;
+    }
+    public String getFirstname() {
+        return firstname;
+    }
+    public String getHashedPassword() {
+        return hashedPassword;
+    }
+    public String getLastName() {
+        return lastName;
+    }
+    public String getUsername() {
+        return username;
+    }
 }

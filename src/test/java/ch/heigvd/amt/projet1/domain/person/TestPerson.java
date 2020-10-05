@@ -1,4 +1,4 @@
-package test.ch.heigvd.amt.projet1.domain.person;
+package ch.heigvd.amt.projet1.domain.person;
 import ch.heigvd.amt.projet1.domain.person.Person;
 import ch.heigvd.amt.projet1.domain.person.PersonId;
 import org.mindrot.jbcrypt.BCrypt;

@@ -24,19 +24,10 @@ public class Question  implements IEntity<Question,QuestionId> {
     protected String content;
     List<String> Tags ;
 
-
-
-    @Override
-    public QuestionId getId() {
-        return id;
-    }
-
     @Override
     public Question deepClone() {
         return this.toBuilder().id(new QuestionId(id.asString())).build();
     }
-
-    public QuestionId getQuestionId(){return this.id;} //pas de setter pour id car unique et crée à l'instanciation
     public static class QuestionBuilder {
 
         public Question build() {

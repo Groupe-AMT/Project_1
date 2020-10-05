@@ -5,6 +5,8 @@ import ch.heigvd.amt.projet1.domain.person.PersonId;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
+import javax.faces.bean.ApplicationScoped;
+import javax.inject.Named;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +18,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Stateless
+
+@ApplicationScoped
+@Named("PersonDAO")
 public class PersonDAO implements PersonDAOLocal {
 
     @Resource(lookup = "jdbc/AMT")

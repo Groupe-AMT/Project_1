@@ -7,6 +7,8 @@ import ch.heigvd.amt.projet1.domain.question.QuestionId;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
+import javax.faces.bean.ApplicationScoped;
+import javax.inject.Named;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,6 +20,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Stateless
+
+@ApplicationScoped
+@Named("QuestionDAO")
 public class QuestionDAO implements QuestionDAOLocal{
     @Resource(lookup = "jdbc/AMT")
     private DataSource dataSource;

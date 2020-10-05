@@ -13,7 +13,7 @@ public interface QuestionDAOLocal {
     // Interface de gestion de la table Question
     public long save(Question question);
 
-    public long remove(Question id);
+    public long remove(QuestionId id);
 
     public Question findById(QuestionId id);
     public List<Question> findAll();

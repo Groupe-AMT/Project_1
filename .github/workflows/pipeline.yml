@@ -16,13 +16,8 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: acteur github
-        run : echo $GITHUB_ACTOR
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         
@@ -43,10 +38,4 @@ jobs:
         
       - name: Run Test Maven
         run: mvn test
-        
-      - name: Build Docker Image 
-        run: |
-          echo ${{ secrets.OPENAFFECT_PAT }} | docker login ghcr.io -u hans-arn --password-stdin
-          docker build -t groupe-amt/project_1  .
-          docker tag groupe-amt/project_1  ghcr.io/groupe-amt/project_1 
-          docker push ghcr.io/groupe-amt/project_1 
+      

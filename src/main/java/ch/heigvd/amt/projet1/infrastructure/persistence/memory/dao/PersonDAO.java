@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 @Stateless
 public class PersonDAO implements PersonDAOLocal {
 
-    @Resource(lookup = "jdbc/AMTDatabase")
+    @Resource(lookup = "jdbc/AMT")
     private DataSource dataSource;
 
     public long save(Person person) {

@@ -3,6 +3,17 @@
         <feature>webProfile-8.0</feature>
     </featureManager>
 
+    <library id="MySqlLib">
+        <fileset dir="$(server.config.dir)" includes="*.jar"/>
+    </library>
+
+    <datasource id="DataSource" jndiName="jdbc/AMT">
+        <jdbcDriver libraryRef="MySqlLib"/>
+        <properties databseName="AMT"
+                    serveurName="172.17.0.2:3306" portNumber="3306"
+                    user="root" password="root"/>
+    </datasource>
+
     <variable name="default.http.port" defaultValue="9080"/>
     <variable name="default.https.port" defaultValue="9443"/>
 

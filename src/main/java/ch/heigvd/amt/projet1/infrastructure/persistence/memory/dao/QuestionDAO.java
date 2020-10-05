@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 
 @Stateless
 public class QuestionDAO implements QuestionDAOLocal{
-    @Resource(lookup = "jdbc/AMTDatabase")
+    @Resource(lookup = "jdbc/AMT")
     private DataSource dataSource;
 
     public long save(Question question) {

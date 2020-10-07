@@ -4,7 +4,7 @@ import ch.heigvd.amt.projet1.application.identitymanagement.IdentityManagementFa
 import ch.heigvd.amt.projet1.application.identitymanagement.QuestionManagementFacade;
 import ch.heigvd.amt.projet1.domain.IQuestionRepository;
 import ch.heigvd.amt.projet1.domain.person.IPersonRepository;
-import ch.heigvd.amt.projet1.infrastructure.persistence.memory.InMemoryPersonRepository;
+//import ch.heigvd.amt.projet1.infrastructure.persistence.memory.InMemoryPersonRepository;
 import ch.heigvd.amt.projet1.infrastructure.persistence.memory.InMemoryQuestionRepository;
 
 public class ServiceQuestion {

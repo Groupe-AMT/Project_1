@@ -34,6 +34,7 @@ public class Person implements IEntity<Person,PersonId> {
 
         return  BCrypt.checkpw(clearTextPassword, hashedPassword);
     }
+
     public static class PersonBuilder{
         public PersonBuilder clearTextPassword(String clearTextPassword){
             if(clearTextPassword == null || clearTextPassword.isEmpty()){

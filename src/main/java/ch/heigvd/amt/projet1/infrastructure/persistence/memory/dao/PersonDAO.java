@@ -3,6 +3,10 @@ package ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao;
 import ch.heigvd.amt.projet1.domain.person.Person;
 import ch.heigvd.amt.projet1.domain.person.PersonId;
 
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.faces.bean.ApplicationScoped;
@@ -90,22 +94,21 @@ public class PersonDAO implements PersonDAOLocal {
         /*
         This function aims to find and return an user by its id
          */
-        Person result = new Person();
+        Person result = null;
         try{
             Connection con = dataSource.getConnection();
 
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Person WHERE id = " + id.toString());
             ResultSet rs = ps.executeQuery();
 
-            Person newPerson = Person.builder()
-                    .id(rs.getInt("id"))
+            result = Person.builder()
+                    .id(new PersonId(rs.getString("id")))
                     .username(rs.getString("username"))
                     .firstname(rs.getString("firstname"))
                     .lastName(rs.getString("lastname"))
                     .email(rs.getString("email"))
                     .hashedPassword(rs.getString("password"))
                     .build();
-            result = newPerson;
 
             ps.close();
             con.close();
@@ -121,7 +124,7 @@ public class PersonDAO implements PersonDAOLocal {
         /*
         This function aims to find and return an user by its id
          */
-        Person result = new Person();
+        Person result = null;
         try{
             Connection con = dataSource.getConnection();
 
@@ -129,7 +132,7 @@ public class PersonDAO implements PersonDAOLocal {
             ResultSet rs = ps.executeQuery();
 
             Person newPerson = Person.builder()
-                    .id(rs.getInt("id"))
+                    .id(new PersonId(rs.getString("id")))
                     .username(rs.getString("username"))
                     .firstname(rs.getString("firstname"))
                     .lastName(rs.getString("lastname"))
@@ -158,7 +161,7 @@ public class PersonDAO implements PersonDAOLocal {
 
             while (rs.next()){
                 Person newPerson = Person.builder()
-                        .id(rs.getInt("id"))
+                        .id(new PersonId(rs.getString("id")))
                         .username(rs.getString("username"))
                         .firstname(rs.getString("firstname"))
                         .lastName(rs.getString("lastname"))

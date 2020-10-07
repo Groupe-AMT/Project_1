@@ -5,6 +5,10 @@ import ch.heigvd.amt.projet1.domain.person.PersonId;
 import ch.heigvd.amt.projet1.domain.question.Question;
 import ch.heigvd.amt.projet1.domain.question.QuestionId;
 
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.faces.bean.ApplicationScoped;
@@ -14,8 +18,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -69,11 +75,21 @@ public class QuestionDAO implements QuestionDAOLocal{
         return 0;
     }
 
+    private static ArrayList<String> fromString(String string) {
+        String[] strings = string.replace("[", "").replace("]", "").split(", ");
+        ArrayList<String> result = new ArrayList<String>();
+        for (int i = 0; i < strings.length; i++) {
+            result.add(strings[i]);
+        }
+        return result;
+    }
+
+
     public Question findById(QuestionId id) {
         /*
         This function aims to find and return an user by its id
          */
-        Question result = new Question();
+        Question result = null;
         try{
             Connection con = dataSource.getConnection();
 
@@ -81,12 +97,11 @@ public class QuestionDAO implements QuestionDAOLocal{
             ResultSet rs = ps.executeQuery();
 
             Question newQuestion = Question.builder()
-                    .id(rs.getInt("id"))
-                    .subject(rs.getString("subject"))
+                    .id(new QuestionId(rs.getString("id")))
+                    .Subject(rs.getString("subject"))
                     .author(rs.getString("author"))
                     .content(rs.getString("content"))
-                    .tags(rs.getString("tags"))
-                    .build();
+                    .Tags(fromString(rs.getString("tags"))).build();
             result = newQuestion;
 
             ps.close();
@@ -108,11 +123,11 @@ public class QuestionDAO implements QuestionDAOLocal{
 
             while (rs.next()){
                 Question newQuestion = Question.builder()
-                        .id(rs.getInt("id"))
-                        .subject(rs.getString("subject"))
+                        .id(new QuestionId(rs.getString("id")))
+                        .Subject(rs.getString("subject"))
                         .author(rs.getString("author"))
                         .content(rs.getString("content"))
-                        .tags(rs.getString("tags"))
+                        .Tags(fromString(rs.getString("tags")))
                         .build();
                 result.add(newQuestion);
             }

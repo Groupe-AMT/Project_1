@@ -43,6 +43,7 @@ public class Question  implements IEntity<Question,QuestionId> {
             if (id == null) {
                 id = new QuestionId();
             }
+
             return new Question(Subject, id, author, content, Tags);
         }
     }

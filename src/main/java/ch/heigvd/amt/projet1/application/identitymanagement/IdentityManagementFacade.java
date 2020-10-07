@@ -7,12 +7,13 @@ import ch.heigvd.amt.projet1.application.identitymanagement.login.RegisterComman
 import ch.heigvd.amt.projet1.application.identitymanagement.login.RegisterFailedException;
 import ch.heigvd.amt.projet1.domain.person.IPersonRepository;
 import ch.heigvd.amt.projet1.domain.person.Person;
+import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.PersonDAOLocal;
 
 public class IdentityManagementFacade {
-    private IPersonRepository personRepository;
-    public IdentityManagementFacade(IPersonRepository personRepository){this.personRepository=personRepository;}
+    private PersonDAOLocal personRepository;
+    public IdentityManagementFacade(PersonDAOLocal personRepository){this.personRepository=personRepository;}
     public void register(RegisterCommand command)throws RegisterFailedException{
-        Person existingPersonWithSameUsername = personRepository.findByUsername(command.getUsername()).orElse(null);
+        Person existingPersonWithSameUsername = personRepository.findByUsername(command.getUsername());//.orElse(null);
         if(existingPersonWithSameUsername !=null){
             throw new RegisterFailedException("Username is already used");
         }
@@ -30,8 +31,8 @@ public class IdentityManagementFacade {
         }
     }
     public CurrentUserDTO authenticate(AuthentifcateCommand command) throws AuthentificateFailedException{
-        Person person = personRepository.findByUsername(command.getUsername())
-                .orElseThrow(()-> new AuthentificateFailedException("user not found"));
+        Person person = personRepository.findByUsername(command.getUsername());
+                //.orElseThrow(()-> new AuthentificateFailedException("user not found"));
 
         boolean success = person.authenticate(command.getClearPassword());
         if(!success){

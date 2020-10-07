@@ -2,11 +2,13 @@ package ch.heigvd.amt.projet1.application;
 
 import ch.heigvd.amt.projet1.application.identitymanagement.IdentityManagementFacade;
 import ch.heigvd.amt.projet1.domain.person.IPersonRepository;
-import ch.heigvd.amt.projet1.infrastructure.persistence.memory.InMemoryPersonRepository;
+//import ch.heigvd.amt.projet1.infrastructure.persistence.memory.InMemoryPersonRepository;
+import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.PersonDAO;
+import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.PersonDAOLocal;
 
 public class ServiceRegistry {
     private static ServiceRegistry singleton;
-    private static IPersonRepository personRepository;
+    private static PersonDAOLocal personRepository;
     private static IdentityManagementFacade identityManagementFacade;
     public static ServiceRegistry getServiceRegistry(){
         if(singleton==null){
@@ -16,7 +18,7 @@ public class ServiceRegistry {
     }
     private ServiceRegistry(){
         singleton=this;
-        personRepository= new InMemoryPersonRepository();
+        personRepository= new PersonDAO();
         identityManagementFacade=new IdentityManagementFacade(personRepository);
     }
     public  IdentityManagementFacade getIdentityManagementFacade(){return  identityManagementFacade;}

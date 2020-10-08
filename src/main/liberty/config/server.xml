@@ -11,7 +11,7 @@
     <dataSource id="defaultDB" jndiName="jdbc/AMTDS">
         <jdbcDriver libraryRef="MySqlLib"/>
         <properties databaseName="AMT"
-                    serverName="localhost" portNumber="33060"
+                    serverName="mysql" portNumber="3306"
                     user="admin" password="root"/>
     </dataSource>
 

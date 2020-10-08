@@ -126,9 +126,10 @@ public class PersonDAO implements PersonDAOLocal {
          */
         Person result = null;
         try{
+
             Connection con = dataSource.getConnection();
 
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM Person WHERE username LIKE '" + username + "'");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Person WHERE username LIKE \"" + username + "\"");
             ResultSet rs = ps.executeQuery();
 
             Person newPerson = Person.builder()

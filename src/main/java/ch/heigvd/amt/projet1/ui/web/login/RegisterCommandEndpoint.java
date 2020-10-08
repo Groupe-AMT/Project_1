@@ -6,6 +6,7 @@ import ch.heigvd.amt.projet1.application.identitymanagement.login.RegisterComman
 import ch.heigvd.amt.projet1.application.identitymanagement.login.RegisterFailedException;
 
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,8 +17,9 @@ import java.util.List;
 
 @WebServlet(name = "RegisterCommandEndpoint",urlPatterns = "register.do")
 public class RegisterCommandEndpoint extends HttpServlet {
-    private ServiceRegistry  serviceRegistry = ServiceRegistry.getServiceRegistry();
-    private IdentityManagementFacade identityManagementFacade = serviceRegistry.getIdentityManagementFacade();
+    @Inject
+    private ServiceRegistry  serviceRegistry;
+    private IdentityManagementFacade identityManagementFacade = serviceRegistry.getIdentityFacade();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

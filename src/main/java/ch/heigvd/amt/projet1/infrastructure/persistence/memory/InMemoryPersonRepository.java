@@ -9,7 +9,7 @@ import ch.heigvd.amt.projet1.infrastructure.persistence.exception.IntegrityConst
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-/*
+
 public class InMemoryPersonRepository extends InMemoryRepository<Person, PersonId> implements IPersonRepository {
     @Override
     public Optional<Person> findByUsername(String username) {
@@ -36,4 +36,3 @@ public class InMemoryPersonRepository extends InMemoryRepository<Person, PersonI
     }
 
 }
-*/

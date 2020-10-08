@@ -7,10 +7,10 @@
         <fileset dir="$(server.config.dir)" includes="*.jar"/>
     </library>
 
-    <datasource id="DataSource" jndiName="jdbc/AMT">
+    <datasource jndiName="jdbc/AMT" type="javax.sql.ConnectionPoolDataSource">
         <jdbcDriver libraryRef="MySqlLib"/>
-        <properties databseName="AMT"
-                    serveurName="172.17.0.2:3306" portNumber="3306"
+        <properties databaseName="AMT"
+                    serverName="172.17.0.2" portNumber="3306"
                     user="root" password="root"/>
     </datasource>
 

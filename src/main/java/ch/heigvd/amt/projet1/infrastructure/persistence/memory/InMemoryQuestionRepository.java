@@ -6,7 +6,6 @@ import ch.heigvd.amt.projet1.domain.question.QuestionId;
 
 import java.util.*;
 import java.util.stream.Collectors;
-/*
 public class InMemoryQuestionRepository extends InMemoryRepository<Question,QuestionId> implements IQuestionRepository {
 
 
@@ -26,4 +25,3 @@ public class InMemoryQuestionRepository extends InMemoryRepository<Question,Ques
     }
 
 }
-*/

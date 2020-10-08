@@ -1,10 +1,10 @@
 package ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao;
 
-import ch.heigvd.amt.projet1.domain.IRepository;
 import ch.heigvd.amt.projet1.domain.person.Person;
 import ch.heigvd.amt.projet1.domain.person.PersonId;
 
 import javax.ejb.Local;
+import javax.sql.DataSource;
 import java.util.List;
 
 @Local
@@ -18,4 +18,6 @@ public interface PersonDAOLocal{
     public Person findById(PersonId id);
     public Person findByUsername(String username);
     public List<Person> findAll();
+
+    DataSource test();
 }

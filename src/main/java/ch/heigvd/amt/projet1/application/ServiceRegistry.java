@@ -7,11 +7,13 @@ import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.PersonDAOLoca
 import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.QuestionDAO;
 import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.QuestionDAOLocal;
 
+import javax.enterprise.inject.Model;
 import javax.faces.bean.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 @ApplicationScoped
+@Model
 public class ServiceRegistry {
 
     @Inject @Named("PersonDAO")
@@ -21,7 +23,7 @@ public class ServiceRegistry {
     QuestionDAOLocal questionRepository;
 
     private static QuestionManagementFacade questionFacade;
-    private static IdentityManagementFacade identityFacade;
+    private static IdentityManagementFacade identityFacade = new IdentityManagementFacade();
 
     public static QuestionManagementFacade getQuestionFacade(){
         return questionFacade;

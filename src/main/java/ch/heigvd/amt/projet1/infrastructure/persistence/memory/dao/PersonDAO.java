@@ -3,14 +3,11 @@ package ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao;
 import ch.heigvd.amt.projet1.domain.person.Person;
 import ch.heigvd.amt.projet1.domain.person.PersonId;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.faces.bean.ApplicationScoped;
 import javax.inject.Named;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,8 +24,24 @@ import java.util.logging.Logger;
 @Named("PersonDAO")
 public class PersonDAO implements PersonDAOLocal {
 
-    @Resource(lookup = "jdbc/AMT")
+    @Resource(lookup = "jdbc/AMTDS")
     private DataSource dataSource;
+    {
+        try {
+            dataSource = javax.naming.InitialContext.doLookup("jdbc/AMTDS");
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public DataSource test(){
+        try {
+            return (DataSource) javax.naming.InitialContext.doLookup("jdbc/AMTDS");
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }
+        return this.dataSource;
+    }
 
     public long save(Person person) {
         /*

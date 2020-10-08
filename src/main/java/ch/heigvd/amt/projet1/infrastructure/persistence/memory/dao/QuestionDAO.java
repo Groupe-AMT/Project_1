@@ -30,7 +30,7 @@ import java.util.logging.Logger;
 @ApplicationScoped
 @Named("QuestionDAO")
 public class QuestionDAO implements QuestionDAOLocal{
-    @Resource(lookup = "jdbc/AMT")
+    @Resource(lookup = "jdbc/AMTDS")
     private DataSource dataSource;
 
     public long save(Question question) {

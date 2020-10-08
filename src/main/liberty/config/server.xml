@@ -1,18 +1,19 @@
 <server description="Sample Liberty server">
     <featureManager>
         <feature>webProfile-8.0</feature>
+        <feature>jdbc-4.2</feature>
     </featureManager>
 
     <library id="MySqlLib">
-        <fileset dir="$(server.config.dir)" includes="*.jar"/>
+        <fileset dir="/config" includes="mysql-connector-java-5.1.33.jar"/>
     </library>
 
-    <datasource jndiName="jdbc/AMT" type="javax.sql.ConnectionPoolDataSource">
+    <dataSource id="defaultDB" jndiName="jdbc/AMTDS">
         <jdbcDriver libraryRef="MySqlLib"/>
         <properties databaseName="AMT"
-                    serverName="172.17.0.2" portNumber="3306"
-                    user="root" password="root"/>
-    </datasource>
+                    serverName="localhost" portNumber="33060"
+                    user="admin" password="root"/>
+    </dataSource>
 
     <variable name="default.http.port" defaultValue="9080"/>
     <variable name="default.https.port" defaultValue="9443"/>

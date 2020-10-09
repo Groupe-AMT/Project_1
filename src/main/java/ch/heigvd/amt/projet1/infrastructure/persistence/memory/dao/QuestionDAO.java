@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.faces.bean.ApplicationScoped;
 import javax.inject.Named;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,6 +33,13 @@ import java.util.logging.Logger;
 public class QuestionDAO implements QuestionDAOLocal{
     @Resource(lookup = "jdbc/AMTDS")
     private DataSource dataSource;
+    {
+        try {
+            dataSource = javax.naming.InitialContext.doLookup("jdbc/AMTDS");
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }
+    }
 
     public long save(Question question) {
         /*
@@ -40,14 +48,14 @@ public class QuestionDAO implements QuestionDAOLocal{
         try{
             Connection con = dataSource.getConnection();
 
-            PreparedStatement ps = con.prepareStatement("INSERT OR IGNORE INTO Question(id, subject, author, content, tags) VALUES("+
-                    question.getId().toString()+
-                    question.getSubject().toString()+
-                    question.getAuthor().toString()+
-                    question.getContent().toString()+
+            PreparedStatement ps = con.prepareStatement("INSERT INTO Question(id, subject, author, content, tags) VALUES('"+
+                    question.getId().asString()+"','"+
+                    question.getSubject().toString()+"','"+
+                    question.getAuthor().toString()+"','"+
+                    question.getContent().toString()+"','"+
                     question.getTags().toString()+
-                    ")");
-            ResultSet rs = ps.executeQuery();
+                    "')");
+            boolean rs = ps.execute();
 
             ps.close();
             con.close();
@@ -57,6 +65,7 @@ public class QuestionDAO implements QuestionDAOLocal{
         return 0;
     }
 
+    // TODO: NE SAIT PAS SI FONCTIONNE
     public long remove(QuestionId id) {
         /*
         This function aims to remove an user by its id
@@ -84,7 +93,7 @@ public class QuestionDAO implements QuestionDAOLocal{
         return result;
     }
 
-
+    // TODO: NE SAIT PAS SI FONCTIONNE
     public Question findById(QuestionId id) {
         /*
         This function aims to find and return an user by its id

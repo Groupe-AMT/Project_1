@@ -22,7 +22,7 @@ public class ServiceRegistry {
     @Inject @Named("QuestionDAO")
     QuestionDAOLocal questionRepository;
 
-    private static QuestionManagementFacade questionFacade;
+    private static QuestionManagementFacade questionFacade = new QuestionManagementFacade();
     private static IdentityManagementFacade identityFacade = new IdentityManagementFacade();
 
     public static QuestionManagementFacade getQuestionFacade(){

@@ -34,15 +34,6 @@ public class PersonDAO implements PersonDAOLocal {
         }
     }
 
-    public DataSource test(){
-        try {
-            return (DataSource) javax.naming.InitialContext.doLookup("jdbc/AMTDS");
-        } catch (NamingException e) {
-            e.printStackTrace();
-        }
-        return this.dataSource;
-    }
-
     public long save(Person person) {
         /*
         This function aims to insert in the database a Person
@@ -50,8 +41,11 @@ public class PersonDAO implements PersonDAOLocal {
         try{
             Connection con = dataSource.getConnection();
 
+            String uuid = person.getId().asString();
+            //uuid = uuid.substring(uuid.lastIndexOf("@"+1));
+
             PreparedStatement ps = con.prepareStatement("INSERT INTO Person (id, username, email, firstname, lastname, password) VALUES('"+
-                    person.getId().toString()+"','"+
+                    uuid+"','"+
                     person.getUsername()+"','"+
                     person.getEmail()+"','"+
                     person.getFirstname()+"','"+
@@ -68,6 +62,7 @@ public class PersonDAO implements PersonDAOLocal {
         return 0;
     }
 
+    // TODO: NE SAIT PAS SI FONCTIONNE
     public long remove(PersonId id) {
         /*
         This function aims to remove an user by its id
@@ -75,7 +70,7 @@ public class PersonDAO implements PersonDAOLocal {
         try{
             Connection con = dataSource.getConnection();
 
-            PreparedStatement ps = con.prepareStatement("DELETE FROM Person WHERE id = " + id.toString());
+            PreparedStatement ps = con.prepareStatement("DELETE FROM Person WHERE id = " + id.asString());
             ResultSet rs = ps.executeQuery();
 
             ps.close();
@@ -86,6 +81,7 @@ public class PersonDAO implements PersonDAOLocal {
         return 0;
     }
 
+    // TODO: NE SAIT PAS SI FONCTIONNE
     public long removeByUsername(String username) {
         /*
         This function aims to remove an user by its username
@@ -104,6 +100,7 @@ public class PersonDAO implements PersonDAOLocal {
         return 0;
     }
 
+    // TODO: NE SAIT PAS SI FONCTIONNE
     public Person findById(PersonId id) {
         /*
         This function aims to find and return an user by its id
@@ -112,7 +109,7 @@ public class PersonDAO implements PersonDAOLocal {
         try{
             Connection con = dataSource.getConnection();
 
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM Person WHERE id = " + id.toString());
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Person WHERE id = " + id.asString());
             ResultSet rs = ps.executeQuery();
 
             result = Person.builder()
@@ -148,7 +145,7 @@ public class PersonDAO implements PersonDAOLocal {
 
             if (rs.next()) {
                 Person newPerson = Person.builder()
-                        .id(new PersonId(String.valueOf(rs.getString("id"))))
+                        .id(new PersonId(rs.getString("id")))
                         .username(rs.getString("username"))
                         .firstname(rs.getString("firstname"))
                         .lastName(rs.getString("lastname"))
@@ -167,6 +164,7 @@ public class PersonDAO implements PersonDAOLocal {
         return result;
     }
 
+    // TODO: NE SAIT PAS SI FONCTIONNE
     public List<Person> findAll() {
         List<Person> result = new LinkedList<Person>();
         try{

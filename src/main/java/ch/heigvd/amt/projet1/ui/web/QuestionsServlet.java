@@ -1,6 +1,6 @@
 package ch.heigvd.amt.projet1.ui.web;
 
-import ch.heigvd.amt.projet1.application.ServiceQuestion;
+import ch.heigvd.amt.projet1.application.ServiceRegistry;
 import ch.heigvd.amt.projet1.application.identitymanagement.IdentityManagementFacade;
 import ch.heigvd.amt.projet1.application.identitymanagement.QuestionManagementFacade;
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.CurrentUserDTO;
@@ -13,7 +13,11 @@ import ch.heigvd.amt.projet1.domain.question.Question;
 import ch.heigvd.amt.projet1.domain.question.QuestionQuery;
 import ch.heigvd.amt.projet1.infrastructure.persistence.memory.InMemoryQuestionRepository;
 import ch.heigvd.amt.projet1.infrastructure.persistence.memory.InMemoryQuestionRepository;
+import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.PersonDAOLocal;
+import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.QuestionDAOLocal;
 
+import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,9 +37,12 @@ import java.util.List;
  * to this component (by calling forwarding the request).
  */
 public class QuestionsServlet<TestQuestion> extends javax.servlet.http.HttpServlet {
-    ServiceQuestion serviceQuestion = ServiceQuestion.getServiceQuestion();
-    private QuestionManagementFacade questionManagementFacade = serviceQuestion.getQuestionManagementFacade();
-    private TestQuestion service;
+    @EJB(beanName="QuestionDAO")
+    QuestionDAOLocal questionDAO;
+
+    @Inject
+    private ServiceRegistry  serviceRegistry;
+    private QuestionManagementFacade questionManagementFacade = ServiceRegistry.getQuestionFacade();
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -49,8 +56,8 @@ public class QuestionsServlet<TestQuestion> extends javax.servlet.http.HttpServl
         }
 
 */
-        QuestionsDTO questionsDTO = questionManagementFacade.getQuestions(QuestionQuery.builder().build());
-        request.setAttribute("Qs",questionsDTO);
+        List<Question> questions = questionManagementFacade.getQuestions();
+        request.setAttribute("Qs",questions);
         request.getRequestDispatcher("/WEB-INF/views/questions.jsp").forward(request, response);
     }
 
@@ -72,8 +79,10 @@ public class QuestionsServlet<TestQuestion> extends javax.servlet.http.HttpServl
             }catch (QuestionException e){
                 request.getSession().setAttribute("errors", List.of(e.getMessage()));
             }
+            
+            List<Question> questions = questionManagementFacade.getQuestions();
+            request.setAttribute("Qs",questions);
             request.getRequestDispatcher("/WEB-INF/views/questions.jsp").forward(request, response);
-
         }
 
     }

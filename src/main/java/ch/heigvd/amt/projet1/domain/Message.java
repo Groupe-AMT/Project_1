@@ -1,3 +1,4 @@
+/*
 package ch.heigvd.amt.projet1.domain;
 
 
@@ -37,3 +38,4 @@ public abstract class Message<ENTITY,ID>{
 
     protected abstract Object deepClone();
 }
+*/

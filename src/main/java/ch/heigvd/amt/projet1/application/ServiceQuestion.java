@@ -1,3 +1,4 @@
+/*
 package ch.heigvd.amt.projet1.application;
 
 import ch.heigvd.amt.projet1.application.identitymanagement.IdentityManagementFacade;
@@ -20,7 +21,8 @@ public class ServiceQuestion {
     private ServiceQuestion(){
         singleton=this;
         questionRepository= new InMemoryQuestionRepository();
-        questionManagementFacade = new QuestionManagementFacade(questionRepository);
+        questionManagementFacade = new QuestionManagementFacade();
     }
     public QuestionManagementFacade getQuestionManagementFacade(){return  questionManagementFacade;}
 }
+*/

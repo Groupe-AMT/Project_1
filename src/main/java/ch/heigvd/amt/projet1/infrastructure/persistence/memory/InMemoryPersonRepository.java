@@ -1,3 +1,4 @@
+/*
 package ch.heigvd.amt.projet1.infrastructure.persistence.memory;
 
 import ch.heigvd.amt.projet1.domain.person.IPersonRepository;
@@ -36,3 +37,4 @@ public class InMemoryPersonRepository extends InMemoryRepository<Person, PersonI
     }
 
 }
+*/

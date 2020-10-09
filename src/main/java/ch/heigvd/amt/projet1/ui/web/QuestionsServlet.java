@@ -79,7 +79,7 @@ public class QuestionsServlet<TestQuestion> extends javax.servlet.http.HttpServl
             }catch (QuestionException e){
                 request.getSession().setAttribute("errors", List.of(e.getMessage()));
             }
-            
+
             List<Question> questions = questionManagementFacade.getQuestions();
             request.setAttribute("Qs",questions);
             request.getRequestDispatcher("/WEB-INF/views/questions.jsp").forward(request, response);

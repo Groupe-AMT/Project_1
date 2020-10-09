@@ -1,12 +1,6 @@
 version: '2'
 
 services:
-	OpenLiberty:
-		build: ../images/openliberty
-		links:
-			-mysql:mysql
-		ports:
-			- "9443:9000"
 	mysql:
 		build: ../images/mysql
 		environment:
@@ -15,3 +9,9 @@ services:
 			- "3306:3306"
 		volumes:
 			- ../volumes/_data:/var/lib/mysql
+	OpenLiberty:
+		build: ../images/openliberty
+		links:
+			-mysql:mysql
+		ports:
+			- "9443:9000"

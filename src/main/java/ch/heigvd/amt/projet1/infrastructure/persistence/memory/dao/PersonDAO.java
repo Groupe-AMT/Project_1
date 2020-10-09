@@ -50,14 +50,15 @@ public class PersonDAO implements PersonDAOLocal {
         try{
             Connection con = dataSource.getConnection();
 
-            PreparedStatement ps = con.prepareStatement("INSERT OR IGNORE INTO Person(id, username, email, firstname, lastname, password) VALUES("+
-                    person.getId().toString()+
-                    person.getUsername()+
-                    person.getFirstname()+
-                    person.getLastName()+
+            PreparedStatement ps = con.prepareStatement("INSERT INTO Person (id, username, email, firstname, lastname, password) VALUES('"+
+                    person.getId().toString()+"','"+
+                    person.getUsername()+"','"+
+                    person.getEmail()+"','"+
+                    person.getFirstname()+"','"+
+                    person.getLastName()+"','"+
                     person.getHashedPassword()+
-                    ")");
-            ResultSet rs = ps.executeQuery();
+                    "')");
+            boolean rs = ps.execute();
 
             ps.close();
             con.close();
@@ -142,19 +143,20 @@ public class PersonDAO implements PersonDAOLocal {
 
             Connection con = dataSource.getConnection();
 
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM Person WHERE username LIKE \"" + username + "\"");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Person WHERE username = '" + username + "'");
             ResultSet rs = ps.executeQuery();
 
-            Person newPerson = Person.builder()
-                    .id(new PersonId(rs.getString("id")))
-                    .username(rs.getString("username"))
-                    .firstname(rs.getString("firstname"))
-                    .lastName(rs.getString("lastname"))
-                    .email(rs.getString("email"))
-                    .hashedPassword(rs.getString("password"))
-                    .build();
-            result = newPerson;
-
+            if (rs.next()) {
+                Person newPerson = Person.builder()
+                        .id(new PersonId(String.valueOf(rs.getString("id"))))
+                        .username(rs.getString("username"))
+                        .firstname(rs.getString("firstname"))
+                        .lastName(rs.getString("lastname"))
+                        .email(rs.getString("email"))
+                        .hashedPassword(rs.getString("password"))
+                        .build();
+                result = newPerson;
+            }
             ps.close();
             con.close();
 

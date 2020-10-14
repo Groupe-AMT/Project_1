@@ -62,9 +62,3 @@ jobs:
           cache-from: type=ghcr.io,ref=ghcr.io/groupe-amt/project_1:latest
           cache-to: type=inline
         
-      - name: Build Docker Image 
-        run: |
-          echo ${{ secrets.OPENAFFECT_PAT }} | docker login ghcr.io -u hans-arn --password-stdin
-          docker-compose build .
-          docker tag groupe-amt/project_1  ghcr.io/groupe-amt/project_1 
-          docker push ghcr.io/groupe-amt/project_1 

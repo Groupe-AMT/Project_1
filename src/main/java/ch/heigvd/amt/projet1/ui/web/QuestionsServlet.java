@@ -7,7 +7,6 @@ import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.Curre
 import ch.heigvd.amt.projet1.application.questionmanagement.QuestionCommand;
 import ch.heigvd.amt.projet1.application.questionmanagement.QuestionException;
 import ch.heigvd.amt.projet1.application.questionmanagement.QuestionsDTO;
-import ch.heigvd.amt.projet1.application.questionmanagement.TestQuestion;
 import ch.heigvd.amt.projet1.domain.person.Person;
 import ch.heigvd.amt.projet1.domain.question.Question;
 import ch.heigvd.amt.projet1.domain.question.QuestionQuery;

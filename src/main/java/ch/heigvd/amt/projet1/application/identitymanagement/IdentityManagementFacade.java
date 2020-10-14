@@ -16,7 +16,6 @@ import javax.inject.Named;
 
 
 public class IdentityManagementFacade {
-    @EJB
     private PersonDAOLocal personRepository;
 
     public void register(RegisterCommand command)throws RegisterFailedException{

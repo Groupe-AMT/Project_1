@@ -5,6 +5,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 public class TestPerson {
     private final PersonId Pid = new PersonId();
     private final Person P = new Person( Pid,

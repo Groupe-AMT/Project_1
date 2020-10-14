@@ -24,7 +24,7 @@ public class RegisterCommandEndpoint extends HttpServlet {
 
     @Inject
     private ServiceRegistry  serviceRegistry;
-    private IdentityManagementFacade identityManagementFacade = ServiceRegistry.getIdentityFacade();
+    private IdentityManagementFacade identityManagementFacade;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,6 +36,7 @@ public class RegisterCommandEndpoint extends HttpServlet {
                 .email(req.getParameter("email"))
                 .clearPassword(req.getParameter("password"))
                 .build();
+        identityManagementFacade= ServiceRegistry.getIdentityFacade();
         try {
             identityManagementFacade.register(registerCommand);
             req.getRequestDispatcher("login.do").forward(req,resp);

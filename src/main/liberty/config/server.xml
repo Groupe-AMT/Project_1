@@ -1,7 +1,6 @@
 <server description="Sample Liberty server">
     <featureManager>
         <feature>webProfile-8.0</feature>
-        <feature>jdbc-5.1</feature>
     </featureManager>
 
     <library id="MySqlLib">

@@ -17,7 +17,7 @@ import javax.inject.Named;
 
 public class IdentityManagementFacade {
     @EJB
-    private PersonDAOLocal personRepository = new PersonDAO();
+    private PersonDAOLocal personRepository;
 
     public void register(RegisterCommand command)throws RegisterFailedException{
         Person existingPersonWithSameUsername = personRepository.findByUsername(command.getUsername());//.orElse(null);

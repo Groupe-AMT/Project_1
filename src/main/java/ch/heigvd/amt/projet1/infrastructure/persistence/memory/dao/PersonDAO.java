@@ -19,20 +19,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Stateless
-
-@ApplicationScoped
-@Named("PersonDAO")
 public class PersonDAO implements PersonDAOLocal {
 
     @Resource(lookup = "jdbc/AMTDS")
     private DataSource dataSource;
-    {
-        try {
-            dataSource = javax.naming.InitialContext.doLookup("jdbc/AMTDS");
-        } catch (NamingException e) {
-            e.printStackTrace();
-        }
-    }
 
     public long save(Person person) {
         /*

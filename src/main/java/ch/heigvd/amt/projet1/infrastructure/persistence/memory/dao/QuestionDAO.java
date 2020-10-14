@@ -27,19 +27,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Stateless
-
-@ApplicationScoped
-@Named("QuestionDAO")
 public class QuestionDAO implements QuestionDAOLocal{
     @Resource(lookup = "jdbc/AMTDS")
     private DataSource dataSource;
-    {
-        try {
-            dataSource = javax.naming.InitialContext.doLookup("jdbc/AMTDS");
-        } catch (NamingException e) {
-            e.printStackTrace();
-        }
-    }
 
     public long save(Question question) {
         /*

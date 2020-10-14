@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 public class QuestionManagementFacade {
     @EJB
-    private QuestionDAOLocal questionRepository = new QuestionDAO();
+    private QuestionDAOLocal questionRepository;
 
     // public QuestionManagementFacade(IQuestionRepository questionRepository){this.questionRepository=questionRepository;}
     public void saveQuestion(QuestionCommand command) throws QuestionException{

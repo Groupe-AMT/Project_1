@@ -2,16 +2,15 @@ package ch.heigvd.amt.projet1.domain.person;
 
 import ch.heigvd.amt.projet1.domain.IEntity;
 import ch.heigvd.amt.projet1.domain.Id;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.mindrot.jbcrypt.BCrypt;
 
 @Getter
 @Setter
 @EqualsAndHashCode
 @Builder(toBuilder = true)
+// public pour effectuer les tests
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class Person implements IEntity<Person,PersonId> {
 
     private PersonId id;
@@ -21,17 +20,13 @@ public class Person implements IEntity<Person,PersonId> {
     private String lastName;
     @EqualsAndHashCode.Exclude
     private String hashedPassword;
-    @Override
-    public PersonId getId() {
-        return id;
-    }
 
     @Override
     public Person deepClone() {
         return this.toBuilder().id(new PersonId(id.asString())).build();
     }
-    public boolean authenticate(String clearTextPassword){
 
+    public boolean authenticate(String clearTextPassword){
         return  BCrypt.checkpw(clearTextPassword, hashedPassword);
     }
 

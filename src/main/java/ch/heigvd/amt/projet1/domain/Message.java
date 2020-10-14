@@ -1,8 +1,8 @@
 /*
 package ch.heigvd.amt.projet1.domain;
-
-
 import ch.heigvd.amt.projet1.domain.person.Person;
+import lombok.Getter;
+@Getter
 
 public abstract class Message<ENTITY,ID>{
     // Variables

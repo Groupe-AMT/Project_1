@@ -1,3 +1,4 @@
+/*
 package ch.heigvd.amt.projet1.infrastructure.persistence.memory;
 
 import ch.heigvd.amt.projet1.domain.person.IPersonRepository;
@@ -11,7 +12,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class InMemoryPersonRepository extends InMemoryRepository<Person, PersonId> implements IPersonRepository {
-
     @Override
     public Optional<Person> findByUsername(String username) {
         List<Person> matchingEntities = findAll().stream()
@@ -37,3 +37,4 @@ public class InMemoryPersonRepository extends InMemoryRepository<Person, PersonI
     }
 
 }
+*/

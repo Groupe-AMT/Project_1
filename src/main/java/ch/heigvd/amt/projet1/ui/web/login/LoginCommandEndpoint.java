@@ -5,7 +5,10 @@ import ch.heigvd.amt.projet1.application.identitymanagement.IdentityManagementFa
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.AuthentifcateCommand;
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.AuthentificateFailedException;
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.CurrentUserDTO;
+import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.PersonDAOLocal;
 
+import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,10 +16,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+
 @WebServlet(name = "LoginCommandEndpoint",urlPatterns = "/login.do")
 public class LoginCommandEndpoint extends HttpServlet {
-    private ServiceRegistry serviceRegistry = ServiceRegistry.getServiceRegistry();
-    private IdentityManagementFacade identityManagementFacade = serviceRegistry.getIdentityManagementFacade();
+    @EJB
+    PersonDAOLocal personDAO;
+
+    @Inject
+    private ServiceRegistry serviceRegistry;
+    private IdentityManagementFacade identityManagementFacade = serviceRegistry.getIdentityFacade();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

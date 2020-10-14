@@ -48,7 +48,7 @@
                     </form>
                 </div>
                 <div class="QuestionsList">
-                    <c:forEach items="${Qs.questions}" var="Q">
+                    <c:forEach items="${Qs}" var="Q">
                         <div class="QuestionDiv">
                             <td>Author: <c:out value="${Q.getAuthor()}"/> Subject: <c:out value="${Q.getSubject()}"/></td><br>
                             <td><c:out value="${Q.getContent()}"/></td>

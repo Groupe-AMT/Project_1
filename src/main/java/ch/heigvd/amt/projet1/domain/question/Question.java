@@ -34,8 +34,22 @@ public class Question  implements IEntity<Question,QuestionId> {
             if (id == null) {
                 id = new QuestionId();
             }
+
             return new Question(Subject, id, author, content, Tags);
         }
     }
 
+    //Getters
+    public String getSubject() {
+        return Subject;
+    }
+    public String getAuthor() {
+        return author;
+    }
+    public String getContent() {
+        return content;
+    }
+    public List<String> getTags() {
+        return Tags;
+    }
 }

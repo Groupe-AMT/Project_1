@@ -7,12 +7,20 @@ import ch.heigvd.amt.projet1.application.identitymanagement.login.RegisterComman
 import ch.heigvd.amt.projet1.application.identitymanagement.login.RegisterFailedException;
 import ch.heigvd.amt.projet1.domain.person.IPersonRepository;
 import ch.heigvd.amt.projet1.domain.person.Person;
+import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.PersonDAO;
+import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.PersonDAOLocal;
+
+import javax.ejb.EJB;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 
 public class IdentityManagementFacade {
-    private IPersonRepository personRepository;
-    public IdentityManagementFacade(IPersonRepository personRepository){this.personRepository=personRepository;}
+    @EJB
+    private PersonDAOLocal personRepository;
+
     public void register(RegisterCommand command)throws RegisterFailedException{
-        Person existingPersonWithSameUsername = personRepository.findByUsername(command.getUsername()).orElse(null);
+        Person existingPersonWithSameUsername = personRepository.findByUsername(command.getUsername());//.orElse(null);
         if(existingPersonWithSameUsername !=null){
             throw new RegisterFailedException("Username is already used");
         }
@@ -30,10 +38,17 @@ public class IdentityManagementFacade {
         }
     }
     public CurrentUserDTO authenticate(AuthentifcateCommand command) throws AuthentificateFailedException{
-        Person person = personRepository.findByUsername(command.getUsername())
-                .orElseThrow(()-> new AuthentificateFailedException("user not found"));
+        Person person = null;
+        try{
+            person = personRepository.findByUsername(command.getUsername());
+        } catch (Exception e){
+            e.printStackTrace();
+        }
 
-        boolean success = person.authenticate(command.getClearPassword());
+        boolean success;
+        if (person != null){
+            success = person.authenticate(command.getClearPassword());
+        } else { success = false; }
         if(!success){
             throw new AuthentificateFailedException("Verification of credentials failed");
         }

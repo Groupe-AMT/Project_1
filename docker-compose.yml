@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  mysql:
+    build: ./images/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./volumes/_data:/var/lib/mysql
+  openliberty:
+    build:
+      context: ..
+      dockerfile: DOCKER/images/openliberty/Dockerfile
+    links:
+      - mysql:mysql
+    ports:
+      - "9443:9000"

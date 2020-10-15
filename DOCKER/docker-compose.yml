@@ -10,7 +10,10 @@ services:
         volumes:
             - ./volumes/_data:/var/lib/mysql
     openliberty:
-        image: ghcr.io/groupe-amt/project_1:latest
+        #image: ghcr.io/groupe-amt/project_1:latest
+        build:
+            context: ..
+            dockerfile: DOCKER/images/openliberty/Dockerfile
         links:
             - mysql:mysql
         ports:

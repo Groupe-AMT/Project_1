@@ -17,7 +17,7 @@
     <variable name="default.http.port" defaultValue="9080"/>
     <variable name="default.https.port" defaultValue="9443"/>
 
-    <webApplication location="Project_1.war" contextRoot="Project_1"/>
+    <webApplication location="Project_1.war" contextRoot="Project_1" type="war"/>
 
     <httpEndpoint host="*" httpPort="${default.http.port}"
                   httpsPort="${default.https.port}" id="defaultHttpEndpoint"/>

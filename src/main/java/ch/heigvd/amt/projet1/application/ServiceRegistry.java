@@ -22,13 +22,13 @@ public class ServiceRegistry {
     @Inject
     QuestionDAOLocal questionRepository;
 
-    private static QuestionManagementFacade questionFacade = new QuestionManagementFacade();
-    private static IdentityManagementFacade identityFacade = new IdentityManagementFacade();
+    private QuestionManagementFacade questionFacade = new QuestionManagementFacade();
+    private IdentityManagementFacade identityFacade = new IdentityManagementFacade();
 
-    public static QuestionManagementFacade getQuestionFacade(){
+    public QuestionManagementFacade getQuestionFacade(){
         return questionFacade;
     }
-    public static IdentityManagementFacade getIdentityFacade(){
+    public IdentityManagementFacade getIdentityFacade(){
         return identityFacade;
     }
 

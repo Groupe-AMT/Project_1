@@ -2,7 +2,7 @@ package ch.heigvd.amt.projet1.ui.web.login;
 
 import ch.heigvd.amt.projet1.application.ServiceRegistry;
 import ch.heigvd.amt.projet1.application.identitymanagement.IdentityManagementFacade;
-import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.AuthentifcateCommand;
+import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.AuthentificateCommand;
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.AuthentificateFailedException;
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.CurrentUserDTO;
 import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.PersonDAOLocal;
@@ -29,7 +29,7 @@ public class LoginCommandEndpoint extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getSession().removeAttribute("errors");
         CurrentUserDTO currentUser= null;
-        AuthentifcateCommand authentifcateCommand = AuthentifcateCommand.builder()
+        AuthentificateCommand authentifcateCommand = AuthentificateCommand.builder()
                 .username(req.getParameter("username"))
                 .clearPassword(req.getParameter("password"))
                 .build();

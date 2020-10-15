@@ -1,7 +1,6 @@
 package ch.heigvd.amt.projet1.domain.person;
 
 import ch.heigvd.amt.projet1.domain.IEntity;
-import ch.heigvd.amt.projet1.domain.Id;
 import lombok.*;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -54,22 +53,5 @@ public class Person implements IEntity<Person,PersonId> {
                 throw new IllegalArgumentException("Lastname is mandatory");
             return new Person(id,username,email,firstname,lastName,hashedPassword);
         }
-    }
-
-    // Getters
-    public String getEmail() {
-        return email;
-    }
-    public String getFirstname() {
-        return firstname;
-    }
-    public String getHashedPassword() {
-        return hashedPassword;
-    }
-    public String getLastName() {
-        return lastName;
-    }
-    public String getUsername() {
-        return username;
     }
 }

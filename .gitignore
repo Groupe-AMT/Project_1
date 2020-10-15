@@ -1,3 +1,4 @@
 /target
 /e2e/node_modules
 .idea
+/DOCKER/volumes/_data

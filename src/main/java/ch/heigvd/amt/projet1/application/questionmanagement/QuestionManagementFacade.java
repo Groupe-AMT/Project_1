@@ -8,9 +8,9 @@ import java.util.List;
 public class QuestionManagementFacade {
     private IQuestionRepository questionRepository;
 
-    public QuestionManagementFacade(IQuestionRepository questionRepository){
+/*    public QuestionManagementFacade(IQuestionRepository questionRepository){
         this.questionRepository = questionRepository;
-    }
+    }*/
 
     // public QuestionManagementFacade(IQuestionRepository questionRepository){this.questionRepository=questionRepository;}
     public void saveQuestion(QuestionCommand command) throws QuestionException{

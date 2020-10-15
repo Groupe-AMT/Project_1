@@ -4,28 +4,28 @@ import ch.heigvd.amt.projet1.application.identitymanagement.IdentityManagementFa
 import ch.heigvd.amt.projet1.application.questionmanagement.QuestionManagementFacade;
 import ch.heigvd.amt.projet1.domain.question.IQuestionRepository;
 import ch.heigvd.amt.projet1.domain.person.IPersonRepository;
+import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.PersonDAOLocal;
+import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.QuestionDAOLocal;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 @ApplicationScoped
 public class ServiceRegistry {
+    @Inject
+    PersonDAOLocal personRepository;
 
-    @Inject @Named("DbQuestionRepository")
-    IPersonRepository personRepository;
+    @Inject
+    QuestionDAOLocal questionRepository;
 
-    @Inject @Named("DbPersonRepository")
-    IQuestionRepository questionRepository;
-
-    private static QuestionManagementFacade questionFacade;
-    private static IdentityManagementFacade identityFacade;
+    private QuestionManagementFacade questionFacade = new QuestionManagementFacade();
+    private IdentityManagementFacade identityFacade = new IdentityManagementFacade();
 
     public QuestionManagementFacade getQuestionFacade(){
-        return new QuestionManagementFacade(questionRepository);
+        return questionFacade;
     }
     public IdentityManagementFacade getIdentityFacade(){
-        return new IdentityManagementFacade(personRepository);
+        return identityFacade;
     }
 
     /*

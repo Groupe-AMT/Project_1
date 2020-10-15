@@ -1,35 +1,31 @@
 package ch.heigvd.amt.projet1.application;
 
 import ch.heigvd.amt.projet1.application.identitymanagement.IdentityManagementFacade;
-import ch.heigvd.amt.projet1.application.identitymanagement.QuestionManagementFacade;
-import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.PersonDAO;
-import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.PersonDAOLocal;
-import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.QuestionDAO;
-import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.QuestionDAOLocal;
+import ch.heigvd.amt.projet1.application.questionmanagement.QuestionManagementFacade;
+import ch.heigvd.amt.projet1.domain.question.IQuestionRepository;
+import ch.heigvd.amt.projet1.domain.person.IPersonRepository;
 
-import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 @ApplicationScoped
 public class ServiceRegistry {
 
-    @Inject
-    PersonDAOLocal personRepository;
+    @Inject @Named("DbQuestionRepository")
+    IPersonRepository personRepository;
 
-    @Inject
-    QuestionDAOLocal questionRepository;
+    @Inject @Named("DbPersonRepository")
+    IQuestionRepository questionRepository;
 
-    private QuestionManagementFacade questionFacade = new QuestionManagementFacade();
-    private IdentityManagementFacade identityFacade = new IdentityManagementFacade();
+    private static QuestionManagementFacade questionFacade;
+    private static IdentityManagementFacade identityFacade;
 
     public QuestionManagementFacade getQuestionFacade(){
-        return questionFacade;
+        return new QuestionManagementFacade(questionRepository);
     }
     public IdentityManagementFacade getIdentityFacade(){
-        return identityFacade;
+        return new IdentityManagementFacade(personRepository);
     }
 
     /*

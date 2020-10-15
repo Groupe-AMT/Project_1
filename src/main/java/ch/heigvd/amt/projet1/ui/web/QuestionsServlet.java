@@ -1,18 +1,11 @@
 package ch.heigvd.amt.projet1.ui.web;
 
 import ch.heigvd.amt.projet1.application.ServiceRegistry;
-import ch.heigvd.amt.projet1.application.identitymanagement.IdentityManagementFacade;
-import ch.heigvd.amt.projet1.application.identitymanagement.QuestionManagementFacade;
+import ch.heigvd.amt.projet1.application.questionmanagement.QuestionManagementFacade;
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.CurrentUserDTO;
 import ch.heigvd.amt.projet1.application.questionmanagement.QuestionCommand;
 import ch.heigvd.amt.projet1.application.questionmanagement.QuestionException;
-import ch.heigvd.amt.projet1.application.questionmanagement.QuestionsDTO;
-import ch.heigvd.amt.projet1.domain.person.Person;
 import ch.heigvd.amt.projet1.domain.question.Question;
-import ch.heigvd.amt.projet1.domain.question.QuestionQuery;
-import ch.heigvd.amt.projet1.infrastructure.persistence.memory.InMemoryQuestionRepository;
-import ch.heigvd.amt.projet1.infrastructure.persistence.memory.InMemoryQuestionRepository;
-import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.PersonDAOLocal;
 import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.QuestionDAOLocal;
 
 import javax.ejb.EJB;

@@ -14,9 +14,12 @@ import javax.inject.Inject;
 public class IdentityManagementFacade {
     IPersonRepository personRepository;
 
+    public IdentityManagementFacade(IPersonRepository personRepository){
+        this.personRepository = personRepository;
+    }
     public void register(RegisterCommand command)throws RegisterFailedException{
 
-        if(personRepository.findByUsername(command.getUsername()) !=null)
+        if(personRepository.findByUsername(command.getUsername()).isPresent())
             throw new RegisterFailedException("Username is already used");
 
         try {
@@ -34,7 +37,7 @@ public class IdentityManagementFacade {
     }
 
     public CurrentUserDTO authenticate(AuthentificateCommand command) throws AuthentificateFailedException{
-        Person person = personRepository.findByUsername(command.getUsername());
+        Person person = personRepository.findByUsername(command.getUsername()).orElse(null);
 
         boolean success;
         if (person != null){

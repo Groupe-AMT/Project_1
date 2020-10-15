@@ -1,6 +1,6 @@
 package ch.heigvd.amt.projet1.infrastructure.persistence.memory;
 
-import ch.heigvd.amt.projet1.domain.IQuestionRepository;
+import ch.heigvd.amt.projet1.domain.question.IQuestionRepository;
 import ch.heigvd.amt.projet1.domain.question.Question;
 import ch.heigvd.amt.projet1.domain.question.QuestionId;
 

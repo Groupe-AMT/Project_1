@@ -1,6 +1,5 @@
 package ch.heigvd.amt.projet1.application.questionmanagement;
 
-import ch.heigvd.amt.projet1.domain.person.Person;
 import lombok.Builder;
 import lombok.Value;
 

@@ -4,8 +4,7 @@ import ch.heigvd.amt.projet1.domain.IEntity;
 import lombok.*;
 import org.mindrot.jbcrypt.BCrypt;
 
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode
 @Builder(toBuilder = true)
 // public pour effectuer les tests
@@ -37,6 +36,7 @@ public class Person implements IEntity<Person,PersonId> {
             hashedPassword = BCrypt.hashpw(clearTextPassword, BCrypt.gensalt());
             return this;
         }
+
         public Person build(){
             if(id==null){
                 id = new PersonId();

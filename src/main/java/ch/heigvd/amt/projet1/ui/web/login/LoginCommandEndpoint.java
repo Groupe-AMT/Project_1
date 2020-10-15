@@ -7,7 +7,6 @@ import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.Authe
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.CurrentUserDTO;
 import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.PersonDAOLocal;
 
-import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +18,7 @@ import java.util.List;
 
 @WebServlet(name = "LoginCommandEndpoint",urlPatterns = "/login.do")
 public class LoginCommandEndpoint extends HttpServlet {
-    @EJB
+    @Inject
     PersonDAOLocal personDAO;
 
     @Inject

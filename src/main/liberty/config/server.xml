@@ -1,11 +1,10 @@
 <server description="Sample Liberty server">
     <featureManager>
         <feature>webProfile-8.0</feature>
-        <feature>jdbc-5.1</feature>
     </featureManager>
 
     <library id="MySqlLib">
-        <fileset dir="/config" includes="mysql-connector-java-5.1.49.jar"/>
+        <fileset dir="." includes="mysql-connector-java-5.1.49.jar"/>
     </library>
 
     <dataSource id="defaultDB" jndiName="jdbc/AMTDS">
@@ -18,7 +17,7 @@
     <variable name="default.http.port" defaultValue="9080"/>
     <variable name="default.https.port" defaultValue="9443"/>
 
-    <webApplication location="Project_1.war" contextRoot="Projet_1"/>
+    <webApplication location="Project_1.war" contextRoot="Project_1"/>
 
     <httpEndpoint host="*" httpPort="${default.http.port}"
                   httpsPort="${default.https.port}" id="defaultHttpEndpoint"/>

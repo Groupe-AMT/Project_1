@@ -7,7 +7,6 @@ import javax.ejb.Local;
 import javax.sql.DataSource;
 import java.util.List;
 
-@Local
 public interface PersonDAOLocal{
     // Interface de gestion de la table Person
     public long save(Person person);

@@ -19,12 +19,11 @@ import java.util.List;
 
 @WebServlet(name = "RegisterCommandEndpoint",urlPatterns = "register.do")
 public class RegisterCommandEndpoint extends HttpServlet {
-    @EJB(beanName="PersonDAO")
+    @Inject
     PersonDAOLocal personDAO;
 
     @Inject
     private ServiceRegistry  serviceRegistry;
-    private IdentityManagementFacade identityManagementFacade = ServiceRegistry.getIdentityFacade();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,6 +35,7 @@ public class RegisterCommandEndpoint extends HttpServlet {
                 .email(req.getParameter("email"))
                 .clearPassword(req.getParameter("password"))
                 .build();
+        IdentityManagementFacade identityManagementFacade = serviceRegistry.getIdentityFacade();
         try {
             identityManagementFacade.register(registerCommand);
             req.getRequestDispatcher("login.do").forward(req,resp);

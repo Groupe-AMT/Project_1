@@ -1,0 +1,10 @@
+/target
+/e2e/node_modules
+.idea
+<<<<<<< HEAD
+DOCKER/volumes
+volumes
+=======
+/DOCKER/volumes/_data
+volumes/_data
+>>>>>>> master

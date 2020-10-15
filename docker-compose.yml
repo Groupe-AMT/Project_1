@@ -1,21 +1,22 @@
-version: '2'
+version: '3.7'
 
 services:
     mysql:
-        restart: always
         build: ./DOCKER/images/mysql
         environment:
             - MYSQL_ROOT_PASSWORD=root
         ports:
-            - "3307:3306"
+            - "3306:3306"
         volumes:
-            - ./DOCKER/volumes/_data:/var/lib/mysql
+            - ./volumes/_data:/var/lib/mysql
     openliberty:
         #image: ghcr.io/groupe-amt/project_1:latest
         build:
-            context: .
-            dockerfile: Dockerfile
+            context: ..
+            dockerfile: ./Dockerfile
+        links:
+            - mysql:mysql
         ports:
-            - "9088:9000"
+            - "9443:9000"
         depends_on:
             - mysql

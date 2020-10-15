@@ -41,11 +41,12 @@ public class QuestionsServlet<TestQuestion> extends javax.servlet.http.HttpServl
 
     @Inject
     private ServiceRegistry  serviceRegistry;
-    private QuestionManagementFacade questionManagementFacade = ServiceRegistry.getQuestionFacade();
+    private QuestionManagementFacade questionManagementFacade;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
+        //questionManagementFacade = serviceRegistry.get
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

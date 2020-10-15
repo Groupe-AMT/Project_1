@@ -8,18 +8,18 @@ import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.QuestionDAO;
 import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.QuestionDAOLocal;
 
 import javax.ejb.EJB;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Model;
-import javax.faces.bean.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 @ApplicationScoped
 public class ServiceRegistry {
 
-    @EJB
+    @Inject
     PersonDAOLocal personRepository;
 
-    @EJB
+    @Inject
     QuestionDAOLocal questionRepository;
 
     private static QuestionManagementFacade questionFacade = new QuestionManagementFacade();

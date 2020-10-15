@@ -19,7 +19,7 @@ import java.util.List;
 
 @WebServlet(name = "RegisterCommandEndpoint",urlPatterns = "register.do")
 public class RegisterCommandEndpoint extends HttpServlet {
-    @EJB(beanName="PersonDAO")
+    @Inject
     PersonDAOLocal personDAO;
 
     @Inject

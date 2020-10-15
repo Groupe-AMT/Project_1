@@ -2,11 +2,12 @@ version: '2'
 
 services:
     mysql:
+        restart: always
         build: ./DOCKER/images/mysql
         environment:
             - MYSQL_ROOT_PASSWORD=root
         ports:
-            - "3306:3306"
+            - "3307:3306"
         volumes:
             - ./DOCKER/volumes/_data:/var/lib/mysql
     openliberty:
@@ -14,9 +15,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        links:
-            - mysql:mysql
         ports:
-            - "9443:9000"
+            - "9088:9000"
         depends_on:
             - mysql

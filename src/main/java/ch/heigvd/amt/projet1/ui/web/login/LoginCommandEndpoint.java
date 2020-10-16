@@ -17,12 +17,9 @@ import java.util.List;
 
 @WebServlet(name = "LoginCommandEndpoint",urlPatterns = "/login.do")
 public class LoginCommandEndpoint extends HttpServlet {
-    @Inject
-    PersonDAOLocal personDAO;
 
     @Inject
     private ServiceRegistry serviceRegistry;
-    private IdentityManagementFacade identityManagementFacade = serviceRegistry.getIdentityFacade();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,7 +30,7 @@ public class LoginCommandEndpoint extends HttpServlet {
                 .clearPassword(req.getParameter("password"))
                 .build();
         try {
-            currentUser = identityManagementFacade.authenticate(authentifcateCommand);
+            currentUser = serviceRegistry.getIdentityFacade().authenticate(authentifcateCommand);
             req.getSession().setAttribute("currentUser",currentUser);
             String targetUrl = (String)req.getSession().getAttribute("targetUrl");
             targetUrl = (targetUrl!=null)?targetUrl:"/questions";

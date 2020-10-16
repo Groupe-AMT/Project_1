@@ -20,35 +20,18 @@ import java.util.Arrays;
 import java.util.List;
 
 @WebServlet("/questions.do")
-/**
- * The QuoteServlet is the Controller in the pattern. It receives HTTP requests, decides that the
- * QuoteGenerator service can provide the model (a list of Quote objects). After invoking the
- * service and obtaining the model, it attaches the model to the request (as a parameter named 'quotes').
- * Finally, it finds the view capable of rendering the model (questions.jsp) and delegates the end of the work
- * to this component (by calling forwarding the request).
- */
 public class QuestionsServlet<TestQuestion> extends javax.servlet.http.HttpServlet {
-    @EJB(beanName="QuestionDAO")
-    QuestionDAOLocal questionDAO;
 
     @Inject
     private ServiceRegistry  serviceRegistry;
-    private QuestionManagementFacade questionManagementFacade;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        //questionManagementFacade = serviceRegistry.get
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-/*
-        if (Qs.getContentList().getContent() != null){
-            request.setAttribute("Qs", Qs.getContentList().getContent());
-        }
-
-*/
-        List<Question> questions = questionManagementFacade.getQuestions();
+        List<Question> questions = serviceRegistry.getQuestionFacade().getQuestions();
         request.setAttribute("Qs",questions);
         request.getRequestDispatcher("/WEB-INF/views/questions.jsp").forward(request, response);
     }
@@ -67,12 +50,12 @@ public class QuestionsServlet<TestQuestion> extends javax.servlet.http.HttpServl
                     .subject(subj)
                     .tags(tags)
                     .build();
-            questionManagementFacade.saveQuestion(questionCommand);
+                serviceRegistry.getQuestionFacade().saveQuestion(questionCommand);
             }catch (QuestionException e){
                 request.getSession().setAttribute("errors", List.of(e.getMessage()));
             }
 
-            List<Question> questions = questionManagementFacade.getQuestions();
+            List<Question> questions = serviceRegistry.getQuestionFacade().getQuestions();
             request.setAttribute("Qs",questions);
             request.getRequestDispatcher("/WEB-INF/views/questions.jsp").forward(request, response);
         }

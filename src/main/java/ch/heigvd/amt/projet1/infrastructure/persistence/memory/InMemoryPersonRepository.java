@@ -7,11 +7,13 @@ import ch.heigvd.amt.projet1.infrastructure.persistence.exception.DataCorruption
 import ch.heigvd.amt.projet1.infrastructure.persistence.exception.IntegrityConstaintViolationException;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
+@Named("InMemoryPersonRepository")
 public class InMemoryPersonRepository extends InMemoryRepository<Person, PersonId> implements IPersonRepository {
     @Override
     public Optional<Person> findByUsername(String username) {
@@ -37,5 +39,4 @@ public class InMemoryPersonRepository extends InMemoryRepository<Person, PersonI
         }
         return 0;
     }
-
 }

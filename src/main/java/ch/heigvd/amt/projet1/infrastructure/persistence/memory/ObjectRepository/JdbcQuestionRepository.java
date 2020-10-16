@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Stateless
 public class JdbcQuestionRepository implements IQuestionRepository {
@@ -127,11 +128,15 @@ public class JdbcQuestionRepository implements IQuestionRepository {
 
     @Override
     public Collection<Question> findByTag(String tag) {
-        return null;
+        return findAll().stream()
+                .filter(question -> question.getTags().contains(tag))
+                .collect(Collectors.toList());
     }
 
     @Override
     public Collection<Question> findByAuthor(String author) {
-        return null;
+        return findAll().stream()
+                .filter(question -> question.getAuthor().equals(author))
+                .collect(Collectors.toList());
     }
 }

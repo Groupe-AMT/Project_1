@@ -17,8 +17,6 @@ import java.util.List;
 
 @WebServlet(name = "RegisterCommandEndpoint",urlPatterns = "register.do")
 public class RegisterCommandEndpoint extends HttpServlet {
-    @Inject
-    PersonDAOLocal personDAO;
 
     @Inject
     private ServiceRegistry  serviceRegistry;

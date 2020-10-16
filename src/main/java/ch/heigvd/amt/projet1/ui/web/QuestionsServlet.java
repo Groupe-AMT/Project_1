@@ -6,7 +6,6 @@ import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.Curre
 import ch.heigvd.amt.projet1.application.questionmanagement.QuestionCommand;
 import ch.heigvd.amt.projet1.application.questionmanagement.QuestionException;
 import ch.heigvd.amt.projet1.domain.question.Question;
-import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.QuestionDAOLocal;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;

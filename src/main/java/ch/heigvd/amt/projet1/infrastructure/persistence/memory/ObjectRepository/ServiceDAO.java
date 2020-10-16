@@ -1,4 +1,4 @@
-package ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao;
+package ch.heigvd.amt.projet1.infrastructure.persistence.memory.ObjectRepository;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.inject.Inject;
@@ -8,8 +8,8 @@ import javax.inject.Named;
 public class ServiceDAO {
 
     @Inject @Named("PersonDAO")
-    PersonDAO personDao;
+    JdbcPersonRepository personDao;
 
     @Inject @Named("QuestionDAO")
-    QuestionDAO questionDAO;
+    JdbcQuestionRepository questionDAO;
 }

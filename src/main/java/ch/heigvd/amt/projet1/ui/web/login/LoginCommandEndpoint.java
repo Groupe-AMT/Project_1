@@ -5,7 +5,6 @@ import ch.heigvd.amt.projet1.application.identitymanagement.IdentityManagementFa
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.AuthentificateCommand;
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.AuthentificateFailedException;
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.CurrentUserDTO;
-import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.PersonDAOLocal;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;

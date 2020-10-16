@@ -7,16 +7,14 @@ import ch.heigvd.amt.projet1.application.identitymanagement.login.RegisterComman
 import ch.heigvd.amt.projet1.application.identitymanagement.login.RegisterFailedException;
 import ch.heigvd.amt.projet1.domain.person.IPersonRepository;
 import ch.heigvd.amt.projet1.domain.person.Person;
-import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.PersonDAOLocal;
-
-import javax.inject.Inject;
 
 public class IdentityManagementFacade {
     IPersonRepository personRepository;
 
-//    public IdentityManagementFacade(IPersonRepository personRepository){
-//        this.personRepository = personRepository;
-//    }
+    public IdentityManagementFacade(IPersonRepository personRepository){
+        this.personRepository = personRepository;
+    }
+
     public void register(RegisterCommand command)throws RegisterFailedException{
 
         if(personRepository.findByUsername(command.getUsername()).isPresent())

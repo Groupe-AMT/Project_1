@@ -2,8 +2,8 @@ package ch.heigvd.amt.projet1.application;
 
 import ch.heigvd.amt.projet1.application.identitymanagement.IdentityManagementFacade;
 import ch.heigvd.amt.projet1.application.questionmanagement.QuestionManagementFacade;
-import ch.heigvd.amt.projet1.infrastructure.persistence.memory.InMemoryPersonRepository;
-import ch.heigvd.amt.projet1.infrastructure.persistence.memory.InMemoryQuestionRepository;
+import ch.heigvd.amt.projet1.infrastructure.persistence.memory.ObjectRepository.JdbcPersonRepository;
+import ch.heigvd.amt.projet1.infrastructure.persistence.memory.ObjectRepository.JdbcQuestionRepository;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -12,10 +12,10 @@ import javax.inject.Inject;
 @ApplicationScoped //  @stateless
 public class ServiceRegistry {
     @Inject
-    InMemoryPersonRepository personRepository;
+    JdbcPersonRepository personRepository;
 
     @Inject
-    InMemoryQuestionRepository questionRepository;
+    JdbcQuestionRepository questionRepository;
 
     private QuestionManagementFacade questionFacade;
     private IdentityManagementFacade identityFacade;

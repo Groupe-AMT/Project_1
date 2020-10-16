@@ -26,13 +26,6 @@ public class JdbcPersonRepository implements IPersonRepository {
     @Resource(lookup = "jdbc/AMTDS")
     private DataSource dataSource;
 
-    public JdbcPersonRepository() {
-    }
-
-    public JdbcPersonRepository(DataSource dataSource) {
-
-    }
-
     public int save(Person person) {
         /*
         This function aims to insert in the database a Person

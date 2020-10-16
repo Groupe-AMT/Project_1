@@ -1,6 +1,6 @@
 package ch.heigvd.amt.projet1.domain;
 import lombok.EqualsAndHashCode;
-import javax.validation.constraints.Null;
+
 import java.util.UUID;
 @EqualsAndHashCode
 public abstract class Id {

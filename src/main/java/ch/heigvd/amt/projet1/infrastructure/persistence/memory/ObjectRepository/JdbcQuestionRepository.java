@@ -5,7 +5,8 @@ import ch.heigvd.amt.projet1.domain.question.Question;
 import ch.heigvd.amt.projet1.domain.question.QuestionId;
 
 import javax.annotation.Resource;
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,8 +17,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-@Stateless
+@ApplicationScoped
+@Named("JdbcQuestionRepository")
 public class JdbcQuestionRepository implements IQuestionRepository {
+
     @Resource(lookup = "jdbc/AMTDS")
     private DataSource dataSource;
 

@@ -1,7 +1,6 @@
 package ch.heigvd.amt.projet1.ui.web.login;
 
 import ch.heigvd.amt.projet1.application.ServiceRegistry;
-import ch.heigvd.amt.projet1.application.identitymanagement.IdentityManagementFacade;
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.AuthentificateCommand;
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.AuthentificateFailedException;
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.CurrentUserDTO;

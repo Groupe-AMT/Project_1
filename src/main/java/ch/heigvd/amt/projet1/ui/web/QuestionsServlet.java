@@ -1,13 +1,11 @@
 package ch.heigvd.amt.projet1.ui.web;
 
 import ch.heigvd.amt.projet1.application.ServiceRegistry;
-import ch.heigvd.amt.projet1.application.questionmanagement.QuestionManagementFacade;
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.CurrentUserDTO;
 import ch.heigvd.amt.projet1.application.questionmanagement.QuestionCommand;
 import ch.heigvd.amt.projet1.application.questionmanagement.QuestionException;
 import ch.heigvd.amt.projet1.domain.question.Question;
 
-import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;

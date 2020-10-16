@@ -20,3 +20,13 @@ services:
             - "9443:9000"
         depends_on:
             - mysql
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        environment:
+            - PMA_HOST=mysql
+        restart: always
+        depends_on:
+            - mysql
+        ports:
+            - "8888:80"

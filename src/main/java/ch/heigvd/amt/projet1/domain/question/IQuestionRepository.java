@@ -1,5 +1,6 @@
-package ch.heigvd.amt.projet1.domain;
+package ch.heigvd.amt.projet1.domain.question;
 
+import ch.heigvd.amt.projet1.domain.IRepository;
 import ch.heigvd.amt.projet1.domain.question.Question;
 import ch.heigvd.amt.projet1.domain.question.QuestionId;
 

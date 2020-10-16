@@ -1,5 +1,5 @@
 /target
 /e2e/node_modules
 .idea
-/DOCKER/volumes/_data
-volumes/_data
+DOCKER/volumes
+volumes

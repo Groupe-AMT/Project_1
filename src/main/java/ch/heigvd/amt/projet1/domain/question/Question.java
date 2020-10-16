@@ -1,16 +1,8 @@
 package ch.heigvd.amt.projet1.domain.question;
 
-
 import ch.heigvd.amt.projet1.domain.IEntity;
-import ch.heigvd.amt.projet1.domain.person.Person;
-import ch.heigvd.amt.projet1.domain.person.PersonId;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import org.mindrot.jbcrypt.BCrypt;
+import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 @Getter
 @Setter
@@ -29,7 +21,6 @@ public class Question  implements IEntity<Question,QuestionId> {
         return this.toBuilder().id(new QuestionId(id.asString())).build();
     }
     public static class QuestionBuilder {
-
         public Question build() {
             if (id == null) {
                 id = new QuestionId();
@@ -37,19 +28,5 @@ public class Question  implements IEntity<Question,QuestionId> {
 
             return new Question(Subject, id, author, content, Tags);
         }
-    }
-
-    //Getters
-    public String getSubject() {
-        return Subject;
-    }
-    public String getAuthor() {
-        return author;
-    }
-    public String getContent() {
-        return content;
-    }
-    public List<String> getTags() {
-        return Tags;
     }
 }

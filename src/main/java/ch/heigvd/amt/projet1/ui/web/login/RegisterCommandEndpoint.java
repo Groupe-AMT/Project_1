@@ -4,10 +4,8 @@ import ch.heigvd.amt.projet1.application.ServiceRegistry;
 import ch.heigvd.amt.projet1.application.identitymanagement.IdentityManagementFacade;
 import ch.heigvd.amt.projet1.application.identitymanagement.login.RegisterCommand;
 import ch.heigvd.amt.projet1.application.identitymanagement.login.RegisterFailedException;
-import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.PersonDAOLocal;
 
 
-import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,8 +17,6 @@ import java.util.List;
 
 @WebServlet(name = "RegisterCommandEndpoint",urlPatterns = "register.do")
 public class RegisterCommandEndpoint extends HttpServlet {
-    @Inject
-    PersonDAOLocal personDAO;
 
     @Inject
     private ServiceRegistry  serviceRegistry;

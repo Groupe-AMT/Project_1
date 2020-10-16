@@ -1,66 +1,55 @@
-package ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao;
+package ch.heigvd.amt.projet1.infrastructure.persistence.memory.ObjectRepository;
 
-import ch.heigvd.amt.projet1.domain.person.Person;
-import ch.heigvd.amt.projet1.domain.person.PersonId;
+import ch.heigvd.amt.projet1.domain.question.IQuestionRepository;
 import ch.heigvd.amt.projet1.domain.question.Question;
 import ch.heigvd.amt.projet1.domain.question.QuestionId;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
-import javax.faces.bean.ApplicationScoped;
-import javax.inject.Named;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Stateless
-public class QuestionDAO implements QuestionDAOLocal{
+public class JdbcQuestionRepository implements IQuestionRepository {
     @Resource(lookup = "jdbc/AMTDS")
     private DataSource dataSource;
 
-    public long save(Question question) {
+    public int save(Question question) {
         /*
         This function aims to insert in the database a Person
         */
-        try{
+        try {
             Connection con = dataSource.getConnection();
 
-            PreparedStatement ps = con.prepareStatement("INSERT INTO Question(id, subject, author, content, tags) VALUES('"+
-                    question.getId().asString()+"','"+
-                    question.getSubject().toString()+"','"+
-                    question.getAuthor().toString()+"','"+
-                    question.getContent().toString()+"','"+
-                    question.getTags().toString()+
+            PreparedStatement ps = con.prepareStatement("INSERT INTO Question(id, subject, author, content, tags) VALUES('" +
+                    question.getId().asString() + "','" +
+                    question.getSubject().toString() + "','" +
+                    question.getAuthor().toString() + "','" +
+                    question.getContent().toString() + "','" +
+                    question.getTags().toString() +
                     "')");
             boolean rs = ps.execute();
 
             ps.close();
             con.close();
         } catch (SQLException ex) {
-            Logger.getLogger(PersonDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JdbcPersonRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
     }
 
-    // TODO: NE SAIT PAS SI FONCTIONNE
-    public long remove(QuestionId id) {
+    public int remove(QuestionId id) {
         /*
         This function aims to remove an user by its id
          */
-        try{
+        try {
             Connection con = dataSource.getConnection();
 
             PreparedStatement ps = con.prepareStatement("DELETE FROM Question WHERE id = " + id.toString());
@@ -69,27 +58,24 @@ public class QuestionDAO implements QuestionDAOLocal{
             ps.close();
             con.close();
         } catch (SQLException ex) {
-            Logger.getLogger(PersonDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JdbcPersonRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
     }
 
     private static ArrayList<String> fromString(String string) {
         String[] strings = string.replace("[", "").replace("]", "").split(", ");
-        ArrayList<String> result = new ArrayList<String>();
-        for (int i = 0; i < strings.length; i++) {
-            result.add(strings[i]);
-        }
+        ArrayList<String> result = new ArrayList<>();
+        result.addAll(Arrays.asList(strings));
         return result;
     }
 
-    // TODO: NE SAIT PAS SI FONCTIONNE
-    public Question findById(QuestionId id) {
+    public Optional<Question> findById(QuestionId id) {
         /*
         This function aims to find and return an user by its id
          */
         Question result = null;
-        try{
+        try {
             Connection con = dataSource.getConnection();
 
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Person WHERE id = " + id.toString());
@@ -101,26 +87,26 @@ public class QuestionDAO implements QuestionDAOLocal{
                     .author(rs.getString("author"))
                     .content(rs.getString("content"))
                     .Tags(fromString(rs.getString("tags"))).build();
-            result = newQuestion;
 
             ps.close();
             con.close();
+            return Optional.of(newQuestion);
 
         } catch (SQLException ex) {
-            Logger.getLogger(PersonDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JdbcPersonRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return result;
+        return Optional.empty();
     }
 
     public List<Question> findAll() {
         List<Question> result = new LinkedList<Question>();
-        try{
+        try {
             Connection con = dataSource.getConnection();
 
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Question");
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()){
+            while (rs.next()) {
                 Question newQuestion = Question.builder()
                         .id(new QuestionId(rs.getString("id")))
                         .Subject(rs.getString("subject"))
@@ -135,8 +121,22 @@ public class QuestionDAO implements QuestionDAOLocal{
             con.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(PersonDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JdbcPersonRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
+    }
+
+    @Override
+    public Collection<Question> findByTag(String tag) {
+        return findAll().stream()
+                .filter(question -> question.getTags().contains(tag))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Collection<Question> findByAuthor(String author) {
+        return findAll().stream()
+                .filter(question -> question.getAuthor().equals(author))
+                .collect(Collectors.toList());
     }
 }

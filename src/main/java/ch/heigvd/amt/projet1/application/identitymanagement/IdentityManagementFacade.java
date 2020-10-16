@@ -1,29 +1,25 @@
 package ch.heigvd.amt.projet1.application.identitymanagement;
 
-import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.AuthentifcateCommand;
+import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.AuthentificateCommand;
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.AuthentificateFailedException;
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.CurrentUserDTO;
 import ch.heigvd.amt.projet1.application.identitymanagement.login.RegisterCommand;
 import ch.heigvd.amt.projet1.application.identitymanagement.login.RegisterFailedException;
 import ch.heigvd.amt.projet1.domain.person.IPersonRepository;
 import ch.heigvd.amt.projet1.domain.person.Person;
-import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.PersonDAO;
-import ch.heigvd.amt.projet1.infrastructure.persistence.memory.dao.PersonDAOLocal;
-
-import javax.ejb.EJB;
-import javax.inject.Inject;
-import javax.inject.Named;
-
 
 public class IdentityManagementFacade {
-    @Inject
-    private PersonDAOLocal personRepository;
+    IPersonRepository personRepository;
+
+    public IdentityManagementFacade(IPersonRepository personRepository){
+        this.personRepository = personRepository;
+    }
 
     public void register(RegisterCommand command)throws RegisterFailedException{
-        Person existingPersonWithSameUsername = personRepository.findByUsername(command.getUsername());//.orElse(null);
-        if(existingPersonWithSameUsername !=null){
+
+        if(personRepository.findByUsername(command.getUsername()).isPresent())
             throw new RegisterFailedException("Username is already used");
-        }
+
         try {
             Person newPerson = Person.builder()
                     .username(command.getUsername())
@@ -37,27 +33,22 @@ public class IdentityManagementFacade {
             throw new RegisterFailedException(e.getMessage());
         }
     }
-    public CurrentUserDTO authenticate(AuthentifcateCommand command) throws AuthentificateFailedException{
-        Person person = null;
-        try{
-            person = personRepository.findByUsername(command.getUsername());
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+
+    public CurrentUserDTO authenticate(AuthentificateCommand command) throws AuthentificateFailedException{
+        Person person = personRepository.findByUsername(command.getUsername()).orElse(null);
 
         boolean success;
         if (person != null){
             success = person.authenticate(command.getClearPassword());
-        } else { success = false; }
-        if(!success){
+        } else {
             throw new AuthentificateFailedException("Verification of credentials failed");
         }
-        CurrentUserDTO currentUser = CurrentUserDTO.builder()
+
+        return CurrentUserDTO.builder()
                 .username(person.getUsername())
                 .firstname(person.getFirstname())
                 .lastname(person.getLastName())
                 .email(person.getEmail())
                 .build();
-        return currentUser;
     }
 }

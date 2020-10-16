@@ -1,4 +1,3 @@
-/*
 package ch.heigvd.amt.projet1.infrastructure.persistence.memory;
 
 import ch.heigvd.amt.projet1.domain.person.IPersonRepository;
@@ -7,10 +6,14 @@ import ch.heigvd.amt.projet1.domain.person.PersonId;
 import ch.heigvd.amt.projet1.infrastructure.persistence.exception.DataCorruptionException;
 import ch.heigvd.amt.projet1.infrastructure.persistence.exception.IntegrityConstaintViolationException;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@ApplicationScoped
+@Named("InMemoryPersonRepository")
 public class InMemoryPersonRepository extends InMemoryRepository<Person, PersonId> implements IPersonRepository {
     @Override
     public Optional<Person> findByUsername(String username) {
@@ -27,14 +30,13 @@ public class InMemoryPersonRepository extends InMemoryRepository<Person, PersonI
     }
 
     @Override
-    public void save(Person entity) {
+    public int save(Person entity) {
         synchronized (entity.getUsername()){
             if(findByUsername(entity.getUsername()).isPresent()){
                 throw new IntegrityConstaintViolationException("Cannot save/update person, integrity constaint violation username already used");
             }
             super.save(entity);
         }
+        return 0;
     }
-
 }
-*/

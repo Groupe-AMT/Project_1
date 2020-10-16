@@ -7,7 +7,7 @@ import lombok.Getter;
 @Builder
 @Getter
 @EqualsAndHashCode
-public class AuthentifcateCommand {
+public class AuthentificateCommand {
     private String username;
     private String clearPassword;
 }

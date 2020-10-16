@@ -56,7 +56,7 @@ jobs:
         uses: docker/build-push-action@v2
         with: 
           context: .
-          file: ./DOCKER/images/openliberty/Dockerfile
+          file: ./DOCKER/docker-compose-yml
           push: true
           tags: ghcr.io/groupe-amt/project_1:latest
           cache-from: type=ghcr.io,ref=ghcr.io/groupe-amt/project_1:latest

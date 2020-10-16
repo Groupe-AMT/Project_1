@@ -5,7 +5,7 @@ import ch.heigvd.amt.projet1.application.identitymanagement.login.RegisterComman
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestIdentityManagementFacade {
-    IdentityManagementFacade id = new IdentityManagementFacade();
+  /*  IdentityManagementFacade id = new IdentityManagementFacade();
     RegisterCommand Rc = new RegisterCommand("jerome_A","jerome@heig-vd.ch","A", "jerome","password");
 
     @Test
@@ -16,5 +16,5 @@ public class TestIdentityManagementFacade {
     @Test
     void Testauthenticate(){
 
-    }
+    }*/
 }

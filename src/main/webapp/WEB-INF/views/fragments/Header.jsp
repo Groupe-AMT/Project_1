@@ -16,7 +16,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Projet_1 AMT</title>
+    <title>Project_1 AMT</title>
 
     <!-- Bootstrap core CSS -->
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -34,27 +34,27 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/Projet_1/">Acceuil
+                    <a class="nav-link" href="${pageContext.request.contextPath}/">Acceuil
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <c:choose>
                     <c:when test="${currentUser!=null}">
                     <li class="nav-item">
-                        <a class="nav-link" href="/Projet_1/logout.do">Logout</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/logout.do">Logout</a>
                     </li>
                     </c:when>
                     <c:otherwise>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Projet_1/login">Login</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/login">Login</a>
                 </li>
                     </c:otherwise>
                 </c:choose>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Projet_1/questions">Questions</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/questions">Questions</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Projet_1/profil">Profil</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/profil">Profil</a>
                 </li>
             </ul>
         </div>

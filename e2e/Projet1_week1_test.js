@@ -1,6 +1,6 @@
 Feature('Projet1_week1');
 
-let root = "http://localhost:8080/Projet_1/";
+let root = "http://localhost:8080/Project_1/";
 
 let usr = "laure";
 let pass = "dinateur";

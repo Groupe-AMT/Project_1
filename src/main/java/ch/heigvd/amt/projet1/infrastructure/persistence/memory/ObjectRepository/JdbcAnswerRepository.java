@@ -41,11 +41,12 @@ public class JdbcAnswerRepository implements IAnswerRepository {
             //uuid = uuid.substring(uuid.lastIndexOf("@"+1));
 
             // Pour ajouter le message dans la bdd
-            PreparedStatement ps1 = con.prepareStatement("INSERT INTO Answer (id, author, content, questionId) VALUES('"+
+            PreparedStatement ps1 = con.prepareStatement("INSERT INTO Answer (id, author, content, questionId, vote) VALUES('"+
                     uuid+"','"+
                     answer.getAuthor()+"','"+
                     answer.getContent()+"','"+
                     answer.getQuestionId().asString()+"','"+
+                    answer.getVote()+"','"+
                     "')");
             ps1.execute();
             con.close();
@@ -89,6 +90,7 @@ public class JdbcAnswerRepository implements IAnswerRepository {
                     .author(rs.getString("author"))
                     .content(rs.getString("content"))
                     .questionId(new QuestionId(rs.getString("questionId")))
+                    .vote(rs.getInt("vote"))
                     .build();
 
             ps.close();
@@ -116,6 +118,7 @@ public class JdbcAnswerRepository implements IAnswerRepository {
                         .author(rs.getString("author"))
                         .content(rs.getString("content"))
                         .questionId(new QuestionId(rs.getString("questionId")))
+                        .vote(rs.getInt("vote"))
                         .build();
                 result.add(newAnswer);
             }
@@ -144,6 +147,7 @@ public class JdbcAnswerRepository implements IAnswerRepository {
                         .author(rs.getString("author"))
                         .content(rs.getString("content"))
                         .questionId(new QuestionId(rs.getString("questionId")))
+                        .vote(rs.getInt("vote"))
                         .build();
                 result.add(newAnswer);
             }

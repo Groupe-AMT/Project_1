@@ -21,6 +21,7 @@ public class Comment implements IEntity<Comment, CommentId> {
     protected String type;
     QuestionId questionId;
     AnswerId answerId;
+    protected int vote;
 
     @Override
     public CommentId getId() {
@@ -37,7 +38,17 @@ public class Comment implements IEntity<Comment, CommentId> {
             if (id == null) {
                 id = new CommentId();
             }
-            return new Comment(id, author, content, type, questionId, answerId);
+            return new Comment(id, author, content, type, questionId, answerId, vote);
         }
+    }
+
+    public int upVote(){
+        this.vote = this.vote + 1;
+        return this.vote;
+    }
+
+    public int downVote(){
+        this.vote = this.vote - 1;
+        return this.vote;
     }
 }

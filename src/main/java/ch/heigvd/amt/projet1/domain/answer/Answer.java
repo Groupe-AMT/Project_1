@@ -18,6 +18,7 @@ public class Answer implements IEntity<Answer, AnswerId> {
     protected String author;
     protected String content;
     Id questionId;
+    protected int vote;
 
     @Override
     public AnswerId getId() {
@@ -34,7 +35,18 @@ public class Answer implements IEntity<Answer, AnswerId> {
             if (id == null) {
                 id = new AnswerId();
             }
-            return new Answer(id, author, content, questionId);
+
+            return new Answer(id, author, content, questionId, vote);
         }
+    }
+
+    public int upVote(){
+        this.vote = this.vote + 1;
+        return this.vote;
+    }
+
+    public int downVote(){
+        this.vote = this.vote - 1;
+        return this.vote;
     }
 }

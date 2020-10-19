@@ -15,6 +15,7 @@ public class Question  implements IEntity<Question,QuestionId> {
     protected String author;
     protected String content;
     List<String> Tags ;
+    protected int vote;
 
     @Override
     public Question deepClone() {
@@ -26,7 +27,17 @@ public class Question  implements IEntity<Question,QuestionId> {
                 id = new QuestionId();
             }
 
-            return new Question(Subject, id, author, content, Tags);
+            return new Question(Subject, id, author, content, Tags, vote);
         }
+    }
+
+    public int upVote(){
+        this.vote = this.vote + 1;
+        return this.vote;
+    }
+
+    public int downVote(){
+        this.vote = this.vote - 1;
+        return this.vote;
     }
 }

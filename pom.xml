@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>Projet_1</name>
+    <name>Project_1</name>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>

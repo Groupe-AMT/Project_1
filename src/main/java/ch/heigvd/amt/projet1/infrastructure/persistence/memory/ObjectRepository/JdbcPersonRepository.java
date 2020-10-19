@@ -185,4 +185,31 @@ public class JdbcPersonRepository implements IPersonRepository {
         }
         return result;
     }
+
+    // Function Statistics
+    public int Size(){
+        /**
+         * This function count the number of persons in the data base
+         */
+        int res = 0;
+
+        try {
+            Connection con = dataSource.getConnection();
+
+            PreparedStatement ps = con.prepareStatement("SELECT count(id) FROM Person");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                res = rs.getInt(1);
+            }
+
+            ps.close();
+            con.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(JdbcAnswerRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return res;
+    }
 }

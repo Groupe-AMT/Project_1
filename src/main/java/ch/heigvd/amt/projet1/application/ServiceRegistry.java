@@ -2,6 +2,9 @@ package ch.heigvd.amt.projet1.application;
 
 import ch.heigvd.amt.projet1.application.identitymanagement.IdentityManagementFacade;
 import ch.heigvd.amt.projet1.application.questionmanagement.QuestionManagementFacade;
+import ch.heigvd.amt.projet1.application.statisticmanagement.StatisticManagementFacade;
+import ch.heigvd.amt.projet1.infrastructure.persistence.memory.ObjectRepository.JdbcAnswerRepository;
+import ch.heigvd.amt.projet1.infrastructure.persistence.memory.ObjectRepository.JdbcCommentRepository;
 import ch.heigvd.amt.projet1.infrastructure.persistence.memory.ObjectRepository.JdbcPersonRepository;
 import ch.heigvd.amt.projet1.infrastructure.persistence.memory.ObjectRepository.JdbcQuestionRepository;
 
@@ -17,14 +20,26 @@ public class ServiceRegistry {
     @Inject
     JdbcQuestionRepository questionRepository;
 
+    @Inject
+    JdbcAnswerRepository answerRepository;
+
+    @Inject
+    JdbcCommentRepository commentRepository;
+
+
     private QuestionManagementFacade questionFacade;
     private IdentityManagementFacade identityFacade;
+
+    //Statistics
+    private StatisticManagementFacade statisticFacade;
 
     @PostConstruct
     // la méthode est appelée
     void init (){
         identityFacade = new IdentityManagementFacade(personRepository);
         questionFacade = new QuestionManagementFacade(questionRepository);
+
+        statisticFacade = new StatisticManagementFacade(questionRepository, answerRepository, commentRepository, personRepository);
     }
 
     public QuestionManagementFacade getQuestionFacade(){
@@ -32,6 +47,10 @@ public class ServiceRegistry {
     }
     public IdentityManagementFacade getIdentityFacade(){
         return identityFacade;
+    }
+
+    public StatisticManagementFacade getStatisticFacade(){
+        return statisticFacade;
     }
 
     /*

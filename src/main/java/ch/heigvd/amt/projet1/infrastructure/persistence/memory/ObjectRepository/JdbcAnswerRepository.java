@@ -160,4 +160,57 @@ public class JdbcAnswerRepository implements IAnswerRepository {
         }
         return result;
     }
+
+    // Function Statistics
+    public int Size(){
+        /**
+         * This function count the number of answers in the data base
+         */
+        int res = 0;
+
+        try {
+            Connection con = dataSource.getConnection();
+
+            PreparedStatement ps = con.prepareStatement("SELECT count(id) FROM Answer");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                res = rs.getInt(1);
+            }
+
+            ps.close();
+            con.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(JdbcAnswerRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return res;
+    }
+
+    public int SizeFor(String username){
+        /**
+         * This function count the number of answers in the data base for a specific username
+         */
+        int res = 0;
+
+        try {
+            Connection con = dataSource.getConnection();
+
+            PreparedStatement ps = con.prepareStatement("SELECT count(id) FROM Answer WHERE author LIKE '"+username+"'");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                res = rs.getInt(1);
+            }
+
+            ps.close();
+            con.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(JdbcAnswerRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return res;
+    }
 }

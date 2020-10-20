@@ -17,8 +17,8 @@ public class IdentityManagementFacade {
 
     public void register(RegisterCommand command)throws RegisterFailedException{
 
-        if(personRepository.findByUsername(command.getUsername()).isPresent())
-            throw new RegisterFailedException("Username is already used");
+        /*if(personRepository.findByUsername(command.getUsername()).isPresent())
+            throw new RegisterFailedException("Username is already used");*/
 
         try {
             Person newPerson = Person.builder()
@@ -28,7 +28,7 @@ public class IdentityManagementFacade {
                     .email(command.getEmail())
                     .clearTextPassword(command.getClearPassword())
                     .build();
-            personRepository.save(newPerson);
+            //personRepository.save(newPerson);
         }catch (Exception e){
             throw new RegisterFailedException(e.getMessage());
         }

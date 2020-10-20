@@ -20,27 +20,20 @@ public class IdentityManagementFacade {
         if(personRepository.findByUsername(command.getUsername()).isPresent())
             throw new RegisterFailedException("Username is already used");
 
-        try {
-            Person newPerson = Person.builder()
-                    .username(command.getUsername())
-                    .firstname(command.getFirstname())
-                    .lastName(command.getLastname())
-                    .email(command.getEmail())
-                    .clearTextPassword(command.getClearPassword())
-                    .build();
-            personRepository.save(newPerson);
-        }catch (Exception e){
-            throw new RegisterFailedException(e.getMessage());
-        }
+        Person newPerson = Person.builder()
+                .username(command.getUsername())
+                .firstname(command.getFirstname())
+                .lastName(command.getLastname())
+                .email(command.getEmail())
+                .clearTextPassword(command.getClearPassword())
+                .build();
+        personRepository.save(newPerson);
     }
 
     public CurrentUserDTO authenticate(AuthentificateCommand command) throws AuthentificateFailedException{
         Person person = personRepository.findByUsername(command.getUsername()).orElse(null);
 
-        boolean success;
-        if (person != null){
-            success = person.authenticate(command.getClearPassword());
-        } else {
+        if (person == null){
             throw new AuthentificateFailedException("Verification of credentials failed");
         }
 

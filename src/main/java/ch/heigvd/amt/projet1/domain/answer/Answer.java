@@ -17,7 +17,7 @@ public class Answer implements IEntity<Answer, AnswerId> {
     AnswerId id;
     protected String author;
     protected String content;
-    Id questionId;
+    String questionId;
     protected int vote;
 
     @Override

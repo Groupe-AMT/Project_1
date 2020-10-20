@@ -82,7 +82,14 @@
     <servlet-name>QuestionPageEndpoint</servlet-name>
     <url-pattern>/question</url-pattern>
   </servlet-mapping>
-
+  <servlet>
+    <servlet-name>QuestionCommandEndpoint</servlet-name>
+    <servlet-class>ch.heigvd.amt.projet1.ui.web.question.QuestionCommandEndpoint</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>QuestionCommandEndpoint</servlet-name>
+    <url-pattern>/question.do</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>ProfilePageEndpoint</servlet-name>
     <servlet-class>ch.heigvd.amt.projet1.ui.web.ProfilePageEndpoint</servlet-class>

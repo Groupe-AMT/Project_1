@@ -25,10 +25,20 @@
             <h2>Question</h2>
 
                 <div class="QuestionsList">
+
                         <div class="QuestionDiv">
                             <td>Author: <c:out value="${Q.getAuthor()}"/> </td><td>Subject: <c:out value="${Q.getSubject()}"/></td>
                             <td>Content :<c:out value="${Q.getContent()}"/> </td>
                         </div>
+                    <c:forEach items="${As}" var="A">  <div class="AnswerDiv">
+                        <td>Author: <c:out value="${A.getAuthor()}"/> </td><td>Subject: <c:out value="${A.getContent()}"/></td>
+                    </div>
+                    </c:forEach>
+                    <form action="${pageContext.request.contextPath}/question.do"method="post">
+                        <input type="textarea" class="content_input" placeholder="Votre réponse" name="answer" required>
+                        <button type="submit" >Répondre</button>
+                        <input type="text" name="id" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
+                    </form>
                 </div>
         </div>
     </div>

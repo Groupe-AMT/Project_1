@@ -37,7 +37,7 @@
 
                             <form action="${pageContext.request.contextPath}/question?id=<c:out value="${Q.getId().asString()}"/>">
                                 <button type="submit" >Voir la question</button>
-                                <input type="text" name="id" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/> ">
+                                <input type="text" name="id" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
                             </form>
                         </div>
                     </c:forEach>

@@ -1,6 +1,7 @@
 package ch.heigvd.amt.projet1.ui.web.question;
 
 import ch.heigvd.amt.projet1.application.ServiceRegistry;
+import ch.heigvd.amt.projet1.domain.answer.Answer;
 import ch.heigvd.amt.projet1.domain.question.Question;
 
 import javax.inject.Inject;
@@ -27,17 +28,21 @@ public class QuestionPageEndpoint extends HttpServlet{
         protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             List<Question> questions = serviceRegistry.getQuestionFacade().getQuestions();
             String id = request.getParameter("id");
-            id = id.substring(0,id.length()-1);
             Question question=null;
             for(Question q : questions) {
-                String a =q.getId().asString();
                 if(q.getId().asString().equals(id)) {
                     question = q;
                     break;
                 }
             }
+            if(question==null)
+                request.getRequestDispatcher("/WEB-INF/views/questions.jsp").forward(request, response);
+
+            List<Answer> answers = serviceRegistry.getAnswerFacade().getRelatedAnswer(question.getId());
+
 
             request.setAttribute("Q",question);
+            request.setAttribute("As",answers);
             request.getRequestDispatcher("/WEB-INF/views/question.jsp").forward(request, response);
         }
     }

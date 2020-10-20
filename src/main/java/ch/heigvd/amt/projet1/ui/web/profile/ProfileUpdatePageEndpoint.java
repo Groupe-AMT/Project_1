@@ -1,5 +1,7 @@
 package ch.heigvd.amt.projet1.ui.web.profile;
 
+import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.CurrentUserDTO;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +16,14 @@ public class ProfileUpdatePageEndpoint extends HttpServlet {
         Object errors = req.getSession().getAttribute("errors");
         req.setAttribute("errors",errors);
         req.getSession().removeAttribute("errors");
+
+        Object currentUser = req.getSession().getAttribute("currentUser");
+        CurrentUserDTO user = (CurrentUserDTO) currentUser;
+
+        req.setAttribute("name", user.getUsername());
+        req.setAttribute("firstname", user.getFirstname());
+        req.setAttribute("lastname", user.getLastname());
+        req.setAttribute("email", user.getEmail());
         req.getRequestDispatcher("/WEB-INF/views/updateProfile.jsp").forward(req,resp);
     }
 }

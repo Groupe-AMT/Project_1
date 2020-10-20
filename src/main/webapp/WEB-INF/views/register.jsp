@@ -31,11 +31,11 @@
         opacity: 0.8;
     }
 </style>
-<div id="login" class="ID" style="margin-top: 300px">
+<div id="login" class="ID" style="margin-top: 50px">
     <c:if test="${errors!=null}">
         <ul>
             <c:forEach items="${errors}" var="error">
-                <li>Error : ${error}</li>
+                <li>${error}</li>
             </c:forEach>
         </ul>
     </c:if>
@@ -49,10 +49,13 @@
         <input type="text" placeholder="Entrez votre nom" name="lastname" required>
         <label for="email"><b>Email</b></label>
         <input type="text" placeholder="Entrez votre email" name="email" required>
-        <label for="password"><b>Mot de passe</b></label>
+        <label for="password"><b>Mot de passe (1 minuscule, 1 majuscule, 1 chiffre, 8 caractères minimum)</b></label>
         <input type="password" placeholder="Entrez votre mot de passe" name="password" required>
 
         <button type="submit">Enregistrement</button>
+    </form>
+    <form method="get" action="/Project_1/login">
+        <button type="submit">Se connecter</button>
     </form>
 </div>
 <%@include file="fragments/Footer.jsp"%>

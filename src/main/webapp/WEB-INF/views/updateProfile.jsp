@@ -39,13 +39,13 @@
         <h2>Changements des informations personnels</h2>
         <form id ="register-form" action="updateProfile.do" method="post">
             <label for="username"><b>Nom d utilisateur</b></label>
-            <input type="text" placeholder="Entrez votre nom d'utilisateur si vous voulez le modifier" name="username">
+            <input type="text" placeholder="Entrez votre nom d'utilisateur si vous voulez le modifier" name="username" value=<c:out value="${name}"/>>
             <label for="firstname"><b>Prenom</b></label>
-            <input type="text" placeholder="Entrez votre prenom si vous voulez le modifier" name="firstname">
+            <input type="text" placeholder="Entrez votre prenom si vous voulez le modifier" name="firstname" value=<c:out value="${firstname}"/>>
             <label for="lastname"><b>Nom</b></label>
-            <input type="text" placeholder="Entrez votre nom si vous voulez le modifier" name="lastname">
+            <input type="text" placeholder="Entrez votre nom si vous voulez le modifier" name="lastname" value=<c:out value="${lastname}"/>>
             <label for="email"><b>Email</b></label>
-            <input type="text" placeholder="Entrez votre email si vous voulez le modifier" name="email">
+            <input type="text" placeholder="Entrez votre email si vous voulez le modifier" name="email" value=<c:out value="${email}"/>>
             <button type="submit">Changez vos informations</button>
         </form>
         <form method="get" action="/Project_1/profile">
@@ -56,7 +56,7 @@
     <c:if test="${errors!=null}">
         <ul>
             <c:forEach items="${errors}" var="error">
-                <li>Error : ${error}</li>
+                <li>${error}</li>
             </c:forEach>
         </ul>
     </c:if>

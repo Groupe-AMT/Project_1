@@ -37,7 +37,7 @@
     <c:if test="${errors!=null}">
         <ul>
             <c:forEach items="${errors}" var="error">
-                <li>Error : ${error}</li>
+                <li>${error}</li>
             </c:forEach>
         </ul>
     </c:if>

@@ -21,7 +21,9 @@ public class IdentityManagementFacade {
     }
 
     public void register(RegisterCommand command)throws RegisterFailedException{
-
+        if (!checkPasswordRules(command.getClearPassword())){
+            throw new RegisterFailedException("Mot de passe faible. Le mot de passe doit contenir une minuscule, une majuscule, un chiffre et minimum 8 caractères.");
+        }
         if(personRepository.findByUsername(command.getUsername()).isPresent())
             throw new RegisterFailedException("Nom d'utilisateur déjà utilisé");
 
@@ -61,7 +63,7 @@ public class IdentityManagementFacade {
     }
 
     public CurrentUserDTO updateProfile(CurrentUserDTO currUser ,UpdateProfileCommand command)throws UpdateProfileFailedException{
-        if(personRepository.findByUsername(command.getUsername()).isPresent())
+        if(personRepository.findByUsername(command.getUsername()).isPresent() && !command.getUsername().equals(currUser.getUsername()))
             throw new UpdateProfileFailedException("Nom d'utilisateur déjà utilisé");
 
         try {
@@ -87,6 +89,10 @@ public class IdentityManagementFacade {
     }
 
     public void updatePassword(CurrentUserDTO currUser, UpdatePasswordCommand command)throws UpdatePasswordFailedException{
+        if (!checkPasswordRules(command.getNew_pass())){
+            throw new UpdatePasswordFailedException("Mot de passe faible. Le mot de passe doit contenir une minuscule, une majuscule, un chiffre et minimum 8 caractères.");
+        }
+
         Person person = personRepository.findByUsername(currUser.getUsername()).orElse(null);
 
         boolean success;
@@ -106,5 +112,31 @@ public class IdentityManagementFacade {
         } else {
             throw new UpdatePasswordFailedException("Mauvais mot de passe");
         }
+    }
+
+    /* Règles à vérifier sur les mots de passe */
+    private boolean checkPasswordRules(String clearPass){
+        boolean res = false;
+
+        if (clearPass.length() >= 8) {
+            boolean hasDigit = false;
+            boolean hasUpperCase = false;
+            boolean hasLowerCase = false;
+
+            for (char c : clearPass.toCharArray()) {
+                if (Character.isDigit(c) && hasDigit == false) {
+                    hasDigit = true;
+                }
+                if (Character.isUpperCase(c) && hasUpperCase == false){
+                    hasUpperCase = true;
+                }
+                if (Character.isLowerCase(c) && hasLowerCase == false){
+                    hasLowerCase = true;
+                }
+            }
+
+            if (hasDigit && hasLowerCase && hasUpperCase) res = true;
+        }
+        return res;
     }
 }

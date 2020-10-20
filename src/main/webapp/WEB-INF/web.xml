@@ -45,12 +45,42 @@
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>QuestionsServlet</servlet-name>
-    <servlet-class>ch.heigvd.amt.projet1.ui.web.QuestionsServlet</servlet-class>
+    <servlet-name>QuestionsPageEndpoint</servlet-name>
+    <servlet-class>ch.heigvd.amt.projet1.ui.web.question.QuestionsPageEndpoint</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>QuestionsServlet</servlet-name>
+    <servlet-name>QuestionsPageEndpoint</servlet-name>
     <url-pattern>/questions</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>QuestionsPageEndpoint</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>askQuestionEndpoint</servlet-name>
+    <servlet-class>ch.heigvd.amt.projet1.ui.web.question.AskQuestionPagEndpoint</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>askQuestionEndpoint</servlet-name>
+    <url-pattern>/ask</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>QuestionsPage</servlet-name>
+    <servlet-class>ch.heigvd.amt.projet1.ui.web.question.QuestionsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>QuestionsPage</servlet-name>
+    <url-pattern>/questions.do</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>QuestionPageEndpoint</servlet-name>
+    <servlet-class>ch.heigvd.amt.projet1.ui.web.question.QuestionPageEndpoint</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>QuestionPageEndpoint</servlet-name>
+    <url-pattern>/question</url-pattern>
   </servlet-mapping>
 
   <servlet>

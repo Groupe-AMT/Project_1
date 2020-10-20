@@ -15,6 +15,12 @@
         </div>
     </div>
     <div class="w3-container" style="margin-top: 20px;">
+         <div class="w3-bar-block w3-dark-grey w3-center" style="width:50%;margin:auto;">
+          <a href="/Project_1/updateProfile" class="w3-bar-item w3-button w3-mobile" style="width:100%;">Changer ses informations personnels</a>
+          <a href="/Project_1/updatePass" class="w3-bar-item w3-button w3-mobile" style="width:100%;">Changer son mot de passe</a>
+        </div>
+    </div>
+    <div class="w3-container" style="margin-top: 20px;">
         <div class="w3-container w3-light-grey">
           <h2>Statistiques</h2>
         </div>

@@ -33,7 +33,7 @@
 
 </style>
 
-<div id="login" class="ID" style="margin-top: 300px">
+<div id="login" class="ID" style="margin-top: 50px">
     <c:if test="${errors!=null}">
         <ul>
             <c:forEach items="${errors}" var="error">
@@ -43,16 +43,16 @@
     </c:if>
 
     <form id ="login-form" action="login.do" method="post">
-    <label for="username"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="username" required>
+    <label for="username"><b>Nom d utilisateur</b></label>
+    <input type="text" placeholder="Entrez votre nom d'utilisateur" name="username" required>
 
-    <label for="password"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="password" required>
+    <label for="password"><b>Mot de passe</b></label>
+    <input type="password" placeholder="Entrez votre mot de passe" name="password" required>
 
-    <button type="submit">Login</button>
+    <button type="submit">Connexion</button>
     </form>
     <form action="${pageContext.request.contextPath}/register">
-        <button type="submit" >Register right Here!</button>
+        <button type="submit" >S enregistrer ici !</button>
     </form>
 </div>
 

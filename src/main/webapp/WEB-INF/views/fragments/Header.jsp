@@ -41,12 +41,12 @@
                 <c:choose>
                     <c:when test="${currentUser!=null}">
                     <li class="nav-item">
-                        <a class="nav-link" href="/Project_1/logout.do">Logout</a>
+                        <a class="nav-link" href="/Project_1/logout.do">Déconnexion</a>
                     </li>
                     </c:when>
                     <c:otherwise>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Project_1/login">Login</a>
+                    <a class="nav-link" href="/Project_1/login">Connexion</a>
                 </li>
                     </c:otherwise>
                 </c:choose>

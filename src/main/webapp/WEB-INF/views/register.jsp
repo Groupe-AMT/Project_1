@@ -41,18 +41,18 @@
     </c:if>
 
     <form id ="register-form" action="register.do" method="post">
-        <label for="username"><b>Username</b></label>
-        <input type="text" placeholder="Enter your Username" name="username" required>
-        <label for="firstname"><b>First name</b></label>
-        <input type="text" placeholder="Enter your Firstname" name="firstname" required>
-        <label for="lastname"><b>Last name</b></label>
-        <input type="text" placeholder="Enter your Lastname" name="lastname" required>
-        <label for="email"><b>email</b></label>
-        <input type="text" placeholder="Enter your email" name="email" required>
-        <label for="password"><b>Password</b></label>
-        <input type="password" placeholder="Enter your Password" name="password" required>
+        <label for="username"><b>Nom d utilisateur</b></label>
+        <input type="text" placeholder="Entrez votre nom d'utilisateur" name="username" required>
+        <label for="firstname"><b>Prenom</b></label>
+        <input type="text" placeholder="Entrez votre prenom" name="firstname" required>
+        <label for="lastname"><b>Nom</b></label>
+        <input type="text" placeholder="Entrez votre nom" name="lastname" required>
+        <label for="email"><b>Email</b></label>
+        <input type="text" placeholder="Entrez votre email" name="email" required>
+        <label for="password"><b>Mot de passe</b></label>
+        <input type="password" placeholder="Entrez votre mot de passe" name="password" required>
 
-        <button type="submit">Register</button>
+        <button type="submit">Enregistrement</button>
     </form>
 </div>
 <%@include file="fragments/Footer.jsp"%>

@@ -8,9 +8,11 @@
 <div class="w3-container w3-center" style="overflow: hidden;">
     <div class="w3-container">
         <div class="w3-card-4" style="margin-top:50px; ">
-          <img src="assets/images/index.jpg" alt="pingouin">
           <div class="w3-container w3-center">
             <h1><c:out value="${name}"/></h1>
+            <h6>prénom: <c:out value="${firstname}"/></h6>
+            <h6>nom: <c:out value="${lastname}"/></h6>
+            <h6>email: <c:out value="${email}"/></h6>
           </div>
         </div>
     </div>

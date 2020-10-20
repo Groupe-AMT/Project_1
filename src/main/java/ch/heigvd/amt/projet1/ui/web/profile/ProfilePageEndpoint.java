@@ -31,6 +31,9 @@ public class ProfilePageEndpoint extends HttpServlet {
         Statistic stats = serviceRegistry.getStatisticFacade().getStats(user.getUsername());
 
         req.setAttribute("name", user.getUsername());
+        req.setAttribute("firstname", user.getFirstname());
+        req.setAttribute("lastname", user.getLastname());
+        req.setAttribute("email", user.getEmail());
         req.setAttribute("stats", stats);
         req.getRequestDispatcher("/WEB-INF/views/profile.jsp").forward(req,resp);
     }

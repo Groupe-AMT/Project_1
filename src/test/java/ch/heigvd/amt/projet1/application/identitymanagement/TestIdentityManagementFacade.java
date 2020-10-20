@@ -1,4 +1,5 @@
-package ch.heigvd.amt.projet1.application;
+package ch.heigvd.amt.projet1.application.identitymanagement;
+
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.AuthentificateCommand;
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.AuthentificateFailedException;
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.CurrentUserDTO;
@@ -8,12 +9,8 @@ import ch.heigvd.amt.projet1.domain.person.IPersonRepository;
 import ch.heigvd.amt.projet1.domain.person.Person;
 import ch.heigvd.amt.projet1.domain.person.PersonId;
 import org.junit.jupiter.api.Test;
-import ch.heigvd.amt.projet1.application.identitymanagement.IdentityManagementFacade;
-
 import java.util.Optional;
-
 import static org.mockito.Mockito.*;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestIdentityManagementFacade {
@@ -52,6 +49,14 @@ public class TestIdentityManagementFacade {
         when(IPR.findByUsername(anyObject())).thenReturn(P);
         when(IPR.save(anyObject())).thenReturn(1);
         assertDoesNotThrow(()->id.register(Rc));
+    }
+
+    @Test
+    void TestregisterFailed() {
+        Optional<Person> P = Optional.of(p);
+        when(IPR.findByUsername(anyObject())).thenReturn(P);
+        doThrow(Exception.class).when(IPR).save(anyObject());
+        assertThrows(RegisterFailedException.class, ()->id.register(Rc));
     }
 
     @Test

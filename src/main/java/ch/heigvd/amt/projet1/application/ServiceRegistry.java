@@ -58,7 +58,6 @@ public class ServiceRegistry {
     public StatisticManagementFacade getStatisticFacade(){
         return statisticFacade;
     }
-
 }
 
 

@@ -40,13 +40,14 @@ public class JdbcCommentRepository implements ICommentRepository {
             //uuid = uuid.substring(uuid.lastIndexOf("@"+1));
 
             // Pour ajouter le message dans la bdd
-            PreparedStatement ps1 = con.prepareStatement("INSERT INTO Comment (id, author, content, type, sourceId) VALUES('"+
+            PreparedStatement ps1 = con.prepareStatement("INSERT INTO Comment (id, author, content, type, questionId, answerId, date) VALUES('"+
                     uuid+"','"+
                     comment.getAuthor()+"','"+
                     comment.getContent()+"','"+
                     comment.getType()+"','"+
                     comment.getQuestionId().asString()+"','"+
                     comment.getAnswerId().asString()+"','"+
+                    comment.getDate()+
                     "')");
             ps1.execute();
             con.close();
@@ -92,6 +93,7 @@ public class JdbcCommentRepository implements ICommentRepository {
                     .type(rs.getString("type"))
                     .questionId(new QuestionId(rs.getString("questionId")))
                     .answerId(new AnswerId(rs.getString("answerId")))
+                    .date(rs.getString("date"))
                     .build();
 
             ps.close();
@@ -121,6 +123,7 @@ public class JdbcCommentRepository implements ICommentRepository {
                         .type(rs.getString("type"))
                         .questionId(new QuestionId(rs.getString("questionId")))
                         .answerId(new AnswerId(rs.getString("answerId")))
+                        .date(rs.getString("date"))
                         .build();
                 result.add(newComment);
             }
@@ -151,6 +154,7 @@ public class JdbcCommentRepository implements ICommentRepository {
                         .type(rs.getString("type"))
                         .questionId(new QuestionId(rs.getString("questionId")))
                         .answerId(new AnswerId(rs.getString("answerId")))
+                        .date(rs.getString("date"))
                         .build();
                 result.add(newComment);
             }

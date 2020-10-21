@@ -31,12 +31,13 @@ public class JdbcQuestionRepository implements IQuestionRepository {
         try {
             Connection con = dataSource.getConnection();
 
-            PreparedStatement ps = con.prepareStatement("INSERT INTO Question(id, subject, author, content, tags) VALUES('" +
+            PreparedStatement ps = con.prepareStatement("INSERT INTO Question(id, subject, author, content, tags, date) VALUES('" +
                     question.getId().asString() + "','" +
                     question.getSubject().toString() + "','" +
                     question.getAuthor().toString() + "','" +
                     question.getContent().toString() + "','" +
-                    question.getTags() +
+                    question.getTags() + "','"+
+                    question.getDate()+
                     "')");
             boolean rs = ps.execute();
 
@@ -89,7 +90,9 @@ public class JdbcQuestionRepository implements IQuestionRepository {
                     .Subject(rs.getString("subject"))
                     .author(rs.getString("author"))
                     .content(rs.getString("content"))
-                    .Tags(fromString(rs.getString("tags"))).build();
+                    .Tags(fromString(rs.getString("tags")))
+                    .date(rs.getString("date"))
+                    .build();
 
             ps.close();
             con.close();
@@ -116,6 +119,7 @@ public class JdbcQuestionRepository implements IQuestionRepository {
                         .author(rs.getString("author"))
                         .content(rs.getString("content"))
                         .Tags(fromString(rs.getString("tags")))
+                        .date(rs.getString("date"))
                         .build();
                 result.add(newQuestion);
             }

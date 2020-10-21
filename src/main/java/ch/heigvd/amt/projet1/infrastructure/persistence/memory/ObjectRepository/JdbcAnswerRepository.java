@@ -16,6 +16,8 @@ import java.sql.PreparedStatement;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -41,11 +43,12 @@ public class JdbcAnswerRepository implements IAnswerRepository {
             //uuid = uuid.substring(uuid.lastIndexOf("@"+1));
 
             // Pour ajouter le message dans la bdd
-            PreparedStatement ps1 = con.prepareStatement("INSERT INTO Answer (id, author, content, questionId) VALUES('"+
+            PreparedStatement ps1 = con.prepareStatement("INSERT INTO Answer (id, author, content, questionId, date) VALUES('"+
                     uuid+"','"+
                     answer.getAuthor()+"','"+
                     answer.getContent()+"','"+
-                    answer.getQuestionId()+
+                    answer.getQuestionId()+"','"+
+                    answer.getDate().toString()+
                     "')");
             ps1.execute();
             con.close();
@@ -89,6 +92,7 @@ public class JdbcAnswerRepository implements IAnswerRepository {
                     .author(rs.getString("author"))
                     .content(rs.getString("content"))
                     .questionId(rs.getString("questionId"))
+                    .date(rs.getString("date"))
                     .build();
 
             ps.close();
@@ -116,6 +120,7 @@ public class JdbcAnswerRepository implements IAnswerRepository {
                         .author(rs.getString("author"))
                         .content(rs.getString("content"))
                         .questionId(rs.getString("questionId"))
+                        .date(rs.getString("date"))
                         .build();
                 result.add(newAnswer);
             }
@@ -144,6 +149,7 @@ public class JdbcAnswerRepository implements IAnswerRepository {
                         .author(rs.getString("author"))
                         .content(rs.getString("content"))
                         .questionId(rs.getString("questionId"))
+                        .date(rs.getString("date"))
                         .build();
                 result.add(newAnswer);
             }

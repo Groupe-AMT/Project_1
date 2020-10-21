@@ -1,8 +1,5 @@
 package ch.heigvd.amt.projet1.application.questionmanagement;
 
-import ch.heigvd.amt.projet1.application.questionmanagement.QuestionCommand;
-import ch.heigvd.amt.projet1.application.questionmanagement.QuestionException;
-import ch.heigvd.amt.projet1.application.questionmanagement.QuestionManagementFacade;
 import ch.heigvd.amt.projet1.domain.question.IQuestionRepository;
 import ch.heigvd.amt.projet1.domain.question.Question;
 import org.junit.jupiter.api.Test;

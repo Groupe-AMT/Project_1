@@ -33,24 +33,6 @@ public class ServiceRegistry {
     public IdentityManagementFacade getIdentityFacade(){
         return identityFacade;
     }
-
-    /*
-    private static ServiceRegistry singleton;
-    private static PersonDAOLocal personRepository;
-    private static IdentityManagementFacade identityManagementFacade;
-    public static ServiceRegistry getServiceRegistry(){
-        if(singleton==null){
-            singleton = new ServiceRegistry();
-        }
-        return singleton;
-    }
-    private ServiceRegistry(){
-        singleton=this;
-        personRepository= new PersonDAO();
-        identityManagementFacade=new IdentityManagementFacade(personRepository);
-    }
-    public  IdentityManagementFacade getIdentityManagementFacade(){return  identityManagementFacade;}
-    */
 }
 
 

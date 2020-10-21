@@ -24,7 +24,7 @@ public class Person implements IEntity<Person,PersonId> {
         return this.toBuilder().id(new PersonId(id.asString())).build();
     }
 
-    public boolean authenticate(String clearTextPassword){
+    public boolean authenticate(String clearTextPassword) throws IllegalArgumentException{
         return  BCrypt.checkpw(clearTextPassword, hashedPassword);
     }
 

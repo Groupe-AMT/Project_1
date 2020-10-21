@@ -13,6 +13,8 @@ import ch.heigvd.amt.projet1.domain.person.IPersonRepository;
 import ch.heigvd.amt.projet1.domain.person.Person;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.util.Optional;
+
 public class IdentityManagementFacade {
     IPersonRepository personRepository;
 
@@ -42,12 +44,14 @@ public class IdentityManagementFacade {
     }
 
     public CurrentUserDTO authenticate(AuthentificateCommand command) throws AuthentificateFailedException{
-        Person person = personRepository.findByUsername(command.getUsername()).orElse(null);
-
-        if (person == null)
+        Person person;
+        if(personRepository.findByUsername(command.getUsername()).isPresent()){
+            person = personRepository.findByUsername(command.getUsername()).get();
+        }else {
             throw new AuthentificateFailedException("Mauvais identifiants");
+        }
 
-        if (person.authenticate(command.getClearPassword())){
+        if (person.authenticate(command.getClearPassword())) {
             return CurrentUserDTO.builder()
                     .username(person.getUsername())
                     .firstname(person.getFirstname())
@@ -60,7 +64,7 @@ public class IdentityManagementFacade {
     }
 
     public CurrentUserDTO updateProfile(CurrentUserDTO currUser ,UpdateProfileCommand command)throws UpdateProfileFailedException{
-        if(personRepository.findByUsername(command.getUsername()).isPresent() && !command.getUsername().equals(currUser.getUsername()))
+        if(!personRepository.findByUsername(command.getUsername()).isPresent())
             throw new UpdateProfileFailedException("Nom d'utilisateur déjà utilisé");
 
         try {
@@ -68,10 +72,10 @@ public class IdentityManagementFacade {
             String newFirstname = command.getFirstname();
             String newLastname = command.getLastname();
             String newEmail = command.getEmail();
-            if ( newUsername.equals("") || newUsername == null){   newUsername = currUser.getUsername();   }
-            if ( newFirstname.equals("") || newFirstname == null){   newFirstname = currUser.getFirstname();   }
-            if ( newLastname.equals("") || newLastname == null){   newLastname = currUser.getLastname();   }
-            if ( newEmail.equals("") || newEmail == null){   newEmail = currUser.getEmail();   }
+            if (newUsername.equals("")){   newUsername = currUser.getUsername();   }
+            if (newFirstname.equals("")){   newFirstname = currUser.getFirstname();   }
+            if (newLastname.equals("")){   newLastname = currUser.getLastname();   }
+            if (newEmail.equals("")){   newEmail = currUser.getEmail();   }
 
             personRepository.updating(currUser, newUsername, newFirstname, newLastname, newEmail);
             return CurrentUserDTO.builder()
@@ -91,7 +95,6 @@ public class IdentityManagementFacade {
 
         Person person = personRepository.findByUsername(currUser.getUsername()).orElse(null);
 
-        boolean success;
         if (person == null)
             throw new UpdatePasswordFailedException("Mauvais mot de passe");
 
@@ -115,9 +118,14 @@ public class IdentityManagementFacade {
 
         if (clearPass.length() >= 8) {
             for (char c : clearPass.toCharArray()) {
-                hasDigit = Character.isDigit(c) && !hasDigit;
-                hasUpperCase = Character.isUpperCase(c) && !hasUpperCase;
-                hasLowerCase = Character.isLowerCase(c) && !hasLowerCase;
+                if(!hasDigit)
+                    hasDigit = Character.isDigit(c);
+
+                if(!hasUpperCase)
+                    hasUpperCase = Character.isUpperCase(c);
+
+                if(!hasLowerCase)
+                    hasLowerCase = Character.isLowerCase(c);
             }
         }
         return hasDigit && hasLowerCase && hasUpperCase;

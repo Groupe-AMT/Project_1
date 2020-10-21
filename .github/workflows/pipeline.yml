@@ -40,9 +40,14 @@ jobs:
         run: mvn clean package
         continue-on-error: true
      
-      - name: setup 
-        run: mvn liberty:create liberty:install-feature liberty:deploy
-        continue-on-error: true
+      - name: liberty create
+        run: mvn liberty:create
+        
+      - name: liberty install-feature
+        run: mvn liberty:install-feature
+        
+      - name: liberty deploy
+        run: mvn liberty:deploy    
         
       - name: Start server
         run: mvn liberty:start

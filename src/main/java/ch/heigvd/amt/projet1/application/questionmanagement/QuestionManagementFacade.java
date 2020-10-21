@@ -34,4 +34,9 @@ public class QuestionManagementFacade {
         List<Question> pageQuestions = (List<Question>) questionRepository.findPageQuestion(currentPage, nbPerPage);
         return pageQuestions;
     }
+
+    public List<Question> getFilteredPageQuestions(int currentPage, int nbPerPage, List<String> Tags){
+        List<Question> pageQuestions = (List<Question>) questionRepository.FilterfindPageQuestion(currentPage, nbPerPage, Tags);
+        return pageQuestions;
+    }
 }

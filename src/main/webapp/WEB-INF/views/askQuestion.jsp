@@ -16,7 +16,7 @@
                 <input type="text" class="w3-input" placeholder="Entrez un sujet" name="subject_form" required>
 
                 <label for="tags_form"><b>  Tags</b></label>
-                <input type="text" class="w3-input" placeholder="adulte/cinema/musique" name="tags_form" required>
+                <input type="text" class="w3-input" placeholder="adulte cinema musique" name="tags_form" required>
 
                 <input type="textarea" class="content_input" style="width:85%; height:500px; margin:auto;" placeholder="Ecrivez votre question" name="content_form" required>
 

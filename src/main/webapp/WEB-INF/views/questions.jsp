@@ -21,11 +21,11 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12 text-center">
-            <h2>Question</h2>
+            <h2><a class="w3-button w3-light-grey" href="${pageContext.request.contextPath}/questions">Question</a></h2>
 
             <div class="w3-bar w3-light-grey" style="width:90%; margin:auto;">
                 <form action="${pageContext.request.contextPath}/search">
-                         <input type="text" class="w3-bar-item w3-input w3-rightbar" style="width:25%;" placeholder="tags: Java Ordinateur ...">
+                         <input type="text" class="w3-bar-item w3-input w3-rightbar" name="tags_form" style="width:25%;" placeholder="tags: Java Ordinateur ...">
                          <button class="w3-bar-item w3-button w3-rightbar" style="width:25%;" type="submit" >Chercher</button>
                 </form>
                 <form action="${pageContext.request.contextPath}/ask">

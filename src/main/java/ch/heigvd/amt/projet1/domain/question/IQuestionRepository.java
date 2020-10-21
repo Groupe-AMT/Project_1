@@ -12,6 +12,7 @@ public interface IQuestionRepository extends IRepository<Question, QuestionId> {
     public Collection<Question> findByAuthor(String author);
 
     public List<Question> findPageQuestion(int currentPage, int nbPerPage);
+    public List<Question> FilterfindPageQuestion(int currentPage, int nbPerPage, List<String> Tags);
 
     //Statistics
     public int SizeFor(String username);

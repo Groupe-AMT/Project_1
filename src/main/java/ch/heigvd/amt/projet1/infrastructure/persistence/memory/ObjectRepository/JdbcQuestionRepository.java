@@ -164,6 +164,42 @@ public class JdbcQuestionRepository implements IQuestionRepository {
         return result;
     }
 
+    public List<Question> FilterfindPageQuestion(int currentPage, int nbPerPage, List<String> Tags) {
+        List<Question> result = new LinkedList<Question>();
+
+        int start = currentPage * nbPerPage - nbPerPage;
+        try {
+            Connection con = dataSource.getConnection();
+
+            String Filter = " tags LIKE '%"+ Tags.get(0) +"%' ";
+            for (int i = 1; i<Tags.size(); i++){
+                Filter = Filter + "&& tags LIKE '%"+ Tags.get(i) +"%' ";
+            }
+
+            PreparedStatement ps = con.prepareStatement("SELECT DISTINCT * FROM Question WHERE"+ Filter +"LIMIT "+Integer.toString(start)+", " + Integer.toString(nbPerPage));
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Question newQuestion = Question.builder()
+                        .id(new QuestionId(rs.getString("id")))
+                        .Subject(rs.getString("subject"))
+                        .author(rs.getString("author"))
+                        .content(rs.getString("content"))
+                        .Tags(fromString(rs.getString("tags")))
+                        .date(rs.getString("date"))
+                        .build();
+                result.add(newQuestion);
+            }
+
+            ps.close();
+            con.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(JdbcPersonRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+
     @Override
     public Collection<Question> findByTag(String tag) {
         return findAll().stream()

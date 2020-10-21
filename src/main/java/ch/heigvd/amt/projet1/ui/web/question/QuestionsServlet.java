@@ -33,7 +33,7 @@ public class QuestionsServlet<TestQuestion> extends javax.servlet.http.HttpServl
         HttpSession session = request.getSession(true);
         if (session.getAttribute("currentUser")!=null) {
             String subj = request.getParameter("subject_form");
-            List<String> tags = Arrays.asList(request.getParameter("tags_form").split("/").clone());
+            List<String> tags = Arrays.asList(request.getParameter("tags_form").toUpperCase().split(" ").clone());
             String cont = request.getParameter("content_form");
             try{
                 CurrentUserDTO currentUserDTO = (CurrentUserDTO)session.getAttribute("currentUser");

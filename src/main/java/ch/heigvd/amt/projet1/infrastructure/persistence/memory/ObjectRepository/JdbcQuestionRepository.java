@@ -36,7 +36,7 @@ public class JdbcQuestionRepository implements IQuestionRepository {
                     question.getSubject().toString() + "','" +
                     question.getAuthor().toString() + "','" +
                     question.getContent().toString() + "','" +
-                    question.getTags().toString() +
+                    question.getTags() +
                     "')");
             boolean rs = ps.execute();
 

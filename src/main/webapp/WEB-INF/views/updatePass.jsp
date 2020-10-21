@@ -42,7 +42,7 @@
             <input type="password" placeholder="Entrez votre ancien mot de passe" name="pass" required>
             <label for="newpass"><b>Nouveau mot de passe</b></label>
             <input type="password" placeholder="Entrez votre nouveau mot de passe" name="newpass" required>
-            <button type="submit">Changez votre mot de passe</button>
+            <button type="submit">Changez votre mot de passe (1 minuscule, 1 majuscule, 1 chiffre, 8 caractères minimum)</button>
         </form>
         <form method="get" action="/Project_1/profile">
             <button type="submit">Retour</button>

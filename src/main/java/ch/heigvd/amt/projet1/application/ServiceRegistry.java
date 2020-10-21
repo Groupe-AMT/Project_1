@@ -1,5 +1,6 @@
 package ch.heigvd.amt.projet1.application;
 
+import ch.heigvd.amt.projet1.application.answermanagement.AnswerManagementFacade;
 import ch.heigvd.amt.projet1.application.identitymanagement.IdentityManagementFacade;
 import ch.heigvd.amt.projet1.application.questionmanagement.QuestionManagementFacade;
 import ch.heigvd.amt.projet1.application.statisticmanagement.StatisticManagementFacade;
@@ -29,6 +30,7 @@ public class ServiceRegistry {
 
     private QuestionManagementFacade questionFacade;
     private IdentityManagementFacade identityFacade;
+    private AnswerManagementFacade answerFacade;
 
     //Statistics
     private StatisticManagementFacade statisticFacade;
@@ -38,6 +40,7 @@ public class ServiceRegistry {
     void init (){
         identityFacade = new IdentityManagementFacade(personRepository);
         questionFacade = new QuestionManagementFacade(questionRepository);
+        answerFacade = new AnswerManagementFacade(answerRepository);
 
         statisticFacade = new StatisticManagementFacade(questionRepository, answerRepository, commentRepository, personRepository);
     }
@@ -48,28 +51,14 @@ public class ServiceRegistry {
     public IdentityManagementFacade getIdentityFacade(){
         return identityFacade;
     }
+    public AnswerManagementFacade getAnswerFacade(){
+        return answerFacade;
+    }
 
     public StatisticManagementFacade getStatisticFacade(){
         return statisticFacade;
     }
 
-    /*
-    private static ServiceRegistry singleton;
-    private static PersonDAOLocal personRepository;
-    private static IdentityManagementFacade identityManagementFacade;
-    public static ServiceRegistry getServiceRegistry(){
-        if(singleton==null){
-            singleton = new ServiceRegistry();
-        }
-        return singleton;
-    }
-    private ServiceRegistry(){
-        singleton=this;
-        personRepository= new PersonDAO();
-        identityManagementFacade=new IdentityManagementFacade(personRepository);
-    }
-    public  IdentityManagementFacade getIdentityManagementFacade(){return  identityManagementFacade;}
-    */
 }
 
 

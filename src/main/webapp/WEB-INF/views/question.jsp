@@ -27,7 +27,7 @@
                 <div class="QuestionsList">
 
                         <div class="QuestionDiv">
-                            <td>Author: <c:out value="${Q.getAuthor()}"/> </td><td>Subject: <c:out value="${Q.getSubject()}"/></td>
+                            <td>Author: <c:out value="${Q.getAuthor()}"/> </td><td>Subject: <c:out value="${Q.getSubject()}"/><td>Date: <c:out value="${Q.getDate()}"/></td>
                             <td>Content :<c:out value="${Q.getContent()}"/> </td>
                             <c:forEach items="${Cs[0]}" var="C">
                                 <div class="comment">
@@ -42,10 +42,11 @@
                                 <input type="text" name="type" hidden="hidden" value="question"/>
                             </form>
                         </div>
+
                     <h2>answer</h2>
 
                     <c:forEach items="${As}" var="A" varStatus="i" >  <div class="AnswerDiv">
-                        <td>Author: <c:out value="${A.getAuthor()}"/> </td><td>Subject: <c:out value="${A.getContent()}"/></td>
+                        <td>Date: <c:out value="${A.getDate()}"/><td>Author: <c:out value="${A.getAuthor()}"/> </td><td>Subject: <c:out value="${A.getContent()}"/></td>
 
                         <c:forEach items="${Cs[i.count]}" var="C">
                             <div class="comment">
@@ -60,6 +61,10 @@
                             <input type="text" name="id" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
                             <input type="text" name="type" hidden="hidden" value="answer"/>
                         </form>
+
+                    <c:forEach items="${As}" var="A">  <div class="AnswerDiv">
+                        <td>Author: <c:out value="${A.getAuthor()}"/> </td><td>Subject: <c:out value="${A.getContent()}"/></td>
+
                     </div>
                     </c:forEach>
                     <!-- answer form-->

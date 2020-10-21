@@ -33,7 +33,7 @@
                 <div class="QuestionsList">
                     <c:forEach items="${Qs}" var="Q">
                         <div class="QuestionDiv">
-                            <td>Author: <c:out value="${Q.getAuthor()}"/> </td><td>Subject: <c:out value="${Q.getSubject()}"/></td>
+                            <td>Author: <c:out value="${Q.getAuthor()}"/> </td><td>Subject: <c:out value="${Q.getSubject()}"/><td>Date: <c:out value="${Q.getDate()}"/></td>
 
                             <form action="${pageContext.request.contextPath}/question?id=<c:out value="${Q.getId().asString()}"/>">
                                 <button type="submit" >Voir la question</button>

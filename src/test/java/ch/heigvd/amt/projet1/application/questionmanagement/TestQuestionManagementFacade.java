@@ -50,12 +50,6 @@ public class TestQuestionManagementFacade {
     }
 
     @Test
-    void testSaveQuestionFailed(){
-        doThrow(Exception.class).when(IQR).save(anyObject());
-        assertThrows(QuestionException.class, ()->QMF.saveQuestion(Qc));
-    }
-
-    @Test
     void testListQuestion(){
         when(IQR.findAll()).thenReturn(listQuestion);
         assertEquals(listQuestion, QMF.getQuestions());

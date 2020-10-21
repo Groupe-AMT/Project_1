@@ -34,42 +34,41 @@ public class TestIdentityManagementFacade {
             .email("jerome@heig-vd.ch")
             .build();
     Person p = new Person(new PersonId(),"jerome_A","jerome@heig-vd.ch","jerome", "A","password");
+    Person newPerson = Person.builder()
+            .username("jerome_A")
+            .firstname("jerome@heig-vd.ch")
+            .lastName("A")
+            .email("jerome@heig-vd.ch")
+            .clearTextPassword("password")
+            .build();
 
     @Test
     void TestregisterUserDontExist() {
         Optional<Person> P = Optional.of(p);
-        when(IPR.findByUsername(anyObject())).thenReturn(P);
-        when(IPR.save(anyObject())).thenReturn(1);
+        when(IPR.findByUsername(anyString())).thenReturn(P);
+        when(IPR.save(newPerson)).thenReturn(1);
         assertThrows(RegisterFailedException.class, ()->id.register(Rc));
     }
 
     @Test
     void TestregisterUserAlreadyExist() {
         Optional<Person> P = Optional.empty();
-        when(IPR.findByUsername(anyObject())).thenReturn(P);
-        when(IPR.save(anyObject())).thenReturn(1);
+        when(IPR.findByUsername(anyString())).thenReturn(P);
+        when(IPR.save(newPerson)).thenReturn(1);
         assertDoesNotThrow(()->id.register(Rc));
-    }
-
-    @Test
-    void TestregisterFailed() {
-        Optional<Person> P = Optional.of(p);
-        when(IPR.findByUsername(anyObject())).thenReturn(P);
-        doThrow(Exception.class).when(IPR).save(anyObject());
-        assertThrows(RegisterFailedException.class, ()->id.register(Rc));
     }
 
     @Test
     void TestauthenticateFailed(){
         Optional<Person> P = Optional.empty();
-        when(IPR.findByUsername(anyObject())).thenReturn(P);
+        when(IPR.findByUsername(anyString())).thenReturn(P);
         assertThrows(AuthentificateFailedException.class, ()->id.authenticate(Ac));
     }
 
     @Test
     void TestauthenticateOk(){
         Optional<Person> P = Optional.of(p);
-        when(IPR.findByUsername(anyObject())).thenReturn(P);
+        when(IPR.findByUsername(anyString())).thenReturn(P);
         assertDoesNotThrow(()->id.authenticate(Ac));
         try{
             assertEquals(id.authenticate(Ac), CDTO);

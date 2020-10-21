@@ -36,8 +36,9 @@ jobs:
         with:
           java-version: 11
       
-      - name: clean
-        run: mvn clean
+      - name: clean and package
+        run: mvn clean package
+        continue-on-error: true
      
       - name: setup 
         run: mvn liberty:create liberty:install-feature liberty:deploy

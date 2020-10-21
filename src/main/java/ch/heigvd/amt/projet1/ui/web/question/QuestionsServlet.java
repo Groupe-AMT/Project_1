@@ -29,7 +29,7 @@ public class QuestionsServlet<TestQuestion> extends javax.servlet.http.HttpServl
     }
 
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         if (session.getAttribute("currentUser")!=null) {
             String subj = request.getParameter("subject_form");
@@ -43,7 +43,6 @@ public class QuestionsServlet<TestQuestion> extends javax.servlet.http.HttpServl
                     .subject(subj)
                     .tags(tags)
                     .build();
-
                 serviceRegistry.getQuestionFacade().saveQuestion(questionCommand);
             }catch (QuestionException e){
                 request.getSession().setAttribute("errors", List.of(e.getMessage()));

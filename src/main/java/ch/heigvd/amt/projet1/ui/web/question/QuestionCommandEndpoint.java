@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-@WebServlet(name = "QuestionCommandEndpoint",urlPatterns = "/question.do")
+@WebServlet(name = "QuestionCommandEndpoint",urlPatterns = "question.do")
 public class QuestionCommandEndpoint extends HttpServlet {
     @Inject
     private ServiceRegistry serviceRegistry;
@@ -37,12 +37,11 @@ public class QuestionCommandEndpoint extends HttpServlet {
             AnswerManagementFacade answerManagementFacade = serviceRegistry.getAnswerFacade();
             try {
                 answerManagementFacade.saveAnswer(answerCommand);
-
-                resp.sendRedirect(req.getContextPath()+"/question?id="+req.getParameter("id"));
+                req.getRequestDispatcher("/question?id="+req.getParameter("id")).forward(req, resp);
                 return;
             } catch (AnswerException e) {
                 req.getSession().setAttribute("errors", List.of(e.getMessage()));
-                resp.sendRedirect(req.getContextPath()+"/question?id="+req.getParameter("id"));
+                resp.sendRedirect(req.getContextPath() + "/questions");
                 return;
             }
         }

@@ -27,11 +27,11 @@
                 <div class="QuestionsList">
 
                         <div class="QuestionDiv">
-                            <td>Author: <c:out value="${Q.getAuthor()}"/> </td><td>Subject: <c:out value="${Q.getSubject()}"/><td>Date: <c:out value="${Q.getDate()}"/></td>
+                            <td>Author: <c:out value="${Q.getAuthor()}"/> </td><td>Subject: <c:out value="${Q.getSubject()}"/></td>
                             <td>Content :<c:out value="${Q.getContent()}"/> </td>
                         </div>
                     <c:forEach items="${As}" var="A">  <div class="AnswerDiv">
-                        <td>Date: <c:out value="${A.getDate()}"/><td>Author: <c:out value="${A.getAuthor()}"/> </td><td>Subject: <c:out value="${A.getContent()}"/></td>
+                        <td>Author: <c:out value="${A.getAuthor()}"/> </td><td>Subject: <c:out value="${A.getContent()}"/></td>
                     </div>
                     </c:forEach>
                     <form action="${pageContext.request.contextPath}/question.do"method="post">

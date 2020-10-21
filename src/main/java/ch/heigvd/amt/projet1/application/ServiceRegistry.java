@@ -41,12 +41,13 @@ public class ServiceRegistry {
         identityFacade = new IdentityManagementFacade(personRepository);
         questionFacade = new QuestionManagementFacade(questionRepository);
         answerFacade = new AnswerManagementFacade(answerRepository);
-
-        statisticFacade = new StatisticManagementFacade(questionRepository, answerRepository, commentRepository, personRepository);
     }
 
     public QuestionManagementFacade getQuestionFacade(){
         return questionFacade;
+    }
+    public AnswerManagementFacade getAnswerFacade(){
+        return answerFacade;
     }
     public IdentityManagementFacade getIdentityFacade(){
         return identityFacade;

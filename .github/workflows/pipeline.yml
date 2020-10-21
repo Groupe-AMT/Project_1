@@ -39,24 +39,6 @@ jobs:
       - name: clean and package
         run: mvn clean package
         continue-on-error: true
-     
-      - name: liberty create
-        run: mvn liberty:create
-        
-      - name: liberty install-feature
-        run: mvn liberty:install-feature
-        
-      - name: liberty deploy
-        run: mvn liberty:deploy    
-        
-      - name: Start server
-        run: mvn liberty:start
-        
-      - name: verify
-        run: mvn verify
-    
-      - name: Stop server
-        run: mvn liberty:stop
       
       - name: Set up Docker build
         uses: docker/setup-buildx-action@v1

@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import javax.inject.Inject;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(Arquillian.class)
 public class TestServiceRegistry {
@@ -28,7 +29,8 @@ public class TestServiceRegistry {
 
     @Test
     public void test (){
-        //IdentityManagementFacade IPR = SR.getIdentityFacade();
-        //assertEquals("2","1");
+        IdentityManagementFacade IPR = SR.getIdentityFacade();
+        assertNotNull(IPR);
+        assertEquals("1","1");
     }
 }

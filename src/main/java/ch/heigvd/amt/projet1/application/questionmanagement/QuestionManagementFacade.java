@@ -12,7 +12,6 @@ public class QuestionManagementFacade {
         this.questionRepository = questionRepository;
     }
 
-    // public QuestionManagementFacade(IQuestionRepository questionRepository){this.questionRepository=questionRepository;}
     public void saveQuestion(QuestionCommand command) throws QuestionException{
         try {
             Question newQuestion = Question.builder()

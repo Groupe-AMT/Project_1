@@ -4,6 +4,9 @@ import ch.heigvd.amt.projet1.application.ServiceRegistry;
 import ch.heigvd.amt.projet1.application.answermanagement.AnswerCommand;
 import ch.heigvd.amt.projet1.application.answermanagement.AnswerException;
 import ch.heigvd.amt.projet1.application.answermanagement.AnswerManagementFacade;
+import ch.heigvd.amt.projet1.application.commentmanagement.CommentCommand;
+import ch.heigvd.amt.projet1.application.commentmanagement.CommentException;
+import ch.heigvd.amt.projet1.application.commentmanagement.CommentManagementFacade;
 import ch.heigvd.amt.projet1.application.identitymanagement.IdentityManagementFacade;
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.CurrentUserDTO;
 import ch.heigvd.amt.projet1.application.identitymanagement.login.RegisterFailedException;
@@ -29,21 +32,40 @@ public class QuestionCommandEndpoint extends HttpServlet {
         HttpSession session = req.getSession(true);
         if (session.getAttribute("currentUser")!=null) {
             CurrentUserDTO currentUserDTO = (CurrentUserDTO) session.getAttribute("currentUser");
-            AnswerCommand answerCommand = AnswerCommand.builder()
-                    .author(currentUserDTO.getUsername())
-                    .content(req.getParameter("answer"))
-                    .questionId(req.getParameter("id"))
-                    .build();
-            AnswerManagementFacade answerManagementFacade = serviceRegistry.getAnswerFacade();
-            try {
-                answerManagementFacade.saveAnswer(answerCommand);
 
-                resp.sendRedirect(req.getContextPath()+"/question?id="+req.getParameter("id"));
-                return;
-            } catch (AnswerException e) {
-                req.getSession().setAttribute("errors", List.of(e.getMessage()));
-                resp.sendRedirect(req.getContextPath()+"/question?id="+req.getParameter("id"));
-                return;
+            if (req.getParameter("type") != null) {
+                CommentCommand commentCommand = CommentCommand.builder()
+                        .author(currentUserDTO.getUsername())
+                        .content(req.getParameter("answer"))
+                        .type(req.getParameter("type"))
+                        .Id(req.getParameter("aid"))
+                        .build();
+                CommentManagementFacade commentManagementFacade = serviceRegistry.getCommentFacade();
+                try {
+                    commentManagementFacade.saveComment(commentCommand);
+                } catch (CommentException e) {
+                    req.getSession().setAttribute("errors", List.of(e.getMessage()));
+                }finally {
+                    resp.sendRedirect(req.getContextPath() + "/question?id=" + req.getParameter("id"));
+                    return;
+                }
+            } else {
+                AnswerCommand answerCommand = AnswerCommand.builder()
+                        .author(currentUserDTO.getUsername())
+                        .content(req.getParameter("answer"))
+                        .questionId(req.getParameter("id"))
+                        .build();
+                AnswerManagementFacade answerManagementFacade = serviceRegistry.getAnswerFacade();
+                try {
+                    answerManagementFacade.saveAnswer(answerCommand);
+
+                    resp.sendRedirect(req.getContextPath() + "/question?id=" + req.getParameter("id"));
+                    return;
+                } catch (AnswerException e) {
+                    req.getSession().setAttribute("errors", List.of(e.getMessage()));
+                    resp.sendRedirect(req.getContextPath() + "/question?id=" + req.getParameter("id"));
+                    return;
+                }
             }
         }
     }

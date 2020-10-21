@@ -1,6 +1,7 @@
 package ch.heigvd.amt.projet1.application;
 
 import ch.heigvd.amt.projet1.application.answermanagement.AnswerManagementFacade;
+import ch.heigvd.amt.projet1.application.commentmanagement.CommentManagementFacade;
 import ch.heigvd.amt.projet1.application.identitymanagement.IdentityManagementFacade;
 import ch.heigvd.amt.projet1.application.questionmanagement.QuestionManagementFacade;
 import ch.heigvd.amt.projet1.application.statisticmanagement.StatisticManagementFacade;
@@ -31,7 +32,7 @@ public class ServiceRegistry {
     private QuestionManagementFacade questionFacade;
     private IdentityManagementFacade identityFacade;
     private AnswerManagementFacade answerFacade;
-
+    private CommentManagementFacade commentFacade;
     //Statistics
     private StatisticManagementFacade statisticFacade;
 
@@ -41,7 +42,7 @@ public class ServiceRegistry {
         identityFacade = new IdentityManagementFacade(personRepository);
         questionFacade = new QuestionManagementFacade(questionRepository);
         answerFacade = new AnswerManagementFacade(answerRepository);
-
+        commentFacade = new CommentManagementFacade(commentRepository);
         statisticFacade = new StatisticManagementFacade(questionRepository, answerRepository, commentRepository, personRepository);
     }
 
@@ -55,6 +56,9 @@ public class ServiceRegistry {
         return answerFacade;
     }
 
+    public CommentManagementFacade getCommentFacade(){
+        return commentFacade;
+    }
     public StatisticManagementFacade getStatisticFacade(){
         return statisticFacade;
     }

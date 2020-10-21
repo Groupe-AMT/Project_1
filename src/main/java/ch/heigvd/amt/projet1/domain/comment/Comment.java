@@ -19,8 +19,8 @@ public class Comment implements IEntity<Comment, CommentId> {
     protected String author;
     protected String content;
     protected String type;
-    QuestionId questionId;
-    AnswerId answerId;
+    String questionId;
+    String answerId;
     protected int vote;
 
     @Override
@@ -37,6 +37,14 @@ public class Comment implements IEntity<Comment, CommentId> {
         public Comment build() {
             if (id == null) {
                 id = new CommentId();
+            }
+            if(type.equals("answer"))
+                questionId="null";
+            else if (type.equals("question"))
+                answerId="null";
+            else{
+                questionId ="null";
+                answerId="null";
             }
             return new Comment(id, author, content, type, questionId, answerId, vote);
         }

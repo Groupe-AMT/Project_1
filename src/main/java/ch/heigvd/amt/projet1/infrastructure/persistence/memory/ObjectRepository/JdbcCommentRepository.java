@@ -40,13 +40,13 @@ public class JdbcCommentRepository implements ICommentRepository {
             //uuid = uuid.substring(uuid.lastIndexOf("@"+1));
 
             // Pour ajouter le message dans la bdd
-            PreparedStatement ps1 = con.prepareStatement("INSERT INTO Comment (id, author, content, type, sourceId) VALUES('"+
+            PreparedStatement ps1 = con.prepareStatement("INSERT INTO Comment (id, author, content, type, questionId,answerId) VALUES('"+
                     uuid+"','"+
                     comment.getAuthor()+"','"+
                     comment.getContent()+"','"+
                     comment.getType()+"','"+
-                    comment.getQuestionId().asString()+"','"+
-                    comment.getAnswerId().asString()+"','"+
+                    comment.getQuestionId()+"','"+
+                    comment.getAnswerId()+
                     "')");
             ps1.execute();
             con.close();
@@ -64,7 +64,7 @@ public class JdbcCommentRepository implements ICommentRepository {
         try{
             Connection con = dataSource.getConnection();
 
-            PreparedStatement ps1 = con.prepareStatement("DELETE FROM Comment WHERE id = " + id.asString());
+            PreparedStatement ps1 = con.prepareStatement("DELETE FROM Comment WHERE id = '" + id.asString()+"'");
             ps1.executeQuery();
             ps1.close();
             con.close();
@@ -82,7 +82,7 @@ public class JdbcCommentRepository implements ICommentRepository {
         try {
             Connection con = dataSource.getConnection();
 
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM Comment WHERE id = " + id.asString());
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Comment WHERE id = '" + id.asString()+"'");
             ResultSet rs = ps.executeQuery();
 
             Comment result = Comment.builder()
@@ -90,8 +90,8 @@ public class JdbcCommentRepository implements ICommentRepository {
                     .author(rs.getString("author"))
                     .content(rs.getString("content"))
                     .type(rs.getString("type"))
-                    .questionId(new QuestionId(rs.getString("questionId")))
-                    .answerId(new AnswerId(rs.getString("answerId")))
+                    .questionId(rs.getString("questionId"))
+                    .answerId(rs.getString("answerId"))
                     .build();
 
             ps.close();
@@ -119,8 +119,8 @@ public class JdbcCommentRepository implements ICommentRepository {
                         .author(rs.getString("author"))
                         .content(rs.getString("content"))
                         .type(rs.getString("type"))
-                        .questionId(new QuestionId(rs.getString("questionId")))
-                        .answerId(new AnswerId(rs.getString("answerId")))
+                        .questionId( rs.getString("questionId"))
+                        .answerId(rs.getString("answerId"))
                         .build();
                 result.add(newComment);
             }
@@ -139,8 +139,8 @@ public class JdbcCommentRepository implements ICommentRepository {
         List<Comment> result = new LinkedList<Comment>();
         try{
             Connection con = dataSource.getConnection();
-
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM Comment WHERE "+type+"Id LIKE" + id.asString());
+            String sql = "SELECT * FROM Comment WHERE "+type+"Id LIKE '" + id.asString()+"'";
+            PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()){
@@ -149,8 +149,8 @@ public class JdbcCommentRepository implements ICommentRepository {
                         .author(rs.getString("author"))
                         .content(rs.getString("content"))
                         .type(rs.getString("type"))
-                        .questionId(new QuestionId(rs.getString("questionId")))
-                        .answerId(new AnswerId(rs.getString("answerId")))
+                        .questionId(rs.getString("questionId"))
+                        .answerId(rs.getString("answerId"))
                         .build();
                 result.add(newComment);
             }

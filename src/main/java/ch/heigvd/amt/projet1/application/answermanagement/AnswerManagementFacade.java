@@ -18,7 +18,7 @@ public class AnswerManagementFacade {
             Answer newAnswer = Answer.builder()
                     .author(command.getAuthor())
                     .questionId(command.getQuestionId())
-                    .content(command.getContent())
+                    .content(command.getContent().replaceAll("'"," "))
                     .build();
 
             answerRepository.save(newAnswer);

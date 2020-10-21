@@ -16,9 +16,9 @@ public class QuestionManagementFacade {
         try {
             Question newQuestion = Question.builder()
                     .author(command.getAuthor())
-                    .Subject(command.getSubject())
+                    .Subject(command.getSubject().replaceAll("'"," "))
                     .Tags(command.getTags())
-                    .content(command.getContent())
+                    .content(command.getContent().replaceAll("'"," "))
                     .build();
             questionRepository.save(newQuestion);
         }catch (Exception e){

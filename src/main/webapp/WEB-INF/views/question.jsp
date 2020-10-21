@@ -36,18 +36,26 @@
                       </div>
                     </li>
                 </div>
-
-               <div class="Reponse" style="margin:auto; padding-top:20px;">
-                    <c:forEach items="${As}" var="A">  <div class="AnswerDiv">
-                        <td>Date: <c:out value="${A.getDate()}"/><td>Author: <c:out value="${A.getAuthor()}"/> </td><td>Subject: <c:out value="${A.getContent()}"/></td>
-                    </div>
-                    </c:forEach>
+                <div >
                     <form action="${pageContext.request.contextPath}/question.do"method="post">
                         <input type="textarea" class="content_input" placeholder="Votre réponse" name="answer" required><br>
-                        <button type="submit" >Répondre</button>
-                        <input type="text" name="id" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
+                        <button class="w3-button" type="submit" style="margin:auto; margin-top:20px; background-color:CornflowerBlue;" >Répondre</button>
+                        <input type="textarea" name="id" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
                     </form>
                 </div>
+               <c:forEach items="${As}" var="A">
+               <div class="Reponse" style="margin:auto; padding-top:5px;">
+                   <div class="w3-panel w3-leftbar w3-border-blue w3-pale-blue w3-left-align">
+                         <div class="w3-bar-item" style="width:100%; padding:0px;">
+                           <span>par <c:out value="${A.getAuthor()}"/> le <c:out value="${A.getDate()}"/></span>
+                           <div class="w3-white" style="margin:auto; margin-top:25px; width:80%;">
+                               <p style="color:black;">
+                                   <c:out value="${A.getContent()}"/>
+                               </p>
+                         </div>
+                   </div>
+                </div>
+            </c:forEach>
         </div>
     </div>
 </div>

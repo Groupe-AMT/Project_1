@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-@WebServlet("/questions.do")
+@WebServlet(name = "QuestionsServlet",urlPatterns = "/questions.do")
 public class QuestionsServlet<TestQuestion> extends javax.servlet.http.HttpServlet {
 
     @Inject

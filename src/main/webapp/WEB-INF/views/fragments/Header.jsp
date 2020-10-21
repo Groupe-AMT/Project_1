@@ -34,19 +34,19 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/">Acceuil
+                    <a class="nav-link" href="${pageContext.request.contextPath}/">Accueil
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <c:choose>
                     <c:when test="${currentUser!=null}">
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/logout.do">Logout</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/logout.do">Déconnexion</a>
                     </li>
                     </c:when>
                     <c:otherwise>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/login">Login</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/login">Connexion</a>
                 </li>
                     </c:otherwise>
                 </c:choose>
@@ -54,7 +54,7 @@
                     <a class="nav-link" href="${pageContext.request.contextPath}/questions">Questions</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/profil">Profil</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/profile">Profil</a>
                 </li>
             </ul>
         </div>

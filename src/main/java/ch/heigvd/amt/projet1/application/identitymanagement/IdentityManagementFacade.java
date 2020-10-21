@@ -44,13 +44,10 @@ public class IdentityManagementFacade {
     public CurrentUserDTO authenticate(AuthentificateCommand command) throws AuthentificateFailedException{
         Person person = personRepository.findByUsername(command.getUsername()).orElse(null);
 
-        boolean success;
-        if (person != null){
-            success = person.authenticate(command.getClearPassword());
-        } else {
+        if (person == null)
             throw new AuthentificateFailedException("Mauvais identifiants");
-        }
-        if (success){
+
+        if (person.authenticate(command.getClearPassword())){
             return CurrentUserDTO.builder()
                     .username(person.getUsername())
                     .firstname(person.getFirstname())
@@ -89,54 +86,40 @@ public class IdentityManagementFacade {
     }
 
     public void updatePassword(CurrentUserDTO currUser, UpdatePasswordCommand command)throws UpdatePasswordFailedException{
-        if (!checkPasswordRules(command.getNew_pass())){
+        if (!checkPasswordRules(command.getNew_pass()))
             throw new UpdatePasswordFailedException("Mot de passe faible. Le mot de passe doit contenir une minuscule, une majuscule, un chiffre et minimum 8 caractères.");
-        }
 
         Person person = personRepository.findByUsername(currUser.getUsername()).orElse(null);
 
         boolean success;
-        if (person != null){
-            success = person.authenticate(command.getPrev_pass());
-        } else {
+        if (person == null)
             throw new UpdatePasswordFailedException("Mauvais mot de passe");
-        }
 
-        if (success){
-            String hashpassword = BCrypt.hashpw(command.getNew_pass(), BCrypt.gensalt());
-            try {
+        String hashpassword = BCrypt.hashpw(command.getNew_pass(), BCrypt.gensalt());
+        try {
+            if (person.authenticate(command.getPrev_pass()))
                 personRepository.changingPass(currUser, hashpassword);
-            }catch (Exception e){
-                throw new UpdatePasswordFailedException("Echec de la mise à jour");
-            }
-        } else {
-            throw new UpdatePasswordFailedException("Mauvais mot de passe");
+             else
+                throw new UpdatePasswordFailedException("Mauvais mot de passe");
+
+        }catch (Exception e){
+            throw new UpdatePasswordFailedException("Echec de la mise à jour");
         }
     }
 
     /* Règles à vérifier sur les mots de passe */
     private boolean checkPasswordRules(String clearPass){
-        boolean res = false;
+        boolean hasDigit = false;
+        boolean hasUpperCase = false;
+        boolean hasLowerCase = false;
 
         if (clearPass.length() >= 8) {
-            boolean hasDigit = false;
-            boolean hasUpperCase = false;
-            boolean hasLowerCase = false;
-
             for (char c : clearPass.toCharArray()) {
-                if (Character.isDigit(c) && hasDigit == false) {
-                    hasDigit = true;
-                }
-                if (Character.isUpperCase(c) && hasUpperCase == false){
-                    hasUpperCase = true;
-                }
-                if (Character.isLowerCase(c) && hasLowerCase == false){
-                    hasLowerCase = true;
-                }
+                hasDigit = Character.isDigit(c) && !hasDigit;
+                hasUpperCase = Character.isUpperCase(c) && !hasUpperCase;
+                hasLowerCase = Character.isLowerCase(c) && !hasLowerCase;
             }
-
-            if (hasDigit && hasLowerCase && hasUpperCase) res = true;
         }
-        return res;
+        return hasDigit && hasLowerCase && hasUpperCase;
     }
 }

@@ -19,28 +19,26 @@
 </style>
 <!-- Page Content -->
 <div class="container">
-    <form action="${pageContext.request.contextPath}/search">
-        <input type="text" title="Rechercher"/>
-        <button type="submit" >Rechercher</button>
-    </form>
-    <form action="${pageContext.request.contextPath}/ask">
-        <button type="submit" >Poser une question</button>
-    </form>
+
     <div class="row">
         <div class="col-lg-12 text-center">
             <h2>Question</h2>
 
                 <div class="QuestionsList">
-                    <c:forEach items="${Qs}" var="Q">
+
                         <div class="QuestionDiv">
                             <td>Author: <c:out value="${Q.getAuthor()}"/> </td><td>Subject: <c:out value="${Q.getSubject()}"/><td>Date: <c:out value="${Q.getDate()}"/></td>
-
-                            <form action="${pageContext.request.contextPath}/question?id=<c:out value="${Q.getId().asString()}"/>">
-                                <button type="submit" >Voir la question</button>
-                                <input type="text" name="id" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
-                            </form>
+                            <td>Content :<c:out value="${Q.getContent()}"/> </td>
                         </div>
+                    <c:forEach items="${As}" var="A">  <div class="AnswerDiv">
+                        <td>Date: <c:out value="${A.getDate()}"/><td>Author: <c:out value="${A.getAuthor()}"/> </td><td>Subject: <c:out value="${A.getContent()}"/></td>
+                    </div>
                     </c:forEach>
+                    <form action="${pageContext.request.contextPath}/question.do"method="post">
+                        <input type="textarea" class="content_input" placeholder="Votre réponse" name="answer" required>
+                        <button type="submit" >Répondre</button>
+                        <input type="text" name="id" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
+                    </form>
                 </div>
         </div>
     </div>

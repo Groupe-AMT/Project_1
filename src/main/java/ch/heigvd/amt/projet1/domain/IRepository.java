@@ -8,4 +8,7 @@ public interface IRepository< ENTITY,ID> {
     public int remove(ID id);
     public  Optional<ENTITY> findById(ID id);
     public Collection<ENTITY> findAll();
+
+    //Statistics
+    public int Size();
 }

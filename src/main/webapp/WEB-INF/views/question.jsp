@@ -22,7 +22,7 @@
 
     <div class="row">
         <div class="col-lg-12 text-center">
-            <h2>Question</h2>
+            <h2><a class="w3-button w3-light-grey" href="${pageContext.request.contextPath}/questions">Question</a></h2>
 
                 <div class="Question" style="margin:auto;">
                     <li class="w3-bar w3-bottombar" type="submit" style="margin:auto; width:90%; background-color: Gray; overflow:hidden; color:white;">

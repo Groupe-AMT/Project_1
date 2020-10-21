@@ -21,11 +21,11 @@ public class TestIdentityManagementFacade {
             .firstname("jerome@heig-vd.ch")
             .lastname("A")
             .email("jerome@heig-vd.ch")
-            .clearPassword("password")
+            .clearPassword("Passw0rd")
             .build();
     AuthentificateCommand Ac = AuthentificateCommand.builder()
             .username("jerome_A")
-            .clearPassword("password")
+            .clearPassword("Passw0rd")
             .build();
     CurrentUserDTO CDTO = CurrentUserDTO.builder()
             .username("jerome_A")
@@ -39,7 +39,7 @@ public class TestIdentityManagementFacade {
             .firstname("jerome@heig-vd.ch")
             .lastName("A")
             .email("jerome@heig-vd.ch")
-            .clearTextPassword("password")
+            .clearTextPassword("Passw0rd")
             .build();
 
     @Test

@@ -22,6 +22,7 @@ public class Answer implements IEntity<Answer, AnswerId> {
     protected String content;
     String questionId;
     protected int vote;
+    protected String date;
 
     @Override
     public AnswerId getId() {
@@ -43,7 +44,7 @@ public class Answer implements IEntity<Answer, AnswerId> {
                 date = formatter.format(new Date());
             }
 
-            return new Answer(id, author, content, questionId, date ,vote);
+            return new Answer(id, author, content, questionId ,vote, date);
         }
     }
 

@@ -21,14 +21,13 @@ public class IdentityManagementFacade {
     }
 
     public void register(RegisterCommand command)throws RegisterFailedException{
-        if (!checkPasswordRules(command.getClearPassword())){
+        if (!checkPasswordRules(command.getClearPassword()))
             throw new RegisterFailedException("Mot de passe faible. Le mot de passe doit contenir une minuscule, une majuscule, un chiffre et minimum 8 caractères.");
-        }
+
         if(personRepository.findByUsername(command.getUsername()).isPresent())
             throw new RegisterFailedException("Nom d'utilisateur déjà utilisé");
 
         try {
-
             Person newPerson = Person.builder()
                     .username(command.getUsername())
                     .firstname(command.getFirstname())

@@ -42,11 +42,8 @@ public class ServiceRegistry {
         identityFacade = new IdentityManagementFacade(personRepository);
         questionFacade = new QuestionManagementFacade(questionRepository);
         answerFacade = new AnswerManagementFacade(answerRepository);
-<<<<<<< HEAD
         commentFacade = new CommentManagementFacade(commentRepository);
         statisticFacade = new StatisticManagementFacade(questionRepository, answerRepository, commentRepository, personRepository);
-=======
->>>>>>> jerome
     }
 
     public QuestionManagementFacade getQuestionFacade(){
@@ -58,10 +55,6 @@ public class ServiceRegistry {
     public IdentityManagementFacade getIdentityFacade(){
         return identityFacade;
     }
-    public AnswerManagementFacade getAnswerFacade(){
-        return answerFacade;
-    }
-
     public CommentManagementFacade getCommentFacade(){
         return commentFacade;
     }

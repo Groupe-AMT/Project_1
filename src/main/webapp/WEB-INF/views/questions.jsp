@@ -19,30 +19,45 @@
 </style>
 <!-- Page Content -->
 <div class="container">
-    <form action="${pageContext.request.contextPath}/search">
-        <input type="text" title="Rechercher"/>
-        <button type="submit" >Rechercher</button>
-    </form>
-    <form action="${pageContext.request.contextPath}/ask">
-        <button type="submit" >Poser une question</button>
-    </form>
     <div class="row">
         <div class="col-lg-12 text-center">
             <h2>Question</h2>
 
-                <div class="QuestionsList">
-                    <c:forEach items="${Qs}" var="Q">
-                        <div class="QuestionDiv">
-                            <td>Author: <c:out value="${Q.getAuthor()}"/> </td><td>Subject: <c:out value="${Q.getSubject()}"/><td>Date: <c:out value="${Q.getDate()}"/></td>
+            <div class="w3-bar w3-light-grey" style="width:90%; margin:auto;">
+                <form action="${pageContext.request.contextPath}/search">
+                         <input type="text" class="w3-bar-item w3-input w3-rightbar" style="width:25%;" placeholder="tags: Java Ordinateur ...">
+                         <button class="w3-bar-item w3-button w3-rightbar" style="width:25%;" type="submit" >Chercher</button>
+                </form>
+                <form action="${pageContext.request.contextPath}/ask">
+                    <button class="w3-bar-item w3-button w3-border-right" style="width:50%;" type="submit" >Poser une question</button>
+                </form>
+            </div>
 
-                            <form action="${pageContext.request.contextPath}/question?id=<c:out value="${Q.getId().asString()}"/>">
-                                <button type="submit" >Voir la question</button>
-                                <input type="text" name="id" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
-                            </form>
-                        </div>
-                    </c:forEach>
-                </div>
+            <c:forEach items="${Qs}" var="Q">
+                <form action="${pageContext.request.contextPath}/question">
+                    <input type="text" name="id" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
+                    <button class="w3-bar w3-bottombar w3-button" type="submit" style="width:90%; height:70px; background-color: Gray; overflow:hidden; color:white;">
+                      <div class="w3-bar-item" style="width:100%; padding:0px;">
+                        <span class="w3-large"><c:out value="${Q.getSubject()}"/></span><br>
+                        <span>par <c:out value="${Q.getAuthor()}"/> le <c:out value="${Q.getDate()}"/></span>
+                      </div>
+                    </button>
+                </form>
+            </c:forEach>
         </div>
+
+        <div class="w3-center" style="margin:auto;">
+            <form action="${pageContext.request.contextPath}/questions">
+                 <select class="w3-select" name="currentPage">
+                  <option value="" disabled selected><c:out value="${currentPage}"/></option>
+                  <c:forEach items="${Pages}" var="P">
+                  <option value="<c:out value="${P}"/>"><c:out value="${P}"/></option>
+                  </c:forEach>
+                </select>
+                <button type="submit">Changer de page</button>
+            </form>
+        </div>
+
     </div>
 </div>
 <%@include file="fragments/Footer.jsp"%>

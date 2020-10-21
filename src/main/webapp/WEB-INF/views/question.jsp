@@ -24,18 +24,26 @@
         <div class="col-lg-12 text-center">
             <h2>Question</h2>
 
-                <div class="QuestionsList">
+                <div class="Question" style="margin:auto;">
+                    <li class="w3-bar w3-bottombar" type="submit" style="margin:auto; width:90%; background-color: Gray; overflow:hidden; color:white;">
+                      <div class="w3-bar-item" style="width:100%; padding:0px;">
+                        <span class="w3-large"><c:out value="${Q.getSubject()}"/></span><br>
+                        <span>par <c:out value="${Q.getAuthor()}"/> le <c:out value="${Q.getDate()}"/></span>
+                        <div class="w3-white" style="margin:auto; margin-top:25px; width:80%;">
+                            <p style="color:black;">
+                                <c:out value="${Q.getContent()}"/>
+                            </p>
+                      </div>
+                    </li>
+                </div>
 
-                        <div class="QuestionDiv">
-                            <td>Author: <c:out value="${Q.getAuthor()}"/> </td><td>Subject: <c:out value="${Q.getSubject()}"/><td>Date: <c:out value="${Q.getDate()}"/></td>
-                            <td>Content :<c:out value="${Q.getContent()}"/> </td>
-                        </div>
+               <div class="Reponse" style="margin:auto; padding-top:20px;">
                     <c:forEach items="${As}" var="A">  <div class="AnswerDiv">
                         <td>Date: <c:out value="${A.getDate()}"/><td>Author: <c:out value="${A.getAuthor()}"/> </td><td>Subject: <c:out value="${A.getContent()}"/></td>
                     </div>
                     </c:forEach>
                     <form action="${pageContext.request.contextPath}/question.do"method="post">
-                        <input type="textarea" class="content_input" placeholder="Votre réponse" name="answer" required>
+                        <input type="textarea" class="content_input" placeholder="Votre réponse" name="answer" required><br>
                         <button type="submit" >Répondre</button>
                         <input type="text" name="id" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
                     </form>

@@ -133,6 +133,37 @@ public class JdbcQuestionRepository implements IQuestionRepository {
         return result;
     }
 
+    public List<Question> findPageQuestion(int currentPage, int nbPerPage) {
+        List<Question> result = new LinkedList<Question>();
+
+        int start = currentPage * nbPerPage - nbPerPage;
+        try {
+            Connection con = dataSource.getConnection();
+
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Question LIMIT "+Integer.toString(start)+", " + Integer.toString(nbPerPage));
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Question newQuestion = Question.builder()
+                        .id(new QuestionId(rs.getString("id")))
+                        .Subject(rs.getString("subject"))
+                        .author(rs.getString("author"))
+                        .content(rs.getString("content"))
+                        .Tags(fromString(rs.getString("tags")))
+                        .date(rs.getString("date"))
+                        .build();
+                result.add(newQuestion);
+            }
+
+            ps.close();
+            con.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(JdbcPersonRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+
     @Override
     public Collection<Question> findByTag(String tag) {
         return findAll().stream()

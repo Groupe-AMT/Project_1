@@ -26,6 +26,8 @@ public class QuestionPageEndpoint extends HttpServlet{
         }
 
         protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            response.setContentType("text/html;charset=UTF-8");
+
             List<Question> questions = serviceRegistry.getQuestionFacade().getQuestions();
             String id = request.getParameter("id");
             Question question=null;

@@ -11,12 +11,11 @@
 <html lang="fr">
 
 <head>
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Projet_1 AMT</title>
+    <title>Project_1 AMT</title>
 
     <!-- Bootstrap core CSS -->
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

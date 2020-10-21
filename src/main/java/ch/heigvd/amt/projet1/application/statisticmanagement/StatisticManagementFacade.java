@@ -31,4 +31,8 @@ public class StatisticManagementFacade {
                 .nbSelfComments(commentRepository.SizeFor(username))
                 .build();
     }
+
+    public int getQuestionSize(){
+        return questionRepository.Size();
+    }
 }

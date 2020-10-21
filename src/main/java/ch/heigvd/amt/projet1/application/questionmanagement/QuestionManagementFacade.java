@@ -30,4 +30,9 @@ public class QuestionManagementFacade {
         List<Question> allQuestions = (List<Question>) questionRepository.findAll();
         return allQuestions;
     }
+
+    public List<Question> getPageQuestions(int currentPage, int nbPerPage){
+        List<Question> pageQuestions = (List<Question>) questionRepository.findPageQuestion(currentPage, nbPerPage);
+        return pageQuestions;
+    }
 }

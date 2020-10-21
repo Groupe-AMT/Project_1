@@ -4,17 +4,26 @@
 <%@include file="fragments/Header.jsp"%>
 
 <div class="newQuestion">
-    <form id ="question-form" action="questions.do" method="post">
-        <div class="QuestionDesc">
-            <label for="subject_form"><b>Subject</b></label>
-            <input type="text" placeholder="Enter a subject" name="subject_form" required>
+     <div class="w3-card-4" style="width:80%; margin:auto; padding-top:50px;">
 
-            <label for="tags_form"><b>Tags</b></label>
-            <input type="text" placeholder="adult/cinema/music" name="tags_form" required>
-
-            <button type="submit" name="send_form">Send</button><br>
+        <div class="w3-container w3-green">
+          <h2>Poser une question</h2>
         </div>
-        <input type="textarea" class="content_input" placeholder="Type your question" name="content_form" required>
-    </form>
+
+        <form id ="question-form" action="questions.do" method="post">
+            <div class="QuestionDesc">
+                <label for="subject_form"><b>   Sujet</b></label>
+                <input type="text" class="w3-input" placeholder="Entrez un sujet" name="subject_form" required>
+
+                <label for="tags_form"><b>  Tags</b></label>
+                <input type="text" class="w3-input" placeholder="adulte/cinema/musique" name="tags_form" required>
+
+                <input type="textarea" class="content_input" style="width:85%; height:500px; margin:auto;" placeholder="Ecrivez votre question" name="content_form" required>
+
+                <button type="submit" class="w3-input" name="send_form">Envoyez</button><br>
+            </div>
+        </form>
+    </div>
 </div>
+
 <%@include file="fragments/Footer.jsp"%>

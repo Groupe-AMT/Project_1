@@ -25,8 +25,10 @@ public class AskQuestionPageEndpoint extends HttpServlet {
         }
 
         protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            List<Question> questions = serviceRegistry.getQuestionFacade().getQuestions();
-            request.setAttribute("Qs",questions);
+            response.setContentType("text/html;charset=UTF-8");
+
+            //List<Question> questions = serviceRegistry.getQuestionFacade().getQuestions();
+            //request.setAttribute("Qs",questions);
             request.getRequestDispatcher("/WEB-INF/views/askQuestion.jsp").forward(request, response);
         }
 }

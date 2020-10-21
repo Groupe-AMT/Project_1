@@ -16,6 +16,8 @@ import java.sql.PreparedStatement;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -134,7 +136,6 @@ public class JdbcAnswerRepository implements IAnswerRepository {
         List<Answer> result = new LinkedList<Answer>();
         try{
             Connection con = dataSource.getConnection();
-
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Answer WHERE questionId LIKE '" + id.asString()+"'");
             ResultSet rs = ps.executeQuery();
 
@@ -155,5 +156,58 @@ public class JdbcAnswerRepository implements IAnswerRepository {
             Logger.getLogger(JdbcAnswerRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
+    }
+
+    // Function Statistics
+    public int Size(){
+        /**
+         * This function count the number of answers in the data base
+         */
+        int res = 0;
+
+        try {
+            Connection con = dataSource.getConnection();
+
+            PreparedStatement ps = con.prepareStatement("SELECT count(id) FROM Answer");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                res = rs.getInt(1);
+            }
+
+            ps.close();
+            con.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(JdbcAnswerRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return res;
+    }
+
+    public int SizeFor(String username){
+        /**
+         * This function count the number of answers in the data base for a specific username
+         */
+        int res = 0;
+
+        try {
+            Connection con = dataSource.getConnection();
+
+            PreparedStatement ps = con.prepareStatement("SELECT count(id) FROM Answer WHERE author LIKE '"+username+"'");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                res = rs.getInt(1);
+            }
+
+            ps.close();
+            con.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(JdbcAnswerRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return res;
     }
 }

@@ -1,5 +1,6 @@
 package ch.heigvd.amt.projet1.infrastructure.persistence.memory.ObjectRepository;
 
+import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.CurrentUserDTO;
 import ch.heigvd.amt.projet1.domain.person.IPersonRepository;
 import ch.heigvd.amt.projet1.domain.person.Person;
 import ch.heigvd.amt.projet1.domain.person.PersonId;
@@ -8,6 +9,7 @@ import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.sql.DataSource;
+import java.io.Console;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -184,5 +186,99 @@ public class JdbcPersonRepository implements IPersonRepository {
             Logger.getLogger(JdbcPersonRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
+    }
+
+    // Functions for changing ones identity and password
+    public void updating(CurrentUserDTO user, String username, String firstname, String lastname, String email){
+        try {
+            Connection con = dataSource.getConnection();
+
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Person WHERE username LIKE '" + user.getUsername() + "'");
+            ResultSet rs = ps.executeQuery();
+
+            rs.next();
+            Person currentPerson = null;
+            currentPerson = Person.builder()
+                    .id(new PersonId(rs.getString("id")))
+                    .username(rs.getString("username"))
+                    .firstname(rs.getString("firstname"))
+                    .lastName(rs.getString("lastname"))
+                    .email(rs.getString("email"))
+                    .hashedPassword(rs.getString("password"))
+                    .build();
+            ps.close();
+
+            String uuid = currentPerson.getId().asString();
+
+            PreparedStatement psu = con.prepareStatement("UPDATE Person SET " +
+                    "username = '"+ username + "', " +
+                    "firstname = '"+ firstname + "', " +
+                    "lastname = '"+ lastname + "', " +
+                    "email = '"+ email + "' " +
+                    "WHERE id LIKE '"+ uuid +"';");
+            boolean rsu = psu.execute();
+
+            psu.close();
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(JdbcPersonRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void changingPass(CurrentUserDTO user, String new_pass){
+        try {
+            Connection con = dataSource.getConnection();
+
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Person WHERE username = '" + user.getUsername() + "'");
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            Person currentPerson = Person.builder()
+                    .id(new PersonId(rs.getString("id")))
+                    .username(rs.getString("username"))
+                    .firstname(rs.getString("firstname"))
+                    .lastName(rs.getString("lastname"))
+                    .email(rs.getString("email"))
+                    .hashedPassword(rs.getString("password"))
+                    .build();
+            ps.close();
+
+            String uuid = currentPerson.getId().asString();
+            PreparedStatement psu = con.prepareStatement("UPDATE Person SET " +
+                    "password = '"+ new_pass + "'" +
+                    "WHERE id = '"+ uuid +"'");
+            boolean rsu = psu.execute();
+
+            psu.close();
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(JdbcPersonRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    // Function Statistics
+    public int Size(){
+        /**
+         * This function count the number of persons in the data base
+         */
+        int res = 0;
+
+        try {
+            Connection con = dataSource.getConnection();
+
+            PreparedStatement ps = con.prepareStatement("SELECT count(id) FROM Person");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                res = rs.getInt(1);
+            }
+
+            ps.close();
+            con.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(JdbcAnswerRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return res;
     }
 }

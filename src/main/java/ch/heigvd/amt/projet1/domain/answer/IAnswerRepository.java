@@ -13,4 +13,7 @@ import java.util.List;
 
 public interface IAnswerRepository extends IRepository<Answer, AnswerId> {
     public List<Answer> findAllforQuestion(QuestionId id);
+
+    //Statistics
+    public int SizeFor(String username);
 }

@@ -31,12 +31,13 @@ public class JdbcQuestionRepository implements IQuestionRepository {
         try {
             Connection con = dataSource.getConnection();
 
-            PreparedStatement ps = con.prepareStatement("INSERT INTO Question(id, subject, author, content, tags) VALUES('" +
+            PreparedStatement ps = con.prepareStatement("INSERT INTO Question(id, subject, author, content, tags, date) VALUES('" +
                     question.getId().asString() + "','" +
                     question.getSubject().toString() + "','" +
                     question.getAuthor().toString() + "','" +
                     question.getContent().toString() + "','" +
-                    question.getTags().toString() +
+                    question.getTags() + "','"+
+                    question.getDate()+
                     "')");
             boolean rs = ps.execute();
 
@@ -89,7 +90,9 @@ public class JdbcQuestionRepository implements IQuestionRepository {
                     .Subject(rs.getString("subject"))
                     .author(rs.getString("author"))
                     .content(rs.getString("content"))
-                    .Tags(fromString(rs.getString("tags"))).build();
+                    .Tags(fromString(rs.getString("tags")))
+                    .date(rs.getString("date"))
+                    .build();
 
             ps.close();
             con.close();
@@ -116,6 +119,7 @@ public class JdbcQuestionRepository implements IQuestionRepository {
                         .author(rs.getString("author"))
                         .content(rs.getString("content"))
                         .Tags(fromString(rs.getString("tags")))
+                        .date(rs.getString("date"))
                         .build();
                 result.add(newQuestion);
             }
@@ -141,5 +145,58 @@ public class JdbcQuestionRepository implements IQuestionRepository {
         return findAll().stream()
                 .filter(question -> question.getAuthor().equals(author))
                 .collect(Collectors.toList());
+    }
+
+    // Function Statistics
+    public int Size(){
+        /**
+         * This function count the number of questions in the data base
+         */
+        int res = 0;
+
+        try {
+            Connection con = dataSource.getConnection();
+
+            PreparedStatement ps = con.prepareStatement("SELECT count(id) FROM Question");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                res = rs.getInt(1);
+            }
+
+            ps.close();
+            con.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(JdbcAnswerRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return res;
+    }
+
+    public int SizeFor(String username){
+        /**
+         * This function count the number of question in the data base for a specific username
+         */
+        int res = 0;
+
+        try {
+            Connection con = dataSource.getConnection();
+
+            PreparedStatement ps = con.prepareStatement("SELECT count(id) FROM Question WHERE author LIKE '"+username+"'");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                res = rs.getInt(1);
+            }
+
+            ps.close();
+            con.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(JdbcAnswerRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return res;
     }
 }

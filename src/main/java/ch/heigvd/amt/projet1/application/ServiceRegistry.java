@@ -3,7 +3,9 @@ package ch.heigvd.amt.projet1.application;
 import ch.heigvd.amt.projet1.application.answermanagement.AnswerManagementFacade;
 import ch.heigvd.amt.projet1.application.identitymanagement.IdentityManagementFacade;
 import ch.heigvd.amt.projet1.application.questionmanagement.QuestionManagementFacade;
+import ch.heigvd.amt.projet1.application.statisticmanagement.StatisticManagementFacade;
 import ch.heigvd.amt.projet1.infrastructure.persistence.memory.ObjectRepository.JdbcAnswerRepository;
+import ch.heigvd.amt.projet1.infrastructure.persistence.memory.ObjectRepository.JdbcCommentRepository;
 import ch.heigvd.amt.projet1.infrastructure.persistence.memory.ObjectRepository.JdbcPersonRepository;
 import ch.heigvd.amt.projet1.infrastructure.persistence.memory.ObjectRepository.JdbcQuestionRepository;
 
@@ -21,9 +23,17 @@ public class ServiceRegistry {
 
     @Inject
     JdbcAnswerRepository answerRepository;
+
+    @Inject
+    JdbcCommentRepository commentRepository;
+
+
     private QuestionManagementFacade questionFacade;
     private IdentityManagementFacade identityFacade;
     private AnswerManagementFacade answerFacade;
+
+    //Statistics
+    private StatisticManagementFacade statisticFacade;
 
     @PostConstruct
     // la méthode est appelée
@@ -42,24 +52,13 @@ public class ServiceRegistry {
     public IdentityManagementFacade getIdentityFacade(){
         return identityFacade;
     }
+    public AnswerManagementFacade getAnswerFacade(){
+        return answerFacade;
+    }
 
-    /*
-    private static ServiceRegistry singleton;
-    private static PersonDAOLocal personRepository;
-    private static IdentityManagementFacade identityManagementFacade;
-    public static ServiceRegistry getServiceRegistry(){
-        if(singleton==null){
-            singleton = new ServiceRegistry();
-        }
-        return singleton;
+    public StatisticManagementFacade getStatisticFacade(){
+        return statisticFacade;
     }
-    private ServiceRegistry(){
-        singleton=this;
-        personRepository= new PersonDAO();
-        identityManagementFacade=new IdentityManagementFacade(personRepository);
-    }
-    public  IdentityManagementFacade getIdentityManagementFacade(){return  identityManagementFacade;}
-    */
 }
 
 

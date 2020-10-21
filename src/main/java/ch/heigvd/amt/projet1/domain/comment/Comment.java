@@ -10,6 +10,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -22,6 +25,7 @@ public class Comment implements IEntity<Comment, CommentId> {
     QuestionId questionId;
     AnswerId answerId;
     protected int vote;
+    protected String date;
 
     @Override
     public CommentId getId() {
@@ -38,7 +42,12 @@ public class Comment implements IEntity<Comment, CommentId> {
             if (id == null) {
                 id = new CommentId();
             }
-            return new Comment(id, author, content, type, questionId, answerId, vote);
+            if (date == null){
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                date = formatter.format(new Date());
+            }
+
+            return new Comment(id, author, content, type, questionId, answerId, vote, date);
         }
     }
 

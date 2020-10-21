@@ -7,4 +7,7 @@ import java.util.List;
 
 public interface ICommentRepository extends IRepository<Comment, CommentId> {
     public List<Comment> findAllbySource(Id id, String type);
+
+    //Statistics
+    public int SizeFor(String username);
 }

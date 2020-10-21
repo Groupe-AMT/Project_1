@@ -34,7 +34,6 @@
                     <c:forEach items="${Qs}" var="Q">
                         <div class="QuestionDiv">
                             <td>Author: <c:out value="${Q.getAuthor()}"/> </td><td>Subject: <c:out value="${Q.getSubject()}"/></td>
-
                             <form action="${pageContext.request.contextPath}/question?id=<c:out value="${Q.getId().asString()}"/>">
                                 <button type="submit" >Voir la question</button>
                                 <input type="text" name="id" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">

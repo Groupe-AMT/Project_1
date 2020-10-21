@@ -18,7 +18,7 @@
 <div class="content-middle">
     <div class="intro">
         <h2>Introduction</h2>
-        <h3>Bienvenue sur le site Buffer Overflow. Site d&#233;di&#233; aux questions informatique de tous genres.</h3>
+        <h3>Bienvenue sur le site random change Overflow. Site d&#233;di&#233; aux questions informatique de tous genres.</h3>
     </div>
 
     <div class="annonce">

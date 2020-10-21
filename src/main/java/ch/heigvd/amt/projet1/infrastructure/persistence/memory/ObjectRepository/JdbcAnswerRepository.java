@@ -43,12 +43,11 @@ public class JdbcAnswerRepository implements IAnswerRepository {
             //uuid = uuid.substring(uuid.lastIndexOf("@"+1));
 
             // Pour ajouter le message dans la bdd
-            PreparedStatement ps1 = con.prepareStatement("INSERT INTO Answer (id, author, content, questionId, date) VALUES('"+
-                    uuid+"','"+
+            PreparedStatement ps1 = con.prepareStatement("INSERT INTO Answer (id, author, content, questionId) VALUES('"+
+                    uuid+"' ,'"+
                     answer.getAuthor()+"','"+
                     answer.getContent()+"','"+
-                    answer.getQuestionId()+"','"+
-                    answer.getDate().toString()+
+                    answer.getQuestionId()+
                     "')");
             ps1.execute();
             con.close();
@@ -91,8 +90,7 @@ public class JdbcAnswerRepository implements IAnswerRepository {
                     .id(new AnswerId(rs.getString("id")))
                     .author(rs.getString("author"))
                     .content(rs.getString("content"))
-                    .questionId(rs.getString("questionId"))
-                    .date(rs.getString("date"))
+                    .questionId(new QuestionId(rs.getString("questionId")).asString())
                     .build();
 
             ps.close();
@@ -119,8 +117,7 @@ public class JdbcAnswerRepository implements IAnswerRepository {
                         .id(new AnswerId(rs.getString("id")))
                         .author(rs.getString("author"))
                         .content(rs.getString("content"))
-                        .questionId(rs.getString("questionId"))
-                        .date(rs.getString("date"))
+                        .questionId(new QuestionId(rs.getString("questionId")).asString())
                         .build();
                 result.add(newAnswer);
             }
@@ -139,8 +136,7 @@ public class JdbcAnswerRepository implements IAnswerRepository {
         List<Answer> result = new LinkedList<Answer>();
         try{
             Connection con = dataSource.getConnection();
-
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM Answer WHERE questionId LIKE '" + id.asString() +"'");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Answer WHERE questionId LIKE '" + id.asString()+"'");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()){
@@ -148,8 +144,7 @@ public class JdbcAnswerRepository implements IAnswerRepository {
                         .id(new AnswerId(rs.getString("id")))
                         .author(rs.getString("author"))
                         .content(rs.getString("content"))
-                        .questionId(rs.getString("questionId"))
-                        .date(rs.getString("date"))
+                        .questionId(new QuestionId(rs.getString("questionId")).asString())
                         .build();
                 result.add(newAnswer);
             }

@@ -2,7 +2,7 @@ Feature('Projet1_week3');
 
 let now = new Date();
 
-let root = "http://172.17.0.2:9080/Projet_1/";
+let root = "http://172.17.0.2:9080/Project_1/";
 
 let usr = "laure";
 let pass = "dinateur";

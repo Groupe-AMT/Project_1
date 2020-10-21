@@ -28,6 +28,7 @@ public class IdentityManagementFacade {
             throw new RegisterFailedException("Nom d'utilisateur déjà utilisé");
 
         try {
+
             Person newPerson = Person.builder()
                     .username(command.getUsername())
                     .firstname(command.getFirstname())

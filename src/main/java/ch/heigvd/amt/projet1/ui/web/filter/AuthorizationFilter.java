@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter (filterName ="AuthorizationFilter",urlPatterns = "/*")
+//@WebFilter (filterName ="AuthorizationFilter",urlPatterns = "/*")
 public class AuthorizationFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -46,6 +46,7 @@ public class AuthorizationFilter implements Filter {
 
     }
     boolean isPublicRessource(String URI,HttpServletRequest req ){
+
         if(URI.startsWith(req.getContextPath()+"/assets"))
             return true;
         if(URI.startsWith(req.getContextPath()+"/login"))
@@ -54,8 +55,8 @@ public class AuthorizationFilter implements Filter {
             return true;
         if(URI.startsWith(req.getContextPath()+"/register"))
             return true;
-        if(URI.startsWith(req.getContextPath()+"/index.jsp"))
+        if(URI.equals(req.getContextPath()+"/"))
             return true;
-        return false;
+        return (URI.equals(req.getContextPath()+"/questions"));
     }
 }

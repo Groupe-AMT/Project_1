@@ -20,7 +20,6 @@ public class AnswerManagementFacade {
                     .questionId(command.getQuestionId())
                     .content(command.getContent())
                     .build();
-
             answerRepository.save(newAnswer);
         }catch (Exception e){
             throw new AnswerException(e.getMessage());

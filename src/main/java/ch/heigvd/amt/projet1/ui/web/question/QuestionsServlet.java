@@ -31,6 +31,8 @@ public class QuestionsServlet<TestQuestion> extends javax.servlet.http.HttpServl
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(true);
+        request.setCharacterEncoding("UTF-8");
+
         if (session.getAttribute("currentUser")!=null) {
             String subj = request.getParameter("subject_form");
             List<String> tags = Arrays.asList(request.getParameter("tags_form").toUpperCase().split(" ").clone());

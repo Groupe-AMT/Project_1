@@ -23,6 +23,8 @@ public class ProfilePasswordUpdateCommandEndpoint extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+
         Object errors = req.getSession().getAttribute("errors");
         req.setAttribute("errors",errors);
         req.getSession().removeAttribute("errors");

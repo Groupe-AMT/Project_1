@@ -22,6 +22,8 @@ public class LoginCommandEndpoint extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+
         req.getSession().removeAttribute("errors");
         CurrentUserDTO currentUser= null;
         AuthentificateCommand authentifcateCommand = AuthentificateCommand.builder()

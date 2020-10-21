@@ -37,8 +37,8 @@
                     </li>
                 </div>
                 <div >
-                    <form action="${pageContext.request.contextPath}/question.do"method="post">
-                        <input type="textarea" class="content_input" placeholder="Votre réponse" name="answer" required><br>
+                    <form action="${pageContext.request.contextPath}/question.do" method="post" accept-charset="utf-8">
+                        <textarea class="content_input" placeholder="Votre réponse" name="answer" style="width:100%; height: 100px;" required></textarea><br>
                         <button class="w3-button" type="submit" style="margin:auto; margin-top:20px; background-color:CornflowerBlue;" >Répondre</button>
                         <input type="textarea" name="id" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
                     </form>

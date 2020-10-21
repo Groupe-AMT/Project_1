@@ -10,7 +10,7 @@
           <h2>Poser une question</h2>
         </div>
 
-        <form id ="question-form" action="questions.do" method="post">
+        <form id ="question-form" action="questions.do" method="post" accept-charset="utf-8">
             <div class="QuestionDesc">
                 <label for="subject_form"><b>   Sujet</b></label>
                 <input type="text" class="w3-input" placeholder="Entrez un sujet" name="subject_form" required>
@@ -18,7 +18,7 @@
                 <label for="tags_form"><b>  Tags</b></label>
                 <input type="text" class="w3-input" placeholder="adulte cinema musique" name="tags_form" required>
 
-                <input type="textarea" class="content_input" style="width:100%; height:500px; margin:auto;" placeholder="Ecrivez votre question" name="content_form" required>
+                <textarea class="content_input" style="width:100%; height:500px; margin:auto;" col=50 placeholder="Ecrivez votre question" name="content_form" required></textarea>
 
                 <button type="submit" class="w3-input" name="send_form">Envoyez</button><br>
             </div>

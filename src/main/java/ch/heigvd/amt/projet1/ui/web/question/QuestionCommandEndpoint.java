@@ -27,8 +27,11 @@ public class QuestionCommandEndpoint extends HttpServlet {
     private ServiceRegistry serviceRegistry;
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(true);
+        req.setCharacterEncoding("UTF-8");
+
         if (session.getAttribute("currentUser")!=null) {
             CurrentUserDTO currentUserDTO = (CurrentUserDTO) session.getAttribute("currentUser");
+
             AnswerCommand answerCommand = AnswerCommand.builder()
                     .author(currentUserDTO.getUsername())
                     .content(req.getParameter("answer"))

@@ -1,8 +1,5 @@
 package ch.heigvd.amt.projet1.application.questionmanagement;
 
-import ch.heigvd.amt.projet1.application.questionmanagement.QuestionCommand;
-import ch.heigvd.amt.projet1.application.questionmanagement.QuestionException;
-import ch.heigvd.amt.projet1.application.questionmanagement.QuestionManagementFacade;
 import ch.heigvd.amt.projet1.domain.question.IQuestionRepository;
 import ch.heigvd.amt.projet1.domain.question.Question;
 import org.junit.jupiter.api.Test;
@@ -50,12 +47,6 @@ public class TestQuestionManagementFacade {
     void testSaveQuestionOK(){
         when(IQR.save(anyObject())).thenReturn(1);
         assertDoesNotThrow(()->QMF.saveQuestion(Qc));
-    }
-
-    @Test
-    void testSaveQuestionFailed(){
-        doThrow(Exception.class).when(IQR).save(anyObject());
-        assertThrows(QuestionException.class, ()->QMF.saveQuestion(Qc));
     }
 
     @Test

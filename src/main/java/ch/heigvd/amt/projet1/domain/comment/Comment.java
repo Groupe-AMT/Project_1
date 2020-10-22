@@ -22,7 +22,6 @@ public class Comment implements IEntity<Comment, CommentId> {
     String questionId;
     String answerId;
     protected int vote;
-
     @Override
     public CommentId getId() {
         return id;

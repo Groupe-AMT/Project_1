@@ -47,7 +47,7 @@ public class JdbcCommentRepository implements ICommentRepository {
                     comment.getType()+"','"+
 
                     comment.getQuestionId()+"','"+
-                    comment.getAnswerId()+
+                    comment.getAnswerId()+"','"+
 
                     comment.getDate()+
 

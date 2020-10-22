@@ -63,9 +63,6 @@
                             <input type="text" name="type" hidden="hidden" value="answer"/>
                         </form>
 
-                    <c:forEach items="${As}" var="A">  <div class="AnswerDiv">
-                        <td>Author: <c:out value="${A.getAuthor()}"/> </td><td>Subject: <c:out value="${A.getContent()}"/></td>
-
                     </div>
                     </c:forEach>
                     <!-- answer form-->

@@ -32,18 +32,6 @@ public class QuestionCommandEndpoint extends HttpServlet {
         HttpSession session = req.getSession(true);
         if (session.getAttribute("currentUser")!=null) {
             CurrentUserDTO currentUserDTO = (CurrentUserDTO) session.getAttribute("currentUser");
-            AnswerCommand answerCommand = AnswerCommand.builder()
-                    .author(currentUserDTO.getUsername())
-                    .content(req.getParameter("answer"))
-                    .questionId(req.getParameter("id"))
-                    .build();
-            AnswerManagementFacade answerManagementFacade = serviceRegistry.getAnswerFacade();
-            try {
-                answerManagementFacade.saveAnswer(answerCommand);
-            }catch (AnswerException e){
-                req.getSession().setAttribute("errors", List.of(e.getMessage()));
-                resp.sendRedirect(req.getContextPath() + "/question?id=" + req.getParameter("id"));
-            }
 
             if (req.getParameter("type") != null) {
                 CommentCommand commentCommand = CommentCommand.builder()
@@ -62,6 +50,12 @@ public class QuestionCommandEndpoint extends HttpServlet {
                     return;
                 }
             } else {
+                AnswerCommand answerCommand = AnswerCommand.builder()
+                        .author(currentUserDTO.getUsername())
+                        .content(req.getParameter("answer"))
+                        .questionId(req.getParameter("id"))
+                        .build();
+                AnswerManagementFacade answerManagementFacade = serviceRegistry.getAnswerFacade();
                 try {
                     answerManagementFacade.saveAnswer(answerCommand);
 

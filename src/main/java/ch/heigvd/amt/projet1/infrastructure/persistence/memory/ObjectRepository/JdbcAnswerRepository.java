@@ -43,11 +43,12 @@ public class JdbcAnswerRepository implements IAnswerRepository {
             //uuid = uuid.substring(uuid.lastIndexOf("@"+1));
 
             // Pour ajouter le message dans la bdd
-            PreparedStatement ps1 = con.prepareStatement("INSERT INTO Answer (id, author, content, questionId) VALUES('"+
+            PreparedStatement ps1 = con.prepareStatement("INSERT INTO Answer (id, author, content, questionId, date) VALUES('"+
                     uuid+"' ,'"+
                     answer.getAuthor()+"','"+
                     answer.getContent()+"','"+
-                    answer.getQuestionId()+
+                    answer.getQuestionId()+"','"+
+                    answer.getDate()+
                     "')");
             ps1.execute();
             con.close();

@@ -1,6 +1,6 @@
 #!/bin/bash
 mvn liberty:stop
-
+#docker-compose up --build &
 mvn clean
 mvn liberty:dev &
 mvn liberty:create

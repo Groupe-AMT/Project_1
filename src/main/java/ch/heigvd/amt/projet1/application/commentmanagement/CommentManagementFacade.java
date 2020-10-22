@@ -27,7 +27,6 @@ public class CommentManagementFacade {
                     .build();
 
             return commentRepository.save(newComment);
-            //return newComment;
         }catch (Exception e){
             throw new CommentException(e.getMessage());
         }

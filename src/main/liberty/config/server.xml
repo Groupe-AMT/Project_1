@@ -13,7 +13,7 @@
         <jdbcDriver libraryRef="MySqlLib"/>
         <properties databaseName="AMT"
                     serverName="mysql" portNumber="3306"
-                    user="admin" password="root" servername="172.23.0.2"/>
+                    user="admin" password="root" servername="172.24.0.3"/>
     </dataSource>
 
     <variable name="default.http.port" defaultValue="9080"/>

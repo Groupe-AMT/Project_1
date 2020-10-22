@@ -18,7 +18,7 @@
                 <label for="tags_form"><b>  Tags</b></label>
                 <input type="text" class="w3-input" placeholder="adulte cinema musique" name="tags_form" required>
 
-                <textarea class="content_input" style="width:100%; height:500px; margin:auto;" col=50 placeholder="Ecrivez votre question" name="content_form" required></textarea>
+                <textarea class="content_input" style="width:100%; height:500px; margin:auto;" col=50 row=400 placeholder="Ecrivez votre question" name="content_form" required></textarea>
 
                 <button type="submit" class="w3-input" name="send_form">Envoyez</button><br>
             </div>

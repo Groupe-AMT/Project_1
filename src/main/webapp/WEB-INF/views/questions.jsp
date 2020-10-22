@@ -23,7 +23,7 @@
         <div class="col-lg-12 text-center">
             <h2><a class="w3-button w3-light-grey" href="${pageContext.request.contextPath}/questions">Question</a></h2>
 
-            <div class="w3-bar w3-light-grey" style="width:90%; margin:auto;">
+            <div class="w3-bar w3-light-grey" style="width:100%; margin:auto;">
                 <form action="${pageContext.request.contextPath}/search">
                          <input type="text" class="w3-bar-item w3-input w3-rightbar" name="tags_form" style="width:25%;" placeholder="tags: Java Ordinateur ...">
                          <button class="w3-bar-item w3-button w3-rightbar" style="width:25%;" type="submit" >Chercher</button>
@@ -33,13 +33,16 @@
                 </form>
             </div>
 
-            <c:forEach items="${Qs}" var="Q">
+            <c:forEach items="${Qs}" var="Q" varStatus="i">
                 <form action="${pageContext.request.contextPath}/question">
                     <input type="text" name="id" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
-                    <button class="w3-bar w3-bottombar w3-button" type="submit" style="width:90%; height:70px; background-color: Gray; overflow:hidden; color:white;">
-                      <div class="w3-bar-item" style="width:100%; padding:0px;">
+                    <button class="w3-bar w3-bottombar w3-button w3-left" type="submit" style="width:100%; height:70px; background-color: Gray; overflow:hidden; color:white;">
+                      <div class="w3-bar-item w3-left" style="width:80%; padding:0px;">
                         <span class="w3-large"><c:out value="${Q.getSubject()}"/></span><br>
                         <span>par <c:out value="${Q.getAuthor()}"/> le <c:out value="${Q.getDate()}"/></span>
+                      </div>
+                      <div class="w3-right" style="width:20%;">
+                          <td>vote :<c:out value="${Vs[i.count-1]}"/> </td>
                       </div>
                     </button>
                 </form>

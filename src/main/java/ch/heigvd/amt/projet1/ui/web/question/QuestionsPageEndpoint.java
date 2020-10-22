@@ -1,7 +1,9 @@
 package ch.heigvd.amt.projet1.ui.web.question;
 
 import ch.heigvd.amt.projet1.application.ServiceRegistry;
+import ch.heigvd.amt.projet1.domain.answer.Answer;
 import ch.heigvd.amt.projet1.domain.question.Question;
+import ch.heigvd.amt.projet1.domain.vote.Vote;
 
 import javax.inject.Inject;
 import javax.servlet.ServletConfig;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 import javax.servlet.annotation.WebServlet;
@@ -36,8 +39,9 @@ public class QuestionsPageEndpoint extends HttpServlet {
 
             int nbPerPage = 7;
 
-            int nbPages = serviceRegistry.getStatisticFacade().getQuestionSize() / nbPerPage;
-            if (nbPages % nbPerPage > 0) { nbPages++;}
+            int nbQ = serviceRegistry.getStatisticFacade().getQuestionSize();
+            int nbPages = (nbQ / nbPerPage);
+            if (nbQ % nbPerPage > 0) { nbPages++;}
 
             int[] Pages = IntStream.range(1, nbPages+1).toArray();
 
@@ -48,6 +52,16 @@ public class QuestionsPageEndpoint extends HttpServlet {
 
             List<Question> questions = serviceRegistry.getQuestionFacade().getPageQuestions(currentPage, nbPerPage);
 
+            List<Integer> votes = new ArrayList<>();;
+            int i = 0;
+            for (Question question:questions) {
+                i =0;
+                i+= serviceRegistry.getVoteFacade().count(question.getId(),"question",true);
+                i -=serviceRegistry.getVoteFacade().count(question.getId(),"question",false);
+                votes.add(i);
+            }
+
+            request.setAttribute("Vs", votes);
             request.setAttribute("Qs",questions);
             request.getRequestDispatcher("/WEB-INF/views/questions.jsp").forward(request, response);
         }

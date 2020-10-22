@@ -27,13 +27,33 @@
 
                 <div class="Question" style="margin:auto;">
                     <li class="w3-bar w3-bottombar" style="margin:auto; width:90%; background-color: Gray; overflow:hidden; color:white;">
-                      <div class="w3-bar-item" style="width:100%; padding:0px;">
+                      <div class="w3-bar-item w3-left" style="width:90%; padding:0px;">
                         <span class="w3-large"><c:out value="${Q.getSubject()}"/></span><br>
                         <span>par <c:out value="${Q.getAuthor()}"/> le <c:out value="${Q.getDate()}"/></span>
                         <div class="w3-white" style="margin:auto; margin-top:25px; width:80%;">
                             <p style="color:black;">
                                 <c:out value="${Q.getContent()}"/>
                             </p>
+                      </div>
+                      <div class="w3-right" style="width:10%;">
+                        <!-- vote -->
+                        <td>vote :<c:out value="${Vs[0]}"/> </td>
+                        <!-- vote up -->
+                        <form action="${pageContext.request.contextPath}/question.do"method="post">
+                        <button type="submit" >↑</button>
+                            <input type="text" name="vid" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
+                            <input type="text" name="id" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
+                            <input type="text" name="type" hidden="hidden" value="question"/>
+                            <input type="text" name="vote" hidden="hidden" value="true"/>
+                        </form>
+                        <!-- vote down -->
+                        <form action="${pageContext.request.contextPath}/question.do"method="post">
+                            <button type="submit" >↓</button>
+                            <input type="text" name="vid" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
+                            <input type="text" name="id" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
+                            <input type="text" name="type" hidden="hidden" value="question"/>
+                            <input type="text" name="vote" hidden="hidden" value="false"/>
+                        </form>
                       </div>
                         <button class="w3-button" data-toggle="collapse" href="#collapseQC">Commentaires</button>
                       <div>
@@ -63,13 +83,33 @@
                <c:forEach items="${As}" var="A" varStatus="i">
                <div class="Reponse" style="margin:auto; padding-top:5px;">
                    <div class="w3-panel w3-leftbar w3-border-blue w3-pale-blue w3-left-align">
-                         <div class="w3-bar-item" style="width:100%; padding:0px;">
+                         <div class="w3-bar-item w3-left" style="width:90%; padding:0px;">
                            <span>par <c:out value="${A.getAuthor()}"/> le <c:out value="${A.getDate()}"/></span><br>
                                <p style="color:black;">
                                    <c:out value="${A.getContent()}"/>
                                </p>
+                        </div>
+                        <div class="w3-right" style="width:10%;">
+                            <td>vote :<c:out value="${Vs[i.count]}"/> </td>
+                            <!-- vote up -->
+                            <form action="${pageContext.request.contextPath}/question.do"method="post">
+                                <button type="submit" >↑</button>
+                                <input type="text" name="vid" hidden="hidden" value="<c:out value="${A.getId().asString()}"/>">
+                                <input type="text" name="type" hidden="hidden" value="answer"/>
+                                <input type="text" name="id" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
+                                <input type="text" name="vote" hidden="hidden" value="true"/>
+                            </form>
+                            <!-- vote down -->
+                            <form action="${pageContext.request.contextPath}/question.do"method="post">
+                                <button type="submit" >↓</button>
+                                <input type="text" name="vid" hidden="hidden" value="<c:out value="${A.getId().asString()}"/>">
+                                <input type="text" name="type" hidden="hidden" value="answer"/>
+                                <input type="text" name="id" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
+                                <input type="text" name="vote" hidden="hidden" value="false"/>
+                            </form>
+                        </div>
                         <div>
-                            <div class="w3-left-align w3-border-left w3-border-blue" style="margin-left:20px; margin-bottom:15px;">
+                            <div class="w3-left-align" style="margin-left:20px; margin-bottom:15px; width:90%;">
                                 <c:forEach items="${Cs[i.count]}" var="C">
                                     <td>Par: <c:out value="${C.getAuthor()}"/> le <c:out value="${C.getDate()}"/></td><br><td><c:out value="${C.getContent()}"/> </td><br>
                                 </c:forEach>

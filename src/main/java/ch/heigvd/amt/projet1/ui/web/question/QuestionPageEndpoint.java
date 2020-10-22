@@ -44,13 +44,24 @@ public class QuestionPageEndpoint extends HttpServlet{
 
             List<Answer> answers = serviceRegistry.getAnswerFacade().getRelatedAnswer(question.getId());
             List<List<Comment>> comments = new ArrayList<>();
+            List<Integer> vote = new ArrayList<>();
             List<Comment>c =serviceRegistry.getCommentFacade().getRelatedComment(question.getId(),"question");
             comments.add(c);
+
+            int i =0;
+            i+= serviceRegistry.getVoteFacade().count(question.getId(),"question",true);
+            i -=serviceRegistry.getVoteFacade().count(question.getId(),"question",false);
+            vote.add(i);
+
             for (Answer answer:answers) {
                 comments.add(serviceRegistry.getCommentFacade().getRelatedComment(answer.getId(),"answer"));
+                i =0;
+                i+= serviceRegistry.getVoteFacade().count(answer.getId(),"answer",true);
+                i -=serviceRegistry.getVoteFacade().count(answer.getId(),"answer",false);
+                vote.add(i);
             }
 
-
+            request.setAttribute("Vs",vote);
             request.setAttribute("Q",question);
             request.setAttribute("As",answers);
             request.setAttribute("Cs",comments);

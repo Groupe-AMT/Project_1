@@ -5,10 +5,8 @@ import ch.heigvd.amt.projet1.application.commentmanagement.CommentManagementFaca
 import ch.heigvd.amt.projet1.application.identitymanagement.IdentityManagementFacade;
 import ch.heigvd.amt.projet1.application.questionmanagement.QuestionManagementFacade;
 import ch.heigvd.amt.projet1.application.statisticmanagement.StatisticManagementFacade;
-import ch.heigvd.amt.projet1.infrastructure.persistence.memory.ObjectRepository.JdbcAnswerRepository;
-import ch.heigvd.amt.projet1.infrastructure.persistence.memory.ObjectRepository.JdbcCommentRepository;
-import ch.heigvd.amt.projet1.infrastructure.persistence.memory.ObjectRepository.JdbcPersonRepository;
-import ch.heigvd.amt.projet1.infrastructure.persistence.memory.ObjectRepository.JdbcQuestionRepository;
+import ch.heigvd.amt.projet1.application.votemanagement.VoteManagementFacade;
+import ch.heigvd.amt.projet1.infrastructure.persistence.memory.ObjectRepository.*;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -28,11 +26,14 @@ public class ServiceRegistry {
     @Inject
     JdbcCommentRepository commentRepository;
 
+    @Inject
+    JdbcVoteRepository voteRepository;
 
     private QuestionManagementFacade questionFacade;
     private IdentityManagementFacade identityFacade;
     private AnswerManagementFacade answerFacade;
     private CommentManagementFacade commentFacade;
+    private VoteManagementFacade voteFacade;
 
     //Statistics
     private StatisticManagementFacade statisticFacade;
@@ -44,6 +45,7 @@ public class ServiceRegistry {
         questionFacade = new QuestionManagementFacade(questionRepository);
         answerFacade = new AnswerManagementFacade(answerRepository);
         commentFacade = new CommentManagementFacade(commentRepository);
+        voteFacade = new VoteManagementFacade(voteRepository);
 
         statisticFacade = new StatisticManagementFacade(questionRepository, answerRepository, commentRepository, personRepository);
     }
@@ -58,6 +60,7 @@ public class ServiceRegistry {
         return answerFacade;
     }
     public CommentManagementFacade getCommentFacade(){ return commentFacade; }
+    public VoteManagementFacade getVoteFacade(){ return voteFacade; }
 
     public StatisticManagementFacade getStatisticFacade(){
         return statisticFacade;

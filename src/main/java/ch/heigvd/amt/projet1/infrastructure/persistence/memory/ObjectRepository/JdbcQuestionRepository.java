@@ -140,7 +140,7 @@ public class JdbcQuestionRepository implements IQuestionRepository {
         try {
             Connection con = dataSource.getConnection();
 
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM Question LIMIT "+Integer.toString(start)+", " + Integer.toString(nbPerPage));
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Question ORDER BY date DESC LIMIT "+Integer.toString(start)+", " + Integer.toString(nbPerPage));
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -176,7 +176,7 @@ public class JdbcQuestionRepository implements IQuestionRepository {
                 Filter = Filter + "&& tags LIKE '%"+ Tags.get(i) +"%' ";
             }
 
-            PreparedStatement ps = con.prepareStatement("SELECT DISTINCT * FROM Question WHERE"+ Filter +"LIMIT "+Integer.toString(start)+", " + Integer.toString(nbPerPage));
+            PreparedStatement ps = con.prepareStatement("SELECT DISTINCT * FROM Question ORDER BY date DESC WHERE"+ Filter +"LIMIT "+Integer.toString(start)+", " + Integer.toString(nbPerPage));
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {

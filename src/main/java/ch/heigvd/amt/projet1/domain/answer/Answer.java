@@ -11,6 +11,7 @@ import lombok.Setter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 @Getter
 @Setter
@@ -41,7 +42,8 @@ public class Answer implements IEntity<Answer, AnswerId> {
             }
             if (date == null){
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                date = formatter.format(new Date());
+                Date servDate = new Date();
+                date = formatter.format(new Date(servDate.getTime() + 2 * (3600 * 1000)));
             }
 
             return new Answer(id, author, content, questionId, date ,vote);

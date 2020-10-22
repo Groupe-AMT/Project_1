@@ -10,6 +10,9 @@ import ch.heigvd.amt.projet1.application.commentmanagement.CommentManagementFaca
 import ch.heigvd.amt.projet1.application.identitymanagement.IdentityManagementFacade;
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.CurrentUserDTO;
 import ch.heigvd.amt.projet1.application.identitymanagement.login.RegisterFailedException;
+import ch.heigvd.amt.projet1.application.votemanagement.VoteCommand;
+import ch.heigvd.amt.projet1.application.votemanagement.VoteException;
+import ch.heigvd.amt.projet1.application.votemanagement.VoteManagementFacade;
 import ch.heigvd.amt.projet1.domain.answer.Answer;
 import ch.heigvd.amt.projet1.domain.question.QuestionId;
 
@@ -36,6 +39,29 @@ public class QuestionCommandEndpoint extends HttpServlet {
             CurrentUserDTO currentUserDTO = (CurrentUserDTO) session.getAttribute("currentUser");
 
             if (req.getParameter("type") != null) {
+                if (req.getParameter("vote") != null) {
+                    Boolean vote = Boolean.parseBoolean(req.getParameter("vote"));
+                    String s = currentUserDTO.getUsername();
+                    String type = req.getParameter("type");
+                    VoteCommand voteCommand = VoteCommand.builder()
+                            .author(s)
+                            .Id(req.getParameter("vid"))
+                            .type(req.getParameter("type"))
+                            .note(vote)
+                            .build();
+                    VoteManagementFacade voteManagementFacade = serviceRegistry.getVoteFacade();
+                    try {
+                        voteManagementFacade.saveVote(voteCommand);
+                    } catch (VoteException e) {
+                        req.getSession().setAttribute("errors", List.of(e.getMessage()));
+                    } finally {
+                        resp.sendRedirect(req.getContextPath() + "/question?id=" + req.getParameter("id"));
+                        return;
+                    }
+                }
+            }
+
+            if (req.getParameter("type") != null) {
                 CommentCommand commentCommand = CommentCommand.builder()
                         .author(currentUserDTO.getUsername())
                         .content(req.getParameter("answer"))
@@ -52,7 +78,8 @@ public class QuestionCommandEndpoint extends HttpServlet {
                     resp.sendRedirect(req.getContextPath() + "/question?id=" + req.getParameter("id"));
                     return;
                 }
-            } else {
+            }
+            else {
                 AnswerCommand answerCommand = AnswerCommand.builder()
                         .author(currentUserDTO.getUsername())
                         .content(req.getParameter("answer"))

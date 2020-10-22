@@ -12,6 +12,7 @@ import lombok.Setter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 @Getter
 @Setter
@@ -53,7 +54,8 @@ public class Comment implements IEntity<Comment, CommentId> {
 
             if (date == null){
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                date = formatter.format(new Date());
+                Date servDate = new Date();
+                date = formatter.format(new Date(servDate.getTime() + 2 * (3600 * 1000)));
             }
 
             return new Comment(id, author, content, type, questionId, answerId, vote, date);

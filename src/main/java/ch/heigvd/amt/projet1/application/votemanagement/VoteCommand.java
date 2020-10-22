@@ -1,13 +1,13 @@
-package ch.heigvd.amt.projet1.application.commentmanagement;
+package ch.heigvd.amt.projet1.application.votemanagement;
 
 import lombok.Builder;
 import lombok.Value;
 
 @Value
 @Builder
-public class CommentCommand {
+public class VoteCommand {
     private String author;
-    private String content;
+    private boolean note;
     private String type;
     private String Id;
 }

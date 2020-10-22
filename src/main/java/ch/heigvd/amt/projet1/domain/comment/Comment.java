@@ -22,8 +22,8 @@ public class Comment implements IEntity<Comment, CommentId> {
     protected String author;
     protected String content;
     protected String type;
-    QuestionId questionId;
-    AnswerId answerId;
+    protected String questionId;
+    protected String answerId;
     protected int vote;
     protected String date;
 
@@ -42,12 +42,22 @@ public class Comment implements IEntity<Comment, CommentId> {
             if (id == null) {
                 id = new CommentId();
             }
+            if(type.equals("answer"))
+                questionId="null";
+            else if (type.equals("question"))
+                answerId="null";
+            else{
+                questionId ="null";
+                answerId="null";
+            }
+
             if (date == null){
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 date = formatter.format(new Date());
             }
 
             return new Comment(id, author, content, type, questionId, answerId, vote, date);
+
         }
     }
 

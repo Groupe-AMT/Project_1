@@ -45,8 +45,8 @@ public class JdbcCommentRepository implements ICommentRepository {
                     comment.getAuthor()+"','"+
                     comment.getContent()+"','"+
                     comment.getType()+"','"+
-                    comment.getQuestionId().asString()+"','"+
-                    comment.getAnswerId().asString()+"','"+
+                    comment.getQuestionId()+"','"+
+                    comment.getAnswerId()+"','"+
                     comment.getDate()+
                     "')");
             ps1.execute();
@@ -91,8 +91,8 @@ public class JdbcCommentRepository implements ICommentRepository {
                     .author(rs.getString("author"))
                     .content(rs.getString("content"))
                     .type(rs.getString("type"))
-                    .questionId(new QuestionId(rs.getString("questionId")))
-                    .answerId(new AnswerId(rs.getString("answerId")))
+                    .questionId(rs.getString("questionId"))
+                    .answerId(rs.getString("answerId"))
                     .date(rs.getString("date"))
                     .build();
 
@@ -121,8 +121,8 @@ public class JdbcCommentRepository implements ICommentRepository {
                         .author(rs.getString("author"))
                         .content(rs.getString("content"))
                         .type(rs.getString("type"))
-                        .questionId(new QuestionId(rs.getString("questionId")))
-                        .answerId(new AnswerId(rs.getString("answerId")))
+                        .questionId(rs.getString("questionId"))
+                        .answerId(rs.getString("answerId"))
                         .date(rs.getString("date"))
                         .build();
                 result.add(newComment);
@@ -142,8 +142,7 @@ public class JdbcCommentRepository implements ICommentRepository {
         List<Comment> result = new LinkedList<Comment>();
         try{
             Connection con = dataSource.getConnection();
-
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM Comment WHERE "+type+"Id LIKE" + id.asString());
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Comment WHERE "+type+"Id LIKE '" + id.asString()+"'");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()){
@@ -152,8 +151,8 @@ public class JdbcCommentRepository implements ICommentRepository {
                         .author(rs.getString("author"))
                         .content(rs.getString("content"))
                         .type(rs.getString("type"))
-                        .questionId(new QuestionId(rs.getString("questionId")))
-                        .answerId(new AnswerId(rs.getString("answerId")))
+                        .questionId(rs.getString("questionId"))
+                        .answerId(rs.getString("answerId"))
                         .date(rs.getString("date"))
                         .build();
                 result.add(newComment);

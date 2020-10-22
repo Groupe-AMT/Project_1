@@ -39,6 +39,7 @@
                                 <input type="text" class="content_input" placeholder="Commenter" name="answer" required>
                                 <button type="submit" >Commenter</button>
                                 <input type="text" name="id" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
+                                <input type="text" name="aid" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
                                 <input type="text" name="type" hidden="hidden" value="question"/>
                             </form>
                         </div>

@@ -31,19 +31,33 @@ public class JdbcVoteRepository implements IVoteRepository {
         /*
         This function aims to insert in the database a Person
         */
+
+        try {
+            Connection con = dataSource.getConnection();
+            String sql = "DELETE FROM Vote WHERE author = '"+vote.getAuthor()+"' and ";
+            if (vote.getType().equals("question"))
+                sql+="questionId = '"+ vote.getQuestionId() +"'";
+            else
+                sql+="answerId = '"+ vote.getAnswerId() +"'";
+            PreparedStatement ps = con.prepareStatement(sql);
+            boolean rs = ps.execute();
+        }catch (SQLException ex) {
+            Logger.getLogger(JdbcVoteRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
         try {
             Connection con = dataSource.getConnection();
 
             String uuid = vote.getId().asString();
             //uuid = uuid.substring(uuid.lastIndexOf("@"+1));
 
+            int upDown= vote.isNote()?1:0;
             PreparedStatement ps = con.prepareStatement("INSERT INTO Vote (id, author, type, questionId, answerId, vote) VALUES('" +
                     uuid + "','" +
                     vote.getAuthor() + "','" +
                     vote.getType() + "','" +
                     vote.getQuestionId() + "','" +
                     vote.getAnswerId() + "','" +
-                    vote.isNote() +
+                    upDown+
                     "')");
             boolean rs = ps.execute();
 

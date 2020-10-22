@@ -54,6 +54,7 @@ public class JdbcCommentRepository implements ICommentRepository {
                     "')");
             ps1.execute();
             con.close();
+            return 1;
         } catch (SQLException ex) {
             Logger.getLogger(JdbcCommentRepository.class.getName()).log(Level.SEVERE, null, ex);
         }

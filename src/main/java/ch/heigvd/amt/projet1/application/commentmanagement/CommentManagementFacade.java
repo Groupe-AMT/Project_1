@@ -16,7 +16,7 @@ public class CommentManagementFacade {
         this.commentRepository = commentRepository;
     }
 
-    public void saveComment(CommentCommand command) throws CommentException {
+    public int saveComment(CommentCommand command) throws CommentException {
         try {
             Comment newComment = Comment.builder()
                     .author(command.getAuthor())
@@ -26,11 +26,13 @@ public class CommentManagementFacade {
                     .content(command.getContent())
                     .build();
 
-            commentRepository.save(newComment);
+            return commentRepository.save(newComment);
+            //return newComment;
         }catch (Exception e){
             throw new CommentException(e.getMessage());
         }
     }
+
     public  List<Comment> getRelatedComment(Id id,String type){
         List<Comment> relatedComment = (List<Comment>) commentRepository.findAllbySource(id,type);
         return relatedComment;

@@ -1,6 +1,9 @@
-CREATE DATABASE AMT;
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'root';
 
-CREATE TABLE AMT.Person (
+CREATE USER 'admin'@'%' IDENTIFIED BY 'root';
+GRANT ALL PRIVILEGES ON *.* to 'admin'@'%';
+
+CREATE TABLE IF NOT EXISTS AMT.Person (
 	id varchar(100) NOT NULL,
 	username varchar(100) NOT NULL,
 	email varchar(100) NOT NULL,
@@ -9,10 +12,9 @@ CREATE TABLE AMT.Person (
 	password varchar(100) NOT NULL
 )
 ENGINE=InnoDB
-DEFAULT CHARSET=utf8mb4
-COLLATE=utf8mb4_0900_ai_ci;
+DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE AMT.Vote (
+CREATE TABLE IF NOT EXISTS AMT.Vote (
 	id varchar(100) NOT NULL,
 	author varchar(100) NOT NULL,
 	`type` varchar(100) NOT NULL,
@@ -21,10 +23,9 @@ CREATE TABLE AMT.Vote (
 	vote BOOL NULL
 )
 ENGINE=InnoDB
-DEFAULT CHARSET=utf8mb4
-COLLATE=utf8mb4_0900_ai_ci;
+DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE AMT.Comment (
+CREATE TABLE IF NOT EXISTS AMT.Comment (
 	id varchar(100) NOT NULL,
 	author varchar(100) NOT NULL,
 	content LONGTEXT NOT NULL,
@@ -34,10 +35,9 @@ CREATE TABLE AMT.Comment (
 	`date` varchar(100) NOT NULL
 )
 ENGINE=InnoDB
-DEFAULT CHARSET=utf8mb4
-COLLATE=utf8mb4_0900_ai_ci;
+DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE AMT.Answer (
+CREATE TABLE IF NOT EXISTS AMT.Answer (
 	id varchar(100) NOT NULL,
 	author varchar(100) NOT NULL,
 	content LONGTEXT NOT NULL,
@@ -45,10 +45,9 @@ CREATE TABLE AMT.Answer (
 	`date` varchar(100) NOT NULL
 )
 ENGINE=InnoDB
-DEFAULT CHARSET=utf8mb4
-COLLATE=utf8mb4_0900_ai_ci;
+DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE AMT.Question (
+CREATE TABLE IF NOT EXISTS AMT.Question (
 	id varchar(100) NOT NULL,
 	subject varchar(100) NOT NULL,
 	author varchar(100) NOT NULL,
@@ -57,5 +56,4 @@ CREATE TABLE AMT.Question (
 	`date` varchar(100) NOT NULL
 )
 ENGINE=InnoDB
-DEFAULT CHARSET=utf8mb4
-COLLATE=utf8mb4_0900_ai_ci;
+DEFAULT CHARSET=utf8mb4;

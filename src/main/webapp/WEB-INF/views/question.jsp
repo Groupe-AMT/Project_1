@@ -59,7 +59,7 @@
                       <div>
                       <div class="collapse w3-left-align" id="collapseQC" style="margin-left:20px; margin-bottom:15px;">
                         <c:forEach items="${Cs[0]}" var="C">
-                            <div class="comment w3-">
+                            <div class="comment">
                             <td>Par: <c:out value="${C.getAuthor()}"/> le <c:out value="${C.getDate()}"/></td><br><td><c:out value="${C.getContent()}"/> </td>
                             </div>
                         </c:forEach>
@@ -67,6 +67,7 @@
                             <input type="text" class="content_input" placeholder="Commenter" name="answer" required>
                             <button type="submit" >Commenter</button>
                             <input type="text" name="id" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
+                            <input type="text" name="ida" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
                             <input type="text" name="type" hidden="hidden" value="question">
                         </form>
 

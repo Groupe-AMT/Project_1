@@ -13,7 +13,9 @@ services:
         volumes:
             - ./init.sql:/data/application/init.sql
     openliberty:
-        image: ghcr.io/groupe-amt/project_1:latest
+        build:
+            context: ..
+            dockerfile: DOCKER/images/openliberty/Dockerfile
         links:
             - mysql:mysql
         ports:

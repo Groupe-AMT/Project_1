@@ -41,6 +41,7 @@ public class TestIdentityManagementFacade {
             .lastname("A")
             .email("jerome@heig-vd.ch")
             .build();
+
     Person p = new Person(new PersonId(),"jerome_A",
             "jerome@heig-vd.ch",
             "jerome",

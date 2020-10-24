@@ -35,12 +35,10 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-          
-      - name: Build with Maven
+      
+      - name: clean and package
         run: mvn clean package
-        
-      - name: Test with Maven
-        run: mvn test
+        continue-on-error: true
       
       - name: Set up Docker build
         uses: docker/setup-buildx-action@v1

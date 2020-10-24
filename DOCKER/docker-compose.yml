@@ -4,11 +4,14 @@ services:
     mysql:
         build: ./images/mysql
         environment:
-            - MYSQL_ROOT_PASSWORD=root
+            - "MYSQL_ROOT_PASSWORD=root"
+            - "MYSQL_ROOT_HOST=%"
+            - "MYSQL_DATABASE=AMT"
         ports:
             - "3306:3306"
+        command: --init-file /data/application/init.sql
         volumes:
-            - ./volumes/_data:/var/lib/mysql
+            - ./init.sql:/data/application/init.sql
     openliberty:
         image: ghcr.io/groupe-amt/project_1:latest
         links:

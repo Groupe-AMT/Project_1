@@ -13,7 +13,7 @@ public class AnswerManagementFacade {
         this.answerRepository = answerRepository;
     }
 
-    public void saveAnswer(AnswerCommand command) throws AnswerException {
+    public double saveAnswer(AnswerCommand command) throws AnswerException {
         try {
             Answer newAnswer = Answer.builder()
                     .author(command.getAuthor())
@@ -25,6 +25,7 @@ public class AnswerManagementFacade {
         }catch (Exception e){
             throw new AnswerException(e.getMessage());
         }
+        return 1;
     }
     public List<Answer> getRelatedAnswer(QuestionId id){
         List<Answer> relatedAnswer = (List<Answer>) answerRepository.findAllforQuestion(id);

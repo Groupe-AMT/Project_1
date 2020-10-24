@@ -85,7 +85,7 @@ public class IdentityManagementFacade {
                     .email(newEmail)
                     .build();
         }catch (Exception e){
-            throw new UpdateProfileFailedException(e.getMessage());
+            throw new UpdateProfileFailedException("Erreur dans la mise à jour du profil");
         }
     }
 

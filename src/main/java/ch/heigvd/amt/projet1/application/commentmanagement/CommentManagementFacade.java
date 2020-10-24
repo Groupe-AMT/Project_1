@@ -1,11 +1,8 @@
 package ch.heigvd.amt.projet1.application.commentmanagement;
 
 import ch.heigvd.amt.projet1.domain.Id;
-import ch.heigvd.amt.projet1.domain.answer.Answer;
-import ch.heigvd.amt.projet1.domain.answer.AnswerId;
 import ch.heigvd.amt.projet1.domain.comment.Comment;
 import ch.heigvd.amt.projet1.domain.comment.ICommentRepository;
-import ch.heigvd.amt.projet1.domain.question.QuestionId;
 
 import java.util.List;
 
@@ -16,7 +13,7 @@ public class CommentManagementFacade {
         this.commentRepository = commentRepository;
     }
 
-    public void saveComment(CommentCommand command) throws CommentException {
+    public double saveComment(CommentCommand command) throws CommentException {
         try {
             Comment newComment = Comment.builder()
                     .author(command.getAuthor())
@@ -30,6 +27,7 @@ public class CommentManagementFacade {
         }catch (Exception e){
             throw new CommentException(e.getMessage());
         }
+        return 1;
     }
     public  List<Comment> getRelatedComment(Id id,String type){
         List<Comment> relatedComment = (List<Comment>) commentRepository.findAllbySource(id,type);

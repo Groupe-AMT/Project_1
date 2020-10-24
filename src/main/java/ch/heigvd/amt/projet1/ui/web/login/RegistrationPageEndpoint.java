@@ -14,6 +14,8 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
     Object errors = req.getSession().getAttribute("errors");
     req.setAttribute("errors",errors);
     req.getSession().removeAttribute("errors");
+
+
     req.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(req,resp);
 }
 }

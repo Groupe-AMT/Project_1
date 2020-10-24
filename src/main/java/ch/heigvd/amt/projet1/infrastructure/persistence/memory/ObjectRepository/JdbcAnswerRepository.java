@@ -16,6 +16,8 @@ import java.sql.PreparedStatement;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -41,12 +43,12 @@ public class JdbcAnswerRepository implements IAnswerRepository {
             //uuid = uuid.substring(uuid.lastIndexOf("@"+1));
 
             // Pour ajouter le message dans la bdd
-            PreparedStatement ps1 = con.prepareStatement("INSERT INTO Answer (id, author, content, questionId, vote) VALUES('"+
+            PreparedStatement ps1 = con.prepareStatement("INSERT INTO Answer (id, author, content, questionId, date) VALUES('"+
                     uuid+"','"+
                     answer.getAuthor()+"','"+
                     answer.getContent()+"','"+
-                    answer.getQuestionId().asString()+"','"+
-                    answer.getVote()+"','"+
+                    answer.getQuestionId()+"','"+
+                    answer.getDate().toString()+
                     "')");
             ps1.execute();
             con.close();
@@ -89,8 +91,8 @@ public class JdbcAnswerRepository implements IAnswerRepository {
                     .id(new AnswerId(rs.getString("id")))
                     .author(rs.getString("author"))
                     .content(rs.getString("content"))
-                    .questionId(new QuestionId(rs.getString("questionId")))
-                    .vote(rs.getInt("vote"))
+                    .questionId(rs.getString("questionId"))
+                    .date(rs.getString("date"))
                     .build();
 
             ps.close();
@@ -117,8 +119,8 @@ public class JdbcAnswerRepository implements IAnswerRepository {
                         .id(new AnswerId(rs.getString("id")))
                         .author(rs.getString("author"))
                         .content(rs.getString("content"))
-                        .questionId(new QuestionId(rs.getString("questionId")))
-                        .vote(rs.getInt("vote"))
+                        .questionId(rs.getString("questionId"))
+                        .date(rs.getString("date"))
                         .build();
                 result.add(newAnswer);
             }
@@ -138,7 +140,7 @@ public class JdbcAnswerRepository implements IAnswerRepository {
         try{
             Connection con = dataSource.getConnection();
 
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM Answer WHERE questionId LIKE" + id.asString());
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Answer WHERE questionId LIKE '" + id.asString() +"'");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()){
@@ -146,8 +148,8 @@ public class JdbcAnswerRepository implements IAnswerRepository {
                         .id(new AnswerId(rs.getString("id")))
                         .author(rs.getString("author"))
                         .content(rs.getString("content"))
-                        .questionId(new QuestionId(rs.getString("questionId")))
-                        .vote(rs.getInt("vote"))
+                        .questionId(rs.getString("questionId"))
+                        .date(rs.getString("date"))
                         .build();
                 result.add(newAnswer);
             }
@@ -159,5 +161,58 @@ public class JdbcAnswerRepository implements IAnswerRepository {
             Logger.getLogger(JdbcAnswerRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
+    }
+
+    // Function Statistics
+    public int Size(){
+        /**
+         * This function count the number of answers in the data base
+         */
+        int res = 0;
+
+        try {
+            Connection con = dataSource.getConnection();
+
+            PreparedStatement ps = con.prepareStatement("SELECT count(id) FROM Answer");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                res = rs.getInt(1);
+            }
+
+            ps.close();
+            con.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(JdbcAnswerRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return res;
+    }
+
+    public int SizeFor(String username){
+        /**
+         * This function count the number of answers in the data base for a specific username
+         */
+        int res = 0;
+
+        try {
+            Connection con = dataSource.getConnection();
+
+            PreparedStatement ps = con.prepareStatement("SELECT count(id) FROM Answer WHERE author LIKE '"+username+"'");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                res = rs.getInt(1);
+            }
+
+            ps.close();
+            con.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(JdbcAnswerRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return res;
     }
 }

@@ -11,7 +11,6 @@
 <html lang="fr">
 
 <head>
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -19,12 +18,11 @@
     <title>Project_1 AMT</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
 
-<!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
         <a class="navbar-brand" href="#">Buffer Overflow</a>
@@ -33,11 +31,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/">Acceuil
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
                 <c:choose>
                     <c:when test="${currentUser!=null}">
                     <li class="nav-item">
@@ -54,7 +47,7 @@
                     <a class="nav-link" href="${pageContext.request.contextPath}/questions">Questions</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/profil">Profil</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/profile">Profil</a>
                 </li>
             </ul>
         </div>

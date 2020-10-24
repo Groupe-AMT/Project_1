@@ -40,13 +40,14 @@ public class JdbcCommentRepository implements ICommentRepository {
             //uuid = uuid.substring(uuid.lastIndexOf("@"+1));
 
             // Pour ajouter le message dans la bdd
-            PreparedStatement ps1 = con.prepareStatement("INSERT INTO Comment (id, author, content, type, sourceId) VALUES('"+
+            PreparedStatement ps1 = con.prepareStatement("INSERT INTO Comment (id, author, content, type, questionId, answerId, date) VALUES('"+
                     uuid+"','"+
                     comment.getAuthor()+"','"+
                     comment.getContent()+"','"+
                     comment.getType()+"','"+
-                    comment.getQuestionId().asString()+"','"+
-                    comment.getAnswerId().asString()+"','"+
+                    comment.getQuestionId()+"','"+
+                    comment.getAnswerId()+"','"+
+                    comment.getDate()+
                     "')");
             ps1.execute();
             con.close();
@@ -90,8 +91,9 @@ public class JdbcCommentRepository implements ICommentRepository {
                     .author(rs.getString("author"))
                     .content(rs.getString("content"))
                     .type(rs.getString("type"))
-                    .questionId(new QuestionId(rs.getString("questionId")))
-                    .answerId(new AnswerId(rs.getString("answerId")))
+                    .questionId(rs.getString("questionId"))
+                    .answerId(rs.getString("answerId"))
+                    .date(rs.getString("date"))
                     .build();
 
             ps.close();
@@ -119,8 +121,9 @@ public class JdbcCommentRepository implements ICommentRepository {
                         .author(rs.getString("author"))
                         .content(rs.getString("content"))
                         .type(rs.getString("type"))
-                        .questionId(new QuestionId(rs.getString("questionId")))
-                        .answerId(new AnswerId(rs.getString("answerId")))
+                        .questionId(rs.getString("questionId"))
+                        .answerId(rs.getString("answerId"))
+                        .date(rs.getString("date"))
                         .build();
                 result.add(newComment);
             }
@@ -139,8 +142,7 @@ public class JdbcCommentRepository implements ICommentRepository {
         List<Comment> result = new LinkedList<Comment>();
         try{
             Connection con = dataSource.getConnection();
-
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM Comment WHERE "+type+"Id LIKE" + id.asString());
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Comment WHERE "+type+"Id LIKE '" + id.asString()+"'");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()){
@@ -149,8 +151,9 @@ public class JdbcCommentRepository implements ICommentRepository {
                         .author(rs.getString("author"))
                         .content(rs.getString("content"))
                         .type(rs.getString("type"))
-                        .questionId(new QuestionId(rs.getString("questionId")))
-                        .answerId(new AnswerId(rs.getString("answerId")))
+                        .questionId(rs.getString("questionId"))
+                        .answerId(rs.getString("answerId"))
+                        .date(rs.getString("date"))
                         .build();
                 result.add(newComment);
             }
@@ -162,5 +165,58 @@ public class JdbcCommentRepository implements ICommentRepository {
             Logger.getLogger(JdbcCommentRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
+    }
+
+    // Function Statistics
+    public int Size(){
+        /**
+         * This function count the number of comments in the data base
+         */
+        int res = 0;
+
+        try {
+            Connection con = dataSource.getConnection();
+
+            PreparedStatement ps = con.prepareStatement("SELECT count(id) FROM Comment");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                res = rs.getInt(1);
+            }
+
+            ps.close();
+            con.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(JdbcAnswerRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return res;
+    }
+
+    public int SizeFor(String username){
+        /**
+         * This function count the number of comments in the data base for a specific username
+         */
+        int res = 0;
+
+        try {
+            Connection con = dataSource.getConnection();
+
+            PreparedStatement ps = con.prepareStatement("SELECT count(id) FROM Comment WHERE author LIKE '"+username+"'");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                res = rs.getInt(1);
+            }
+
+            ps.close();
+            con.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(JdbcAnswerRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return res;
     }
 }

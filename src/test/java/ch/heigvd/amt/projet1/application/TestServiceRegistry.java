@@ -1,6 +1,5 @@
 package ch.heigvd.amt.projet1.application;
 
-
 import ch.heigvd.amt.projet1.application.answermanagement.AnswerCommand;
 import ch.heigvd.amt.projet1.application.answermanagement.AnswerException;
 import ch.heigvd.amt.projet1.application.answermanagement.AnswerManagementFacade;
@@ -16,9 +15,6 @@ import ch.heigvd.amt.projet1.domain.comment.CommentId;
 import ch.heigvd.amt.projet1.domain.question.Question;
 import ch.heigvd.amt.projet1.domain.question.QuestionId;
 import ch.heigvd.amt.projet1.domain.statistic.Statistic;
-
-import ch.heigvd.amt.projet1.application.identitymanagement.IdentityManagementFacade;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -26,7 +22,6 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import javax.inject.Inject;
-
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -40,7 +35,6 @@ public class TestServiceRegistry {
     public static WebArchive createSystemEndpointTestDeployment() {
         WebArchive archive = ShrinkWrap.create(WebArchive.class, WARNAME)
                 .addPackages(true, "ch.heigvd.amt")
-                .addPackages(true, "ch.heigvd.amt.projet1")
                 .addPackages(true, "org.mindrot");
         return archive;
     }
@@ -49,7 +43,6 @@ public class TestServiceRegistry {
     ServiceRegistry SR;
 
     @Test
-
     public void testDependencyInjection(){
         IdentityManagementFacade IPR = SR.getIdentityFacade();
         QuestionManagementFacade QMF = SR.getQuestionFacade();

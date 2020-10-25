@@ -14,8 +14,8 @@
         "@codeceptjs/configure": "^0.5.2",
         "@codeceptjs/examples": "^1.2.1",
         "@codeceptjs/ui": "^0.4.1",
-        "codeceptjs": "^3.0.0",
-        "playwright": "^1.4.2",
+        "codeceptjs": "^2.3.3",
+        "playwright": "^1.5.1",
         "puppeteer": "^3.3.0"
     },
     "dependencies": {

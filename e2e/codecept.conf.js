@@ -18,7 +18,12 @@ exports.config = {
     I: './steps_file.js',
     "Login": './pages/Login.js',
     "SendQuestion": './pages/SendQuestion.js',
-    "Register": './pages/Register.js'
+    "Register": './pages/Register.js',
+    "Profil": './pages/Profil.js',
+    "ChangeInfo": './pages/ChangeInfo.js',
+    "ChangePassword": './pages/ChangePassword.js',
+    "Questions": './pages/Questions.js',
+    "Question": './pages/Question.js'
   },
   bootstrap: null,
   mocha: {},

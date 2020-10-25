@@ -176,7 +176,7 @@ public class JdbcQuestionRepository implements IQuestionRepository {
                 Filter = Filter + "AND tags LIKE '%"+ Tags.get(i) +"%' ";
             }
 
-            PreparedStatement ps = con.prepareStatement("SELECT DISTINCT * FROM Question ORDER BY date DESC WHERE"+ Filter +"LIMIT "+Integer.toString(start)+", " + Integer.toString(nbPerPage));
+            PreparedStatement ps = con.prepareStatement("SELECT DISTINCT * FROM Question WHERE"+ Filter + " ORDER BY date DESC "+" LIMIT "+Integer.toString(start)+", " + Integer.toString(nbPerPage));
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {

@@ -9,7 +9,9 @@ module.exports = {
     usr_name: "username",
     password: "password"
   },
-  submitButton: "Login",
+  submitButton: "Connexion",
+  registerButton: "S enregistrer ici !",
+  wrongUser_msg: "Mauvais identifiants",
 
   // Methods
   sendForm(usr, pass){

@@ -13,7 +13,7 @@ public class AnswerManagementFacade {
         this.answerRepository = answerRepository;
     }
 
-    public double saveAnswer(AnswerCommand command) throws AnswerException {
+    public int saveAnswer(AnswerCommand command) throws AnswerException {
         try {
             Answer newAnswer = Answer.builder()
                     .author(command.getAuthor())

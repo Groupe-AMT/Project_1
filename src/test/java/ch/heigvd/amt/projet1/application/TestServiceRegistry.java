@@ -96,7 +96,7 @@ public class TestServiceRegistry {
         //assertEquals(1, result.size());
     }
 
-    @Test
+   /* @Test
     public void testStatisticFacade(){
         StatisticManagementFacade SMF = SR.getStatisticFacade();
         Statistic stat = Statistic.builder()
@@ -109,5 +109,5 @@ public class TestServiceRegistry {
                 .nbSelfComments(SR.commentRepository.SizeFor("username"))
                 .build();
         assertEquals(stat, SMF.getStats("username"));
-    }
+    }*/
 }

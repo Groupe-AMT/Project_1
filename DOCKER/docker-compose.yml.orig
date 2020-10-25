@@ -1,0 +1,41 @@
+version: '3.7'
+
+services:
+    mysql:
+        build: ./images/mysql
+        environment:
+            - "MYSQL_ROOT_PASSWORD=root"
+            - "MYSQL_ROOT_HOST=%"
+            - "MYSQL_DATABASE=AMT"
+        ports:
+            - "3306:3306"
+        command: --init-file /data/application/init.sql
+        volumes:
+            - ./init.sql:/data/application/init.sql
+    openliberty:
+        build:
+            context: ..
+            dockerfile: DOCKER/images/openliberty/Dockerfile
+        links:
+            - mysql:mysql
+        ports:
+            - "9443:9000"
+<<<<<<< HEAD
+=======
+        depends_on:
+            - mysql
+>>>>>>> master
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        environment:
+            - PMA_HOST=mysql
+        restart: always
+        depends_on:
+            - mysql
+        ports:
+<<<<<<< HEAD
+            - "8888:80"
+=======
+            - "8888:80"
+>>>>>>> master

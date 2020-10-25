@@ -13,7 +13,7 @@ public class CommentManagementFacade {
         this.commentRepository = commentRepository;
     }
 
-    public double saveComment(CommentCommand command) throws CommentException {
+    public int saveComment(CommentCommand command) throws CommentException {
         try {
             Comment newComment = Comment.builder()
                     .author(command.getAuthor())

@@ -7,7 +7,7 @@ module.exports = {
   // Locators
   fields: {
     username: "username",
-    password: "password",
+    password: "Entrez votre mot de passe",
     firstname: "firstname",
     lastname: "lastname",
     mail: "email"

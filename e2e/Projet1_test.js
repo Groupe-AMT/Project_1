@@ -1,5 +1,5 @@
 
-Feature('Project_1_week_5');
+Feature('Project_1');
 
 Login = require('./pages/Login');
 Register = require('./pages/Register');
@@ -14,7 +14,7 @@ let now = new Date();
 
 let root = ":9080/Project_1/";
 
-let usr = "laure";
+let usr = "laure"+now.getMilliseconds().toString();
 let pass = "Dinateur1";
 let pass2 = "Dinateur2";
 let fname = "Pierrot";
@@ -84,33 +84,6 @@ Scenario('Login Logout', (I, Login) => {
     I.see("Logout");
     I.click("Logout");
     I.see("Connexion");
-});
-
-// Tests de parcours des pages
-
-Scenario('Browse - NOT logged', (I) => {
-    I.amOnPage(root);
-    I.see(Login.registerButton);
-    I.click("Login");
-    I.see(Login.registerButton);
-    I.click("Questions");
-    I.see(Login.registerButton);
-    I.click("Profil");
-    I.see(Login.registerButton);
-});
-
-Scenario('Browse - logged', (I, Login) => {
-    I.amOnPage(root);
-
-    Login.sendForm(usr, pass);
-    
-    I.see("Logout");
-    I.click("Questions");
-    I.see("Question");
-    I.click("Profil");
-    I.see(usr);
-    I.click("Logout");
-    I.see("Login");
 });
 
 // Tests de Questions
@@ -282,6 +255,33 @@ Scenario('Questions - search', (I, Login, Questions) =>{
 
     I.see(test_message.subject);
 
+});
+
+// Tests de parcours des pages
+
+Scenario('Browse - NOT logged', (I) => {
+    I.amOnPage(root);
+
+    I.click("Questions");
+    I.see("Question");
+    I.click("Profil");
+    I.see(usr);
+    I.click("Logout");
+    I.see("Login");
+});
+
+Scenario('Browse - logged', (I, Login) => {
+    I.amOnPage(root);
+
+    Login.sendForm(usr, pass2);
+    
+    I.see("Logout");
+    I.see(test_message.subject);
+    I.click(test_message.subject);
+    I.click("Profil");
+    I.see(usr);
+    I.click("Logout");
+    I.see("Login");
 });
 
 //Test de statistiques

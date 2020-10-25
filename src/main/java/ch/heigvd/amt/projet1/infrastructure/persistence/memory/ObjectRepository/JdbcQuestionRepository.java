@@ -175,7 +175,6 @@ public class JdbcQuestionRepository implements IQuestionRepository {
             for (int i = 1; i<Tags.size(); i++){
                 Filter = Filter + "AND tags LIKE '%"+ Tags.get(i) +"%' ";
             }
-
             PreparedStatement ps = con.prepareStatement("SELECT DISTINCT * FROM Question WHERE"+ Filter + " ORDER BY date DESC "+" LIMIT "+Integer.toString(start)+", " + Integer.toString(nbPerPage));
             ResultSet rs = ps.executeQuery();
 

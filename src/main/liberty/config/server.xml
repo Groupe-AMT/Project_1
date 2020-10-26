@@ -9,6 +9,8 @@
         <fileset dir="." includes="mysql-connector-java-5.1.49.jar"/>
     </library>
 
+    <logging consoleLogLevel="INFO" />
+
     <dataSource id="defaultDB" jndiName="jdbc/AMTDS">
         <jdbcDriver libraryRef="MySqlLib"/>
         <properties databaseName="AMT"

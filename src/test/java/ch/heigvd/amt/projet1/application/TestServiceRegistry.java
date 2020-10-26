@@ -12,7 +12,6 @@ import ch.heigvd.amt.projet1.application.statisticmanagement.StatisticManagement
 import ch.heigvd.amt.projet1.domain.answer.Answer;
 import ch.heigvd.amt.projet1.domain.comment.Comment;
 import ch.heigvd.amt.projet1.domain.comment.CommentId;
-import ch.heigvd.amt.projet1.domain.question.Question;
 import ch.heigvd.amt.projet1.domain.question.QuestionId;
 import ch.heigvd.amt.projet1.domain.statistic.Statistic;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -32,10 +31,9 @@ public class TestServiceRegistry {
     private final static String WARNAME = "arquillian-managed.war";
 
     @Deployment(testable = true)
-    public static WebArchive createSystemEndpointTestDeployment() {
+    public static WebArchive createDeployment() {
         WebArchive archive = ShrinkWrap.create(WebArchive.class, WARNAME)
-                .addPackages(true, "ch.heigvd.amt")
-                .addPackages(true, "org.mindrot");
+                .addPackages(true, "ch.heigvd.amt");
         return archive;
     }
 

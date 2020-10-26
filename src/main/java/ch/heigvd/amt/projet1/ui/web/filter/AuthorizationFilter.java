@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//@WebFilter (filterName ="AuthorizationFilter",urlPatterns = "/*")
+@WebFilter (filterName ="AuthorizationFilter",urlPatterns = "/*")
 public class AuthorizationFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -55,6 +55,8 @@ public class AuthorizationFilter implements Filter {
         if(URI.startsWith(req.getContextPath()+"/register"))
             return true;
         if(URI.startsWith(req.getContextPath()+"/index.jsp"))
+            return true;
+        if(URI.startsWith(req.getContextPath()+"/arquillian-managed/ArquillianServletRunner"))
             return true;
         return false;
     }

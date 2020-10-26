@@ -1,13 +1,15 @@
 #!/bin/bash
-mvn liberty:stop
-#docker-compose up --build &
-mvn clean
-#mvn liberty:dev &
-mvn liberty:create
-mvn liberty:install-feature
-mvn liberty:deploy
-mvn liberty:start
+mvn liberty:stop -q
+# cd DOCKER
+# docker-compose up --build mysql phpmyadmin &
+# cd ..
 #mvn liberty:configure-arquillian
+mvn clean -q
+#mvn liberty:dev &
+mvn liberty:create -q
+mvn liberty:install-feature -q
+mvn liberty:deploy -q
+mvn liberty:start -q
 
 mvn verify
 #mvn liberty:stop

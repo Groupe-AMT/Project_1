@@ -2,7 +2,7 @@
 mvn liberty:stop
 #docker-compose up --build &
 mvn clean
-mvn liberty:dev &
+#mvn liberty:dev &
 mvn liberty:create
 mvn liberty:install-feature
 mvn liberty:deploy

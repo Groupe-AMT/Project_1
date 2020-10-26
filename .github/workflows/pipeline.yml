@@ -37,7 +37,7 @@ jobs:
           java-version: 11
       
       - name: clean and package
-        run: mvn clean package
+        run: mvn clean 
         continue-on-error: true
       
       - name: Set up Docker build

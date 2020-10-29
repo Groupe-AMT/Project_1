@@ -32,6 +32,36 @@ L'application web cherche à séparer les parties de manière distinctes et ind�
 
 La base de donnée est un serveur MySQL contenue dans un container docker est ayant un lien avec le container OpenLiberty. En cas de première utilisation, la base de donnée MySQL est créée avec les tables pour pouvoir se rapprocher au maximum d'un lancement clef en main du serveur d'application.
 
+# Explication d'un cas d'utilisation de l'application
+
+Dans cette partie, nous verrons un cas d'utilisation classique pouvant avoir lieu sur notre application web.
+
+Premièrement, nous arrivons sur le serveur en utilisant l'adresse _ip:port/Project_1/_ , la page nous demande une connection, cependant nous pouvons utiliser la barre de navigation pour pouvoir visualiser les questions et ensuite les questions et commentaires propres à une question.
+
+<p align="center"><img src="mdImages/123.png?raw=true"></p>
+
+Maintenant, nous allons voir comment poster soit même un message. On commence par retourner sur login puis on click pour s'enregistrer. On rentre les informations et nous envoyons le formulaire.
+
+<p align="center"><img heigh=150px width=200px src="mdImages/4.png?raw=true"></p>
+
+Les champs du formulaire seront alors envoyé à un servlet **RegisterPageEndpoint** qui va créer une commande et l'envoyer à **l'IdentityManagementFacade** dans le tier logique métier. La facade va s'occuper de vérifier que le mot de passe est assez compliqué et qu'aucun compte n'ayant le même nom d'utilisateur n'existe avant de passer les informations au tier d'intégration via **PersonRepository**. Le tier d'intégration s'occupera de lister notre nouvel utilisateur dans la **base de donnée** soit le tier de ressource.
+
+Le fait de s'enregistrer, nous connectera directement sur l'application Web. La connexion passe par la création d'une session sur le serveur d'application. En cas d'utilisateur non connecté voulant utiliser des fonctions recquiérant une connexion celui ci sera redirigé par un filtre sur la page de connexion.
+
+Maintenant, nous cliquons sur _Poser une question_ et nous remplissons les champs afin de poster une nouvelle question.
+
+<p align="center"><img heigh=150px width=200px src="mdImages/5.png?raw=true"></p>
+
+Une fois la question envoyé nous serons redirigé vers la liste des questions avec notre question en première position (car la plus récente des questions). Que c'est-il passé ? Le formulaire à été envoyé à la classe servlet **QuestionsServlet** qui va créer la commande via les informations de la requête et l'envoyer à la classe du tier business **QuestionManagementFacade** via la classe **ServiceRegistry** responsable de fournir aux servlets de l'application leurs logiques métier. La facade va ensuite vérifier les informations faire un objet de la classe Question avant de l'envoyer au tiers d'intégration via la classe **QuestionRepository** qui va sauvegarder cette question dans la base de donnée (tier de ressource).
+
+# Structure DB
+
+La Db se présente sous la forme de cinq simples tables. 
+
+![](./mdImages/db.png)
+
+# Les différents types de test
+
 ## Arquillian
 
 Malgré de nombreuses tentatives de configuration, les tests d'intégration Arquillian ne fonctionnent que rarement et cela sans réussir à déterminer quel élément de configuration en est la cause. Nous avons laisser les tests "testServiceRegistry" afin que je puissier tout de même voir le travail effectuer.  
@@ -64,9 +94,3 @@ Nous effectuons des tests de charge avec JMeter (utilisable en lançant le .jmx 
 ## Mockito 
 
 Pour simuler certaine classe ainsi que leurs différentes méthodes, nous avons utilisé Mockito. Cela permet de pouvoir tester certaines valeur de retour en fonction du comportement des mock à l'intérieur de la classe testée.  
-
-## Structure DB
-
-La Db se présente sous la forme de cinq simples tables. 
-
-![](./mdImages/db.png)

@@ -1,7 +1,6 @@
 package ch.heigvd.amt.projet1.ui.web.filter;
 
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.CurrentUserDTO;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -11,9 +10,7 @@ import java.io.IOException;
 @WebFilter (filterName ="AuthorizationFilter",urlPatterns = "/*")
 public class AuthorizationFilter implements Filter {
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-    }
+    public void init(FilterConfig filterConfig) throws ServletException { }
 
     public void doFilter(ServletRequest req, ServletResponse rep, FilterChain chain)throws ServletException, IOException {
         HttpServletRequest request = (HttpServletRequest) req;
@@ -21,7 +18,6 @@ public class AuthorizationFilter implements Filter {
         String s = request.getRequestURI();
         // do nothing if is assets or log-in/out and register pages
         if(isPublicRessource(request.getRequestURI(),request)) {
-
             chain.doFilter(req, rep);
             return;
         }
@@ -36,30 +32,19 @@ public class AuthorizationFilter implements Filter {
             ((HttpServletResponse)rep).sendRedirect( request.getContextPath()+"/login");
             return;
         }
-    chain.doFilter(req, rep);
-
-
+        chain.doFilter(req, rep);
     }
 
     @Override
-    public void destroy() {
+    public void destroy() { }
 
-    }
     boolean isPublicRessource(String URI,HttpServletRequest req ){
-        if(URI.startsWith(req.getContextPath()+"/assets"))
-            return true;
-        if(URI.startsWith(req.getContextPath()+"/login"))
-            return true;
-        if(URI.startsWith(req.getContextPath()+"/logout"))
-            return true;
-        if(URI.startsWith(req.getContextPath()+"/register"))
-            return true;
-        if(URI.startsWith(req.getContextPath()+"/index.jsp"))
-            return true;
-        if(URI.startsWith(req.getContextPath()+"/questions"))
-            return true;
-        if(URI.startsWith(req.getContextPath()+"/question"))
-            return true;
-        return false;
+        return URI.startsWith(req.getContextPath()+"/assets") ||
+                URI.startsWith(req.getContextPath()+"/login") ||
+                URI.startsWith(req.getContextPath()+"/logout") ||
+                URI.startsWith(req.getContextPath()+"/register") ||
+                URI.startsWith(req.getContextPath()+"/index.jsp") ||
+                URI.startsWith(req.getContextPath()+"/questions") ||
+                URI.startsWith(req.getContextPath()+"/question");
     }
 }

@@ -43,15 +43,16 @@ public class IdentityManagementFacade {
     public CurrentUserDTO authenticate(AuthentificateCommand command) throws AuthentificateFailedException{
         Person person = personRepository.findByUsername(command.getUsername()).orElse(null);
 
-        if (person == null)
+        if (person != null && person.authenticate(command.getClearPassword())){
+            return CurrentUserDTO.builder()
+                    .username(person.getUsername())
+                    .firstname(person.getFirstname())
+                    .lastname(person.getLastName())
+                    .email(person.getEmail())
+                    .build();
+        } else {
             throw new AuthentificateFailedException("Mauvais identifiants");
-
-        return CurrentUserDTO.builder()
-                .username(person.getUsername())
-                .firstname(person.getFirstname())
-                .lastname(person.getLastName())
-                .email(person.getEmail())
-                .build();
+        }
     }
 
     public CurrentUserDTO updateProfile(CurrentUserDTO currUser ,UpdateProfileCommand command)throws UpdateProfileFailedException{
@@ -87,14 +88,7 @@ public class IdentityManagementFacade {
 
         Person person = personRepository.findByUsername(currUser.getUsername()).orElse(null);
 
-        boolean success;
-        if (person != null){
-            success = person.authenticate(command.getPrev_pass());
-        } else {
-            throw new UpdatePasswordFailedException("Mauvais mot de passe");
-        }
-
-        if (success){
+        if (person != null && person.authenticate(command.getPrev_pass())){
             String hashpassword = BCrypt.hashpw(command.getNew_pass(), BCrypt.gensalt());
             try {
                 personRepository.changingPass(currUser, hashpassword);
@@ -113,7 +107,6 @@ public class IdentityManagementFacade {
         boolean hasLowerCase = false;
 
         if (clearPass.length() >= 8) {
-
             for (char c : clearPass.toCharArray()) {
                 if (Character.isDigit(c) && !hasDigit) {
                     hasDigit = true;

@@ -21,22 +21,20 @@ public class IdentityManagementFacade {
     }
 
     public void register(RegisterCommand command)throws RegisterFailedException{
-        if (!checkPasswordRules(command.getClearPassword())){
+        if (!checkPasswordRules(command.getClearPassword()))
             throw new RegisterFailedException("Mot de passe faible. Le mot de passe doit contenir une minuscule, une majuscule, un chiffre et minimum 8 caractères.");
-        }
+
         if(personRepository.findByUsername(command.getUsername()).isPresent())
             throw new RegisterFailedException("Nom d'utilisateur déjà utilisé");
 
         try {
-
-            Person newPerson = Person.builder()
+            personRepository.save(Person.builder()
                     .username(command.getUsername())
                     .firstname(command.getFirstname())
                     .lastName(command.getLastname())
                     .email(command.getEmail())
                     .clearTextPassword(command.getClearPassword())
-                    .build();
-            personRepository.save(newPerson);
+                    .build());
         }catch (Exception e){
             throw new RegisterFailedException(e.getMessage());
         }
@@ -45,22 +43,15 @@ public class IdentityManagementFacade {
     public CurrentUserDTO authenticate(AuthentificateCommand command) throws AuthentificateFailedException{
         Person person = personRepository.findByUsername(command.getUsername()).orElse(null);
 
-        boolean success;
-        if (person != null){
-            success = person.authenticate(command.getClearPassword());
-        } else {
+        if (person == null)
             throw new AuthentificateFailedException("Mauvais identifiants");
-        }
-        if (success){
-            return CurrentUserDTO.builder()
-                    .username(person.getUsername())
-                    .firstname(person.getFirstname())
-                    .lastname(person.getLastName())
-                    .email(person.getEmail())
-                    .build();
-        } else {
-            throw new AuthentificateFailedException("Mauvais identifiants");
-        }
+
+        return CurrentUserDTO.builder()
+                .username(person.getUsername())
+                .firstname(person.getFirstname())
+                .lastname(person.getLastName())
+                .email(person.getEmail())
+                .build();
     }
 
     public CurrentUserDTO updateProfile(CurrentUserDTO currUser ,UpdateProfileCommand command)throws UpdateProfileFailedException{
@@ -72,10 +63,10 @@ public class IdentityManagementFacade {
             String newFirstname = command.getFirstname();
             String newLastname = command.getLastname();
             String newEmail = command.getEmail();
-            if ( newUsername.equals("") || newUsername == null){   newUsername = currUser.getUsername();   }
-            if ( newFirstname.equals("") || newFirstname == null){   newFirstname = currUser.getFirstname();   }
-            if ( newLastname.equals("") || newLastname == null){   newLastname = currUser.getLastname();   }
-            if ( newEmail.equals("") || newEmail == null){   newEmail = currUser.getEmail();   }
+            if (newUsername.equals("")){   newUsername = currUser.getUsername();   }
+            if (newFirstname.equals("")){   newFirstname = currUser.getFirstname();   }
+            if (newLastname.equals("")){   newLastname = currUser.getLastname();   }
+            if (newEmail.equals("")){   newEmail = currUser.getEmail();   }
 
             personRepository.updating(currUser, newUsername, newFirstname, newLastname, newEmail);
             return CurrentUserDTO.builder()

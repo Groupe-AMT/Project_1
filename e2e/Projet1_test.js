@@ -35,8 +35,6 @@ let test_message={
 }
 
 // Tests d'enregistrement
-let registeringU = "laure";
-let registeringP = "dinateur";
 Scenario('Registration - new account', (I, Register) => {
     I.amOnPage(root);
     I.see(Login.registerButton);

@@ -1,4 +1,3 @@
-//bcrypt = require('bcrypt');
 fs = require('fs');
 for(let i = 0; i < 100; i++){
     let line = "user"+i.toString()+";firstname"+i.toString()+";lastname"+i.toString()+";email"+i.toString()+'@heig.ch'+";Userpassword"+i.toString()+"\n"
@@ -8,4 +7,3 @@ for(let i = 0; i < 100; i++){
     }
         );
 }
-//console.log(bcrypt.hashSync('test', bcrypt.genSaltSync()));

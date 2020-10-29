@@ -38,7 +38,6 @@ jobs:
       
       - name: clean and package
         run: mvn clean package
-        continue-on-error: true
       
       - name: Set up Docker build
         uses: docker/setup-buildx-action@v1

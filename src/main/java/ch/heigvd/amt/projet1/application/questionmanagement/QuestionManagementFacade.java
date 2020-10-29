@@ -14,29 +14,25 @@ public class QuestionManagementFacade {
 
     public void saveQuestion(QuestionCommand command) throws QuestionException{
         try {
-            Question newQuestion = Question.builder()
+            questionRepository.save(Question.builder()
                     .author(command.getAuthor())
                     .Subject(command.getSubject().replaceAll("'"," "))
                     .Tags(command.getTags())
                     .content(command.getContent().replaceAll("'"," "))
-                    .build();
-            questionRepository.save(newQuestion);
+                    .build());
         }catch (Exception e){
             throw new QuestionException(e.getMessage());
         }
     }
     public List<Question> getQuestions(){
-        List<Question> allQuestions = (List<Question>) questionRepository.findAll();
-        return allQuestions;
+        return (List<Question>) questionRepository.findAll();
     }
 
     public List<Question> getPageQuestions(int currentPage, int nbPerPage){
-        List<Question> pageQuestions = (List<Question>) questionRepository.findPageQuestion(currentPage, nbPerPage);
-        return pageQuestions;
+        return questionRepository.findPageQuestion(currentPage, nbPerPage);
     }
 
     public List<Question> getFilteredPageQuestions(int currentPage, int nbPerPage, List<String> Tags){
-        List<Question> pageQuestions = (List<Question>) questionRepository.FilterfindPageQuestion(currentPage, nbPerPage, Tags);
-        return pageQuestions;
+        return questionRepository.FilterfindPageQuestion(currentPage, nbPerPage, Tags);
     }
 }

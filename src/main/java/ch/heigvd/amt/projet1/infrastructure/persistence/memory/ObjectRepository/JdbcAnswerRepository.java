@@ -39,12 +39,9 @@ public class JdbcAnswerRepository implements IAnswerRepository {
         try{
             Connection con = dataSource.getConnection();
 
-            String uuid = answer.getId().asString();
-            //uuid = uuid.substring(uuid.lastIndexOf("@"+1));
-
             // Pour ajouter le message dans la bdd
             PreparedStatement ps1 = con.prepareStatement("INSERT INTO Answer (id, author, content, questionId, date) VALUES('"+
-                    uuid+"','"+
+                    answer.getId().asString() +"','"+
                     answer.getAuthor()+"','"+
                     answer.getContent()+"','"+
                     answer.getQuestionId()+"','"+
@@ -112,26 +109,30 @@ public class JdbcAnswerRepository implements IAnswerRepository {
             Connection con = dataSource.getConnection();
 
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Answer");
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Answer newAnswer = Answer.builder()
-                        .id(new AnswerId(rs.getString("id")))
-                        .author(rs.getString("author"))
-                        .content(rs.getString("content"))
-                        .questionId(rs.getString("questionId"))
-                        .date(rs.getString("date"))
-                        .build();
-                result.add(newAnswer);
-            }
-
-            ps.close();
-            con.close();
+            psExecuteQuesry(result, con, ps);
 
         } catch (SQLException ex) {
             Logger.getLogger(JdbcAnswerRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
+    }
+
+    private void psExecuteQuesry(List<Answer> result, Connection con, PreparedStatement ps) throws SQLException {
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Answer newAnswer = Answer.builder()
+                    .id(new AnswerId(rs.getString("id")))
+                    .author(rs.getString("author"))
+                    .content(rs.getString("content"))
+                    .questionId(rs.getString("questionId"))
+                    .date(rs.getString("date"))
+                    .build();
+            result.add(newAnswer);
+        }
+
+        ps.close();
+        con.close();
     }
 
     // Function for finding all related answer of a question
@@ -141,21 +142,7 @@ public class JdbcAnswerRepository implements IAnswerRepository {
             Connection con = dataSource.getConnection();
 
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Answer WHERE questionId LIKE '" + id.asString() +"'");
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()){
-                Answer newAnswer = Answer.builder()
-                        .id(new AnswerId(rs.getString("id")))
-                        .author(rs.getString("author"))
-                        .content(rs.getString("content"))
-                        .questionId(rs.getString("questionId"))
-                        .date(rs.getString("date"))
-                        .build();
-                result.add(newAnswer);
-            }
-
-            ps.close();
-            con.close();
+            psExecuteQuesry(result, con, ps);
 
         } catch (SQLException ex) {
             Logger.getLogger(JdbcAnswerRepository.class.getName()).log(Level.SEVERE, null, ex);

@@ -13,15 +13,13 @@ public class VoteManagementFacade {
 
     public void saveVote(VoteCommand command) throws VoteException {
         try {
-            Vote newVote = Vote.builder()
+            voteRepository.save(Vote.builder()
                     .author(command.getAuthor())
                     .questionId(command.getId())
                     .answerId(command.getId())
                     .type(command.getType())
                     .note(command.isNote())
-                    .build();
-
-            voteRepository.save(newVote);
+                    .build());
         }catch (Exception e){
             throw new VoteException(e.getMessage());
         }

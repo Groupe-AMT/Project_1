@@ -43,3 +43,7 @@ Nous effectuer des tests unitaires sur la plupar des classes sans pour autant av
 Pour simuler certaine classe ainsi que leurs différentes méthodes, nous avons utilisé Mockito. Cela permet de pouvoir tester certaines valeur de retour en fonction du comportement des mock à l'intérieur de la classe testée.  
 
 ## Structure DB
+
+La Db se présente sous la forme de cinq simples tables. 
+
+![](./mdImages/db.png)

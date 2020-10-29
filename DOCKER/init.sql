@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS AMT.Vote (
 	`type` varchar(100) NOT NULL,
 	questionId varchar(100) NULL,
 	answerId varchar(100) NULL,
-	vote BOOL NULL
+	vote INTEGER NULL
 );
 
 CREATE TABLE IF NOT EXISTS AMT.Comment (

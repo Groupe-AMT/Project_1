@@ -46,6 +46,14 @@ Nous effectuons des tests end to end avec un script codecept qui test les princi
 
 Nous effectuons des tests de charge avec JMeter (utilisable en lançant le .jmx dans le dossier jmeter_plan) pour tester certaines fonctionalités telles que les créations d'utilisateurs, les logins , les création de questions et les votes.
 
+## Méthode d'utilisation de jmeter :
+
+* Allez dans test_data_creation_js puis ouvrez le terminal et lancez "npm install" puis "nodejs test_prep.js" pour créer le .csv des utilisateurs virtuels de jmeter.
+
+* Lancez la commande docker inspect -f \'{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}\' $(docker ps -aqf 'name=docker_openliberty') puis remplacez l'ip de HttpRequestDefault du .jmx par l'ip donné par la commande bash précédente.
+
+* Assurez vous d'avoir bien lancé le serveur d'application, puis lancez le plan de test.
+
 ## Mockito 
 
 Pour simuler certaine classe ainsi que leurs différentes méthodes, nous avons utilisé Mockito. Cela permet de pouvoir tester certaines valeur de retour en fonction du comportement des mock à l'intérieur de la classe testée.  

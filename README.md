@@ -36,7 +36,15 @@ Malgré de nombreuses tentatives de configuration, les tests d'intégration Arqu
 
 ## Tests unitaires 
 
-Nous effectuer des tests unitaires sur la plupar des classes sans pour autant avoir le temps de tester tous les cas de figures. 
+Nous effectuons des tests unitaires sur la plupart des classes sans pour autant avoir le temps de tester tous les cas de figures.
+
+## Tests E2E
+
+Nous effectuons des tests end to end avec un script codecept qui test les principales fonctionalités de notre application (lançables en utilisant e2e.sh).
+
+## Tests JMeter
+
+Nous effectuons des tests de charge avec JMeter (utilisable en lançant le .jmx dans le dossier jmeter_plan) pour tester certaines fonctionalités telles que les créations d'utilisateurs, les logins , les création de questions et les votes.
 
 ## Mockito 
 

@@ -39,7 +39,7 @@
                         <!-- vote -->
                         <td>vote :<c:out value="${Vs[0]}"/> </td>
                         <!-- vote up -->
-                        <form action="${pageContext.request.contextPath}/question.do"method="post">
+                        <form action="${pageContext.request.contextPath}/repquestion.do"method="post">
                         <button type="submit" >↑</button>
                             <input type="text" name="vid" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
                             <input type="text" name="id" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
@@ -47,7 +47,7 @@
                             <input type="text" name="vote" hidden="hidden" value="true"/>
                         </form>
                         <!-- vote down -->
-                        <form action="${pageContext.request.contextPath}/question.do"method="post">
+                        <form action="${pageContext.request.contextPath}/repquestion.do"method="post">
                             <button type="submit" >↓</button>
                             <input type="text" name="vid" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
                             <input type="text" name="id" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
@@ -63,7 +63,7 @@
                             <td>Par: <c:out value="${C.getAuthor()}"/> le <c:out value="${C.getDate()}"/></td><br><td><c:out value="${C.getContent()}"/> </td>
                             </div>
                         </c:forEach>
-                        <form action="${pageContext.request.contextPath}/question.do" method="post">
+                        <form action="${pageContext.request.contextPath}/repquestion.do" method="post">
                             <input type="text" class="content_input" placeholder="Commenter" name="answer" required>
                             <button type="submit" >Commenter</button>
                             <input type="text" name="id" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
@@ -75,7 +75,7 @@
                     </li>
                 </div>
                 <div >
-                    <form action="${pageContext.request.contextPath}/question.do" method="post" accept-charset="utf-8">
+                    <form action="${pageContext.request.contextPath}/repquestion.do" method="post" accept-charset="utf-8">
                         <textarea class="content_input" placeholder="Votre réponse" name="answer" style="width:100%; height: 100px;" required></textarea><br>
                         <button class="w3-button" type="submit" style="margin:auto; margin-top:20px; background-color:CornflowerBlue;" >Répondre</button>
                         <input type="textarea" name="id" hidden="hidden" value="<c:out value="${Q.getId().asString()}"/>">
@@ -93,7 +93,7 @@
                         <div class="w3-right" style="width:10%;">
                             <td>vote :<c:out value="${Vs[i.count]}"/> </td>
                             <!-- vote up -->
-                            <form action="${pageContext.request.contextPath}/question.do"method="post">
+                            <form action="${pageContext.request.contextPath}/repquestion.do"method="post">
                                 <button type="submit" >↑</button>
                                 <input type="text" name="vid" hidden="hidden" value="<c:out value="${A.getId().asString()}"/>">
                                 <input type="text" name="type" hidden="hidden" value="answer"/>
@@ -101,7 +101,7 @@
                                 <input type="text" name="vote" hidden="hidden" value="true"/>
                             </form>
                             <!-- vote down -->
-                            <form action="${pageContext.request.contextPath}/question.do"method="post">
+                            <form action="${pageContext.request.contextPath}/repquestion.do"method="post">
                                 <button type="submit" >↓</button>
                                 <input type="text" name="vid" hidden="hidden" value="<c:out value="${A.getId().asString()}"/>">
                                 <input type="text" name="type" hidden="hidden" value="answer"/>
@@ -115,7 +115,7 @@
                                     <td>Par: <c:out value="${C.getAuthor()}"/> le <c:out value="${C.getDate()}"/></td><br><td><c:out value="${C.getContent()}"/> </td><br>
                                 </c:forEach>
                             </div>
-                            <form action="${pageContext.request.contextPath}/question.do" method="post">
+                            <form action="${pageContext.request.contextPath}/repquestion.do" method="post">
                                 <input type="text" class="content_input" placeholder="Commenter" name="answer" required>
                                 <button type="submit" >Commenter</button>
                                 <input type="text" name="ida" hidden="hidden" value="<c:out value="${A.getId().asString()}"/>">

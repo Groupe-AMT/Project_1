@@ -56,6 +56,10 @@ public class AuthorizationFilter implements Filter {
             return true;
         if(URI.startsWith(req.getContextPath()+"/index.jsp"))
             return true;
+        if(URI.startsWith(req.getContextPath()+"/questions"))
+            return true;
+        if(URI.startsWith(req.getContextPath()+"/question"))
+            return true;
         return false;
     }
 }

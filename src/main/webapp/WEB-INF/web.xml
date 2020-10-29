@@ -88,7 +88,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>QuestionCommandEndpoint</servlet-name>
-    <url-pattern>/question.do</url-pattern>
+    <url-pattern>/repquestion.do</url-pattern>
   </servlet-mapping>
 
   <servlet>

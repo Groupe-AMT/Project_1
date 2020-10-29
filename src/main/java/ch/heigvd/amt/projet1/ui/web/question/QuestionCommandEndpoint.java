@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-@WebServlet(name = "QuestionCommandEndpoint",urlPatterns = "/question.do")
+@WebServlet(name = "QuestionCommandEndpoint",urlPatterns = "/repquestion.do")
 public class QuestionCommandEndpoint extends HttpServlet {
     @Inject
     private ServiceRegistry serviceRegistry;

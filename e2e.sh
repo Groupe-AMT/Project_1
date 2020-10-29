@@ -8,5 +8,5 @@ ADRESS=`docker inspect -f \'{{range.NetworkSettings.Networks}}{{.IPAddress}}{{en
 FullAdress="$HTTP${ADRESS//\'}"
 OverRide='{ "helpers": {"Puppeteer": {"url": "'$FullAdress'"}}}'
 echo $OverRide
-
+npx codeceptjs init
 npx codeceptjs run Projet1_test.js --override "$OverRide"

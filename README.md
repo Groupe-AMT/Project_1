@@ -31,7 +31,7 @@ Dans cette partie, nous verrons un cas d'utilisation classique pouvant avoir lie
 
 Premièrement, nous arrivons sur le serveur en utilisant l'adresse _ip:port/Project_1/_ , la page nous demande une connection, cependant nous pouvons utiliser la barre de navigation pour pouvoir visualiser les questions et ensuite les questions et commentaires propres à une question.
 
-![nav-bar](mdImages/1.png?raw=true "Barre de navigation") ![questions](mdImages/2.png?raw=true "Liste des questions") ![question](mdImages/3.png?raw=true "Une question")
+![nav-bar](mdImages/123.png?raw=true "Navigation hors ligne")
 
 Maintenant, nous allons voir comment poster soit même un message. On commence par retourner sur login puis on click pour s'enregistrer. On rentre les informations et nous envoyons le formulaire.
 
@@ -43,6 +43,6 @@ Le fait de s'enregistrer, nous connectera directement sur l'application Web. La 
 
 Maintenant, nous cliquons sur _Poser une question_ et nous remplissons les champs afin de poster une nouvelle question.
 
-![ask](mdImages/6.png?raw=true "Envoyer une question sur le serveur")
+![ask](mdImages/5.png?raw=true "Envoyer une question sur le serveur")
 
 Une fois la question envoyé nous serons redirigé vers la liste des questions avec notre question en première position (car la plus récente des questions). Que c'est-il passé ? Le formulaire à été envoyé à la classe servlet **QuestionsServlet** qui va créer la commande via les informations de la requête et l'envoyer à la classe du tier business **QuestionManagementFacade** via la classe **ServiceRegistry** responsable de fournir aux servlets de l'application leurs logiques métier. La facade va ensuite vérifier les informations faire un objet de la classe Question avant de l'envoyer au tiers d'intégration via la classe **QuestionRepository** qui va sauvegarder cette question dans la base de donnée (tier de ressource).

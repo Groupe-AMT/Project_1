@@ -1,7 +1,8 @@
-ALTER USER 'root'@'localhost' IDENTIFIED BY 'root';
+DROP SCHEMA IF EXISTS AMT;
 
-CREATE USER 'admin'@'%' IDENTIFIED BY 'root';
-GRANT ALL PRIVILEGES ON *.* to 'admin'@'%';
+CREATE SCHEMA IF NOT EXISTS AMT CHARACTER SET utf8;
+
+USE AMT;
 
 CREATE TABLE IF NOT EXISTS AMT.Person (
 	id varchar(100) NOT NULL,
@@ -10,9 +11,7 @@ CREATE TABLE IF NOT EXISTS AMT.Person (
 	firstname varchar(100) NOT NULL,
 	lastname varchar(100) NOT NULL,
 	password varchar(100) NOT NULL
-)
-ENGINE=InnoDB
-DEFAULT CHARSET=utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS AMT.Vote (
 	id varchar(100) NOT NULL,
@@ -21,9 +20,7 @@ CREATE TABLE IF NOT EXISTS AMT.Vote (
 	questionId varchar(100) NULL,
 	answerId varchar(100) NULL,
 	vote BOOL NULL
-)
-ENGINE=InnoDB
-DEFAULT CHARSET=utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS AMT.Comment (
 	id varchar(100) NOT NULL,
@@ -33,9 +30,7 @@ CREATE TABLE IF NOT EXISTS AMT.Comment (
 	questionId varchar(100) NULL,
 	answerId varchar(100) NULL,
 	`date` varchar(100) NOT NULL
-)
-ENGINE=InnoDB
-DEFAULT CHARSET=utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS AMT.Answer (
 	id varchar(100) NOT NULL,
@@ -43,9 +38,7 @@ CREATE TABLE IF NOT EXISTS AMT.Answer (
 	content LONGTEXT NOT NULL,
 	questionId varchar(100) NOT NULL,
 	`date` varchar(100) NOT NULL
-)
-ENGINE=InnoDB
-DEFAULT CHARSET=utf8mb4;
+);
 
 CREATE TABLE IF NOT EXISTS AMT.Question (
 	id varchar(100) NOT NULL,
@@ -54,6 +47,4 @@ CREATE TABLE IF NOT EXISTS AMT.Question (
 	content LONGTEXT NOT NULL,
 	tags varchar(100) NOT NULL,
 	`date` varchar(100) NOT NULL
-)
-ENGINE=InnoDB
-DEFAULT CHARSET=utf8mb4;
+);

@@ -108,27 +108,24 @@ public class IdentityManagementFacade {
 
     /* Règles à vérifier sur les mots de passe */
     private boolean checkPasswordRules(String clearPass){
-        boolean res = false;
+        boolean hasDigit = false;
+        boolean hasUpperCase = false;
+        boolean hasLowerCase = false;
 
         if (clearPass.length() >= 8) {
-            boolean hasDigit = false;
-            boolean hasUpperCase = false;
-            boolean hasLowerCase = false;
 
             for (char c : clearPass.toCharArray()) {
-                if (Character.isDigit(c) && hasDigit == false) {
+                if (Character.isDigit(c) && !hasDigit) {
                     hasDigit = true;
                 }
-                if (Character.isUpperCase(c) && hasUpperCase == false){
+                if (Character.isUpperCase(c) && !hasUpperCase){
                     hasUpperCase = true;
                 }
-                if (Character.isLowerCase(c) && hasLowerCase == false){
+                if (Character.isLowerCase(c) && !hasLowerCase){
                     hasLowerCase = true;
                 }
             }
-
-            if (hasDigit && hasLowerCase && hasUpperCase) res = true;
         }
-        return res;
+        return hasDigit && hasLowerCase && hasUpperCase;
     }
 }

@@ -4,7 +4,6 @@ import ch.heigvd.amt.projet1.domain.answer.IAnswerRepository;
 import ch.heigvd.amt.projet1.domain.comment.ICommentRepository;
 import ch.heigvd.amt.projet1.domain.person.IPersonRepository;
 import ch.heigvd.amt.projet1.domain.question.IQuestionRepository;
-import ch.heigvd.amt.projet1.domain.question.Question;
 import ch.heigvd.amt.projet1.domain.statistic.Statistic;
 
 public class StatisticManagementFacade {

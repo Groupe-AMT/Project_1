@@ -1,12 +1,8 @@
 package ch.heigvd.amt.projet1.application.votemanagement;
 
 import ch.heigvd.amt.projet1.domain.Id;
-import ch.heigvd.amt.projet1.domain.comment.Comment;
-import ch.heigvd.amt.projet1.domain.comment.ICommentRepository;
 import ch.heigvd.amt.projet1.domain.vote.IVoteRepository;
 import ch.heigvd.amt.projet1.domain.vote.Vote;
-
-import java.util.List;
 
 public class VoteManagementFacade {
     private IVoteRepository voteRepository;

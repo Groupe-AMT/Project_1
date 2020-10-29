@@ -34,19 +34,15 @@ public class ServiceRegistry {
     private AnswerManagementFacade answerFacade;
     private CommentManagementFacade commentFacade;
     private VoteManagementFacade voteFacade;
-
-    //Statistics
     private StatisticManagementFacade statisticFacade;
 
     @PostConstruct
-    // la méthode est appelée
     void init (){
         identityFacade = new IdentityManagementFacade(personRepository);
         questionFacade = new QuestionManagementFacade(questionRepository);
         answerFacade = new AnswerManagementFacade(answerRepository);
         commentFacade = new CommentManagementFacade(commentRepository);
         voteFacade = new VoteManagementFacade(voteRepository);
-
         statisticFacade = new StatisticManagementFacade(questionRepository, answerRepository, commentRepository, personRepository);
     }
 
@@ -61,7 +57,6 @@ public class ServiceRegistry {
     }
     public CommentManagementFacade getCommentFacade(){ return commentFacade; }
     public VoteManagementFacade getVoteFacade(){ return voteFacade; }
-
     public StatisticManagementFacade getStatisticFacade(){
         return statisticFacade;
     }

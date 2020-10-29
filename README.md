@@ -32,12 +32,19 @@ npx codeceptjs run <test_file name>
 
 ## Arquillian
 
-```sh
+Malgré de nombreuses tentatives de configuration, les tests d'intégration Arquillian ne fonctionnent que rarement et cela sans réussir à déterminer quel élément de configuration en est la cause. Nous avons laisser les tests "testServiceRegistry" afin que je puissier tout de même voir le travail effectuer.  
 
+```sh
+// les commandes pour lancer les tests d'intégration qui ne fonctionne désormais plus 
+./arqui.sh
 ```
 
-
-
 ## Tests unitaires 
+
+Nous effectuer des tests unitaires sur la plupar des classes sans pour autant avoir le temps de tester tous les cas de figures. 
+
+## Mockito 
+
+Pour simuler certaine classe ainsi que leurs différentes méthodes, nous avons utilisé Mockito. Cela permet de pouvoir tester certaines valeur de retour en fonction du comportement des mock à l'intérieur de la classe testée.  
 
 ## Structure DB

@@ -2,6 +2,13 @@
 
 _Jérôme Arn / Canipel Vincent / Clément Semblat / Quentin Saucy_
 
+# Lancement du projet
+
+Pour lancer le projet, il faut:
+* Lancer le script run_app.sh
+* Trouver l'adresse ip généré par docker pour le container d'OpenLiberty
+* Se connecter à l'adresse: _ip-docker:9080/Project_1/_
+
 # Pages du site et fonctionnalités
 
 Dans cette partie, nous allons décrire le fonctionnement des différentes pages de notre serveur d'application:

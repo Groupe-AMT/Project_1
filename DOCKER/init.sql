@@ -4,6 +4,9 @@ CREATE SCHEMA IF NOT EXISTS AMT CHARACTER SET utf8;
 
 USE AMT;
 
+CREATE USER 'admin'@'%' IDENTIFIED BY 'root';
+GRANT ALL PRIVILEGES ON *.* to 'admin'@'%';
+
 CREATE TABLE IF NOT EXISTS AMT.Person (
 	id varchar(100) NOT NULL,
 	username varchar(100) NOT NULL,

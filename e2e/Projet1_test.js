@@ -264,10 +264,8 @@ Scenario('Browse - NOT logged', (I) => {
 
     I.click("Questions");
     I.see("Question");
-    I.click("Profil");
-    I.see(usr);
-    I.click("Logout");
-    I.see("Login");
+    I.click("TEST");
+    I.see("Here is the content of the test");
 });
 
 Scenario('Browse - logged', (I, Login) => {

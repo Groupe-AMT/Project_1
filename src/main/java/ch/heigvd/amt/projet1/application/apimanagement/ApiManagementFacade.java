@@ -40,16 +40,21 @@ public final class ApiManagementFacade { //class made to manage the gamification
         System.out.println(json.toString());
         return json.toString();
     }
-    public static String stringifiedObject(Object o){ //gère les conversions objet-String
+    public static String stringifyEvent(Event obj){
         String result = "{";
+        result += "\"" + "user_id" + "\":" + "\"" + obj.getIdUser() + "\"" + ",";
+        result += "\"" + "user_ame" + "\":" + "\"" + obj.getUserName() + "\"" + ",";
+        result += "\"" + "action" + "\":" + "\"" + obj.getAction() + "\"" + ",";
+        result += "\"" + "attribute" + "\":" + "\"" + obj.getAttribute() + "\"" + ",";
+        result += "\"" + "timestamp" + "\":" + "\"" + obj.getTimestamp().toString() + "\"";
+        result += "}";
+        return result;
+    }
+    public static String stringifiedObject(Object o){ //gère les conversions objet-String
+        String result = "";
         if(o instanceof Event) {
             Event obj = (Event) o;
-            result += "\"" + "user_id" + "\":" + "\"" + obj.getIdUser() + "\"" + ",";
-            result += "\"" + "user_ame" + "\":" + "\"" + obj.getUserName() + "\"" + ",";
-            result += "\"" + "action" + "\":" + "\"" + obj.getAction() + "\"" + ",";
-            result += "\"" + "attribute" + "\":" + "\"" + obj.getAttribute() + "\"" + ",";
-            result += "\"" + "timestamp" + "\":" + "\"" + obj.getTimestamp().toString() + "\"";
-            result += "}";
+            result = stringifyEvent(obj);
         }
         return result;
     }

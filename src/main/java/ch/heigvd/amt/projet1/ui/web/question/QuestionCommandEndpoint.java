@@ -4,6 +4,8 @@ import ch.heigvd.amt.projet1.application.ServiceRegistry;
 import ch.heigvd.amt.projet1.application.answermanagement.AnswerCommand;
 import ch.heigvd.amt.projet1.application.answermanagement.AnswerException;
 import ch.heigvd.amt.projet1.application.answermanagement.AnswerManagementFacade;
+import ch.heigvd.amt.projet1.application.apimanagement.ApiManagementFacade;
+import ch.heigvd.amt.projet1.application.apimanagement.Event;
 import ch.heigvd.amt.projet1.application.commentmanagement.CommentCommand;
 import ch.heigvd.amt.projet1.application.commentmanagement.CommentException;
 import ch.heigvd.amt.projet1.application.commentmanagement.CommentManagementFacade;
@@ -26,6 +28,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 @WebServlet(name = "QuestionCommandEndpoint",urlPatterns = "/repquestion.do")
 public class QuestionCommandEndpoint extends HttpServlet {
@@ -50,6 +53,7 @@ public class QuestionCommandEndpoint extends HttpServlet {
                             .note(vote)
                             .build();
                     VoteManagementFacade voteManagementFacade = serviceRegistry.getVoteFacade();
+                    ApiManagementFacade.SendVoteEvent(req);
                     try {
                         voteManagementFacade.saveVote(voteCommand);
                     } catch (VoteException e) {

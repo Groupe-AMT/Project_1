@@ -94,3 +94,7 @@ Nous effectuons des tests de charge avec JMeter (utilisable en lançant le .jmx 
 ## Mockito 
 
 Pour simuler certaine classe ainsi que leurs différentes méthodes, nous avons utilisé Mockito. Cela permet de pouvoir tester certaines valeur de retour en fonction du comportement des mock à l'intérieur de la classe testée.  
+
+## API Gamification
+
+Pour ajouter des appels de l'api dans le code, utilisez la classe ApiManagementFacade du package apimanagement

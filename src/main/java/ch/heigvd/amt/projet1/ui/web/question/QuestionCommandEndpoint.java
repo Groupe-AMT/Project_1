@@ -53,7 +53,7 @@ public class QuestionCommandEndpoint extends HttpServlet {
                             .note(vote)
                             .build();
                     VoteManagementFacade voteManagementFacade = serviceRegistry.getVoteFacade();
-                    ApiManagementFacade.SendVoteEvent(req);
+                    ApiManagementFacade.SendVoteEvent(req); //envoi du vote à l'API de gamification
                     try {
                         voteManagementFacade.saveVote(voteCommand);
                     } catch (VoteException e) {

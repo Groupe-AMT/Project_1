@@ -27,27 +27,30 @@ import java.util.UUID;
 
 
 public final class ApiManagementFacade { //class made to manage the gamification API
-    public static Rule CreateRule(String action,String attribute,String pointscale,int amount,String name,String badge){
+    public static Rule CreateRule(String action,String attribute,String pointscale,int amount,String name,String badge){ //crée une rule
         Rule result ;
         RuleIf _if = new RuleIf(action, attribute);
         RuleThen then = new RuleThen(pointscale, amount);
         result = new Rule(name, badge, _if, then);
         return result;
     }
-    public static String stringifiedObject_V0(Event o){
+    public static String stringifiedObject_V0(Object o){ //plus élégant mais fonctionne pas
         JSONObject json = new JSONObject(o);
         System.out.println(o.toString());
         System.out.println(json.toString());
         return json.toString();
     }
-    public static String stringifiedObject(Event o){
+    public static String stringifiedObject(Object o){ //gère les conversions objet-String
         String result = "{";
-        result += "\"" + "user_id" + "\":" + "\""+o.getIdUser()+"\"" + ",";
-        result += "\"" + "user_ame" + "\":" + "\""+o.getUserName()+"\"" + ",";
-        result += "\"" + "action" + "\":" + "\""+o.getAction()+"\"" + ",";
-        result += "\"" + "attribute" + "\":" + "\""+o.getAttribute()+"\"" + ",";
-        result += "\"" + "timestamp" + "\":" + "\""+o.getTimestamp().toString()+"\"";
-        result += "}";
+        if(o instanceof Event) {
+            Event obj = (Event) o;
+            result += "\"" + "user_id" + "\":" + "\"" + obj.getIdUser() + "\"" + ",";
+            result += "\"" + "user_ame" + "\":" + "\"" + obj.getUserName() + "\"" + ",";
+            result += "\"" + "action" + "\":" + "\"" + obj.getAction() + "\"" + ",";
+            result += "\"" + "attribute" + "\":" + "\"" + obj.getAttribute() + "\"" + ",";
+            result += "\"" + "timestamp" + "\":" + "\"" + obj.getTimestamp().toString() + "\"";
+            result += "}";
+        }
         return result;
     }
     public static String HttpPost(String address, String payload) throws IOException {

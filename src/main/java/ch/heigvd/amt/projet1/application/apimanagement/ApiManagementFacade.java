@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.*;
@@ -34,11 +35,37 @@ public final class ApiManagementFacade { //class made to manage the gamification
         result = new Rule(name, badge, _if, then);
         return result;
     }
-    public static String stringifiedObject_V0(Object o){ //plus élégant mais fonctionne pas
-        JSONObject json = new JSONObject(o);
-        System.out.println(o.toString());
-        System.out.println(json.toString());
-        return json.toString();
+    public static String objectToJsonString(Object o) throws IllegalAccessException {
+        String result = "{";
+        String temp_value = "";
+        Class c = o.getClass();
+        Field[] fieldlist = c.getDeclaredFields(); //get fields of the parameter
+        for(int i = 0; i < fieldlist.length ; i++){
+            String temp_name = fieldlist[i].getName(); //get name of the currently processed field
+            Object temp_obj = fieldlist[i].get(o); //get content of the field
+            String temp_type = fieldlist[i].getType().getTypeName(); //get name of the field's type
+            System.out.println(temp_type);
+            if(temp_type == "java.lang.String"){ //handle different types
+                temp_value = (String) temp_obj;
+            }
+            if(temp_type == "java.lang.int"){
+                int temp_int = ((int) temp_obj);
+                temp_value = Integer.toString(temp_int);
+            }
+            if(temp_type == "java.lang.double"){
+                double temp_double = (double) temp_obj;
+                temp_value = Double.toString(temp_double);
+            }
+            if(temp_type == "java.time.OffsetDateTime"){
+                OffsetDateTime temp_offsetdate = (OffsetDateTime) temp_obj;
+                temp_value = temp_offsetdate.toString();
+            }
+            result +=  "\"" + temp_name + "\":" + "\"" + temp_value + "\"" ;
+            if(i != fieldlist.length - 1){result += ",";}
+        }
+        result += "}";
+        System.out.println(result);
+        return result;
     }
     public static String stringifyEvent(Event obj){
         String result = "{";
@@ -50,11 +77,22 @@ public final class ApiManagementFacade { //class made to manage the gamification
         result += "}";
         return result;
     }
+    public static String stringifyPointScale(PointScale obj){
+        String result = "{";
+        result += "\"" + "name" + "\":" + "\"" + obj.getName() + "\"" + ",";
+        result += "\"" + "scale" + "\":" + "\"" + obj.getScale() + "\"" + ",";
+        result += "}";
+        return result;
+    }
     public static String stringifiedObject(Object o){ //gère les conversions objet-String
         String result = "";
         if(o instanceof Event) {
             Event obj = (Event) o;
             result = stringifyEvent(obj);
+        }
+        if(o instanceof PointScale) {
+            PointScale obj = (PointScale) o;
+            result = stringifyPointScale(obj);
         }
         return result;
     }
@@ -75,9 +113,9 @@ public final class ApiManagementFacade { //class made to manage the gamification
         http.disconnect();
         return result;
     }
-    public static String HttpPostFromObject(String address, Event o) throws IOException{
+    public static String HttpPostFromObject(String address, Event o) throws IOException, IllegalAccessException { //use this to post to API
         String result = "";
-        result = HttpPost(address, stringifiedObject(o));
+        result = HttpPost(address, objectToJsonString(o));
         return result;
     }
     public static String HttpGet(String address, String argument) throws IOException {
@@ -95,7 +133,7 @@ public final class ApiManagementFacade { //class made to manage the gamification
     public static Event CreateEvent(String user_id, String user_name,String action, String attribute){
         return new Event(user_id, user_name, action, attribute, OffsetDateTime.ofInstant(Instant.now(), ZoneOffset.UTC)  );
     }
-    public static void SendVoteEvent(HttpServletRequest req) throws IOException{
+    public static void SendVoteEvent(HttpServletRequest req) throws IOException, IllegalAccessException {
         Boolean vote = Boolean.parseBoolean(req.getParameter("vote"));
         HttpSession session = req.getSession(true);
         String s = "";

@@ -17,6 +17,7 @@ import ch.heigvd.amt.projet1.application.votemanagement.VoteException;
 import ch.heigvd.amt.projet1.application.votemanagement.VoteManagementFacade;
 import ch.heigvd.amt.projet1.domain.answer.Answer;
 import ch.heigvd.amt.projet1.domain.question.QuestionId;
+import lombok.SneakyThrows;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -34,6 +35,7 @@ import java.util.UUID;
 public class QuestionCommandEndpoint extends HttpServlet {
     @Inject
     private ServiceRegistry serviceRegistry;
+    @SneakyThrows
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(true);
         req.setCharacterEncoding("UTF-8");

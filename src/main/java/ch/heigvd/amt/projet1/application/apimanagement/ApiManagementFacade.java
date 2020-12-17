@@ -35,7 +35,10 @@ public final class ApiManagementFacade { //class made to manage the gamification
         result = new Rule(name, badge, _if, then);
         return result;
     }
-    public static String objectToJsonString(Object o) throws IllegalAccessException {
+    public static Event CreateEvent(String user_id, String user_name,String action, String attribute){ //instantiates an event
+        return new Event(user_id, user_name, action, attribute, OffsetDateTime.ofInstant(Instant.now(), ZoneOffset.UTC)  );
+    }
+    public static String objectToJsonString(Object o) throws IllegalAccessException { //turns objects into JSON strings
         String result = "{";
         String temp_value = "";
         Class c = o.getClass();
@@ -44,21 +47,24 @@ public final class ApiManagementFacade { //class made to manage the gamification
             String temp_name = fieldlist[i].getName(); //get name of the currently processed field
             Object temp_obj = fieldlist[i].get(o); //get content of the field
             String temp_type = fieldlist[i].getType().getTypeName(); //get name of the field's type
-            System.out.println(temp_type);
-            if(temp_type == "java.lang.String"){ //handle different types
-                temp_value = (String) temp_obj;
-            }
-            if(temp_type == "java.lang.int"){
-                int temp_int = ((int) temp_obj);
-                temp_value = Integer.toString(temp_int);
-            }
-            if(temp_type == "java.lang.double"){
-                double temp_double = (double) temp_obj;
-                temp_value = Double.toString(temp_double);
-            }
-            if(temp_type == "java.time.OffsetDateTime"){
-                OffsetDateTime temp_offsetdate = (OffsetDateTime) temp_obj;
-                temp_value = temp_offsetdate.toString();
+            switch(temp_type){ //handle different types
+                case "java.lang.String" :
+                    temp_value = (String) temp_obj;
+                    break;
+                case "java.lang.int" :
+                    int temp_int = ((int) temp_obj);
+                    temp_value = Integer.toString(temp_int);
+                    break;
+                case "java.lang.double" :
+                    double temp_double = (double) temp_obj;
+                    temp_value = Double.toString(temp_double);
+                    break;
+                case  "java.time.OffsetDateTime" :
+                    OffsetDateTime temp_offsetdate = (OffsetDateTime) temp_obj;
+                    temp_value = temp_offsetdate.toString();
+                    break;
+                default:
+                    temp_value = temp_obj.toString(); //takes care of any non handled types
             }
             result +=  "\"" + temp_name + "\":" + "\"" + temp_value + "\"" ;
             if(i != fieldlist.length - 1){result += ",";}
@@ -67,35 +73,7 @@ public final class ApiManagementFacade { //class made to manage the gamification
         System.out.println(result);
         return result;
     }
-    public static String stringifyEvent(Event obj){
-        String result = "{";
-        result += "\"" + "user_id" + "\":" + "\"" + obj.getIdUser() + "\"" + ",";
-        result += "\"" + "user_ame" + "\":" + "\"" + obj.getUserName() + "\"" + ",";
-        result += "\"" + "action" + "\":" + "\"" + obj.getAction() + "\"" + ",";
-        result += "\"" + "attribute" + "\":" + "\"" + obj.getAttribute() + "\"" + ",";
-        result += "\"" + "timestamp" + "\":" + "\"" + obj.getTimestamp().toString() + "\"";
-        result += "}";
-        return result;
-    }
-    public static String stringifyPointScale(PointScale obj){
-        String result = "{";
-        result += "\"" + "name" + "\":" + "\"" + obj.getName() + "\"" + ",";
-        result += "\"" + "scale" + "\":" + "\"" + obj.getScale() + "\"" + ",";
-        result += "}";
-        return result;
-    }
-    public static String stringifiedObject(Object o){ //gère les conversions objet-String
-        String result = "";
-        if(o instanceof Event) {
-            Event obj = (Event) o;
-            result = stringifyEvent(obj);
-        }
-        if(o instanceof PointScale) {
-            PointScale obj = (PointScale) o;
-            result = stringifyPointScale(obj);
-        }
-        return result;
-    }
+
     public static String HttpPost(String address, String payload) throws IOException {
         String result = "";
         URL url = new URL(address);
@@ -130,9 +108,7 @@ public final class ApiManagementFacade { //class made to manage the gamification
         http.disconnect();
         return result;
     }
-    public static Event CreateEvent(String user_id, String user_name,String action, String attribute){
-        return new Event(user_id, user_name, action, attribute, OffsetDateTime.ofInstant(Instant.now(), ZoneOffset.UTC)  );
-    }
+
     public static void SendVoteEvent(HttpServletRequest req) throws IOException, IllegalAccessException {
         Boolean vote = Boolean.parseBoolean(req.getParameter("vote"));
         HttpSession session = req.getSession(true);

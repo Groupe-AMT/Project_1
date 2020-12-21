@@ -9,9 +9,11 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClients;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
+import javax.json.stream.JsonParser;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -108,7 +110,20 @@ public final class ApiManagementFacade { //class made to manage the gamification
         http.disconnect();
         return result;
     }
-
+    public static JSONObject ConvertToJSON(String json){ //for processing GET responses
+        JSONObject result;
+        result = new JSONObject(json);
+        return result;
+    }
+    public static String[] JSONTOStringArray(JSONObject json) {//for processing GET responses
+        JSONArray names = json.names();
+        String[] result = new String[names.length()];
+        for(int i = 0; i < names.length(); i++){
+            String property_name = names.getString(i);
+            result[i] = json.get(property_name).toString();
+        }
+        return result;
+    }
     public static void SendVoteEvent(HttpServletRequest req) throws IOException, IllegalAccessException {
         Boolean vote = Boolean.parseBoolean(req.getParameter("vote"));
         HttpSession session = req.getSession(true);

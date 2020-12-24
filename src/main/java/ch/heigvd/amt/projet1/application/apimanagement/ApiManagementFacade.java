@@ -124,6 +124,9 @@ public final class ApiManagementFacade { //class made to manage the gamification
         }
         return result;
     }
+    public static String[] GetStrings(String address, String argument) throws IOException { //query l'endpoint et convertit en array de string la réponse
+        return JSONTOStringArray(ConvertToJSON(HttpGet(address,argument)));
+    }
     public static void SendVoteEvent(HttpServletRequest req) throws IOException, IllegalAccessException {
         Boolean vote = Boolean.parseBoolean(req.getParameter("vote"));
         HttpSession session = req.getSession(true);

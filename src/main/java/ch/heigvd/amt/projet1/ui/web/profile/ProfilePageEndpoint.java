@@ -1,6 +1,7 @@
 package ch.heigvd.amt.projet1.ui.web.profile;
 
 import ch.heigvd.amt.projet1.application.ServiceRegistry;
+import ch.heigvd.amt.projet1.application.apimanagement.ApiManagementFacade;
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.CurrentUserDTO;
 import ch.heigvd.amt.projet1.domain.statistic.Statistic;
 
@@ -27,6 +28,8 @@ public class ProfilePageEndpoint extends HttpServlet {
         Object currentUser = req.getSession().getAttribute("currentUser");
 
         CurrentUserDTO user = (CurrentUserDTO) currentUser;
+
+        System.out.println(ApiManagementFacade.GetStrings("https://jsonplaceholder.typicode.com/todos/1","")[0]);//test line
 
         Statistic stats = serviceRegistry.getStatisticFacade().getStats(user.getUsername());
 

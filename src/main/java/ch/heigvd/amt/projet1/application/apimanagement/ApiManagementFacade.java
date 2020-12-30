@@ -5,10 +5,20 @@ import javax.json.JsonObject;
 
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.CurrentUserDTO;
 import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import javax.json.JsonObjectBuilder;
@@ -16,6 +26,7 @@ import javax.json.JsonValue;
 import javax.json.stream.JsonParser;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -99,19 +110,17 @@ public final class ApiManagementFacade { //class made to manage the gamification
         return result;
     }
     public static String HttpGet(String address, String argument) throws IOException {
-        String result = "";
-        URL url = new URL(address);
-        URLConnection con = url.openConnection();
-        HttpURLConnection http = (HttpURLConnection)con;
-        http.setRequestMethod("GET"); // PUT is another valid option
-        InputStreamReader in = new InputStreamReader(http.getInputStream());
-        result = IOUtils.toString(in);
-        in.close();
-        http.disconnect();
+        RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(10 * 1000).build();
+        HttpClient client = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build();
+        HttpUriRequest request = new HttpGet(address + argument);
+        HttpResponse response = client.execute(request);
+        String result = "{\"failure\" : \"true\"}";
+        result = EntityUtils.toString(response.getEntity());
         return result;
     }
     public static JSONObject ConvertToJSON(String json){ //for processing GET responses
         JSONObject result;
+        System.out.println(json);
         result = new JSONObject(json);
         return result;
     }
@@ -137,10 +146,10 @@ public final class ApiManagementFacade { //class made to manage the gamification
         }
         if(vote == true){ //Gamification API call
             Event ev = ApiManagementFacade.CreateEvent((req.getParameter("vid")), s, "vote","up" );
-            System.out.println(ApiManagementFacade.HttpPostFromObject("http://172.18.0.4:8080/events",ev));
+            System.out.println(ApiManagementFacade.HttpPostFromObject("http://localhost:8080/events",ev));
         }else{
             Event ev = ApiManagementFacade.CreateEvent((req.getParameter("vid")), s, "vote","up" );
-            System.out.println(ApiManagementFacade.HttpPostFromObject("http://sym.iict.ch/rest/json",ev));
+            System.out.println(ApiManagementFacade.HttpPostFromObject("http://192.168.42.42/events",ev));
         }
     }
 }

@@ -97,4 +97,4 @@ Pour simuler certaine classe ainsi que leurs différentes méthodes, nous avons 
 
 ## API Gamification
 
-Pour ajouter des appels de l'api dans le code, utilisez la classe ApiManagementFacade du package apimanagement
+Pour ajouter des appels de l'api dans le code, utilisez la classe ApiManagementFacade du package apimanagement. HttpPostFromObject permet de poster un objet vers une URL et GetStrings permet d'obtenir une array de strings venant de l'URL cible qui se fait GET par le programme.

@@ -146,7 +146,7 @@ public final class ApiManagementFacade { //class made to manage the gamification
         }
         if(vote == true){ //Gamification API call
             Event ev = ApiManagementFacade.CreateEvent((req.getParameter("vid")), s, "vote","up" );
-            System.out.println(ApiManagementFacade.HttpPostFromObject("http://localhost:8080/events",ev));
+            System.out.println(ApiManagementFacade.HttpPostFromObject("http://172.25.0.1:8080/events",ev));
         }else{
             Event ev = ApiManagementFacade.CreateEvent((req.getParameter("vid")), s, "vote","up" );
             System.out.println(ApiManagementFacade.HttpPostFromObject("http://192.168.42.42/events",ev));
@@ -154,6 +154,6 @@ public final class ApiManagementFacade { //class made to manage the gamification
     }
     public static void RegisterApplication() throws IOException, IllegalAccessException {
         Registration registration = new Registration("Projet_1", "BufferOverflow", "bufferoverflow@heig-vd.ch");
-        System.out.println(HttpPostFromObject("http://172.25.0.1:8080/applications", registration));
+        System.out.println(HttpPostFromObject("http://172.25.0.1:8080/applications", registration)); //IP of swagger should be used to avoir error 500
     }
 }

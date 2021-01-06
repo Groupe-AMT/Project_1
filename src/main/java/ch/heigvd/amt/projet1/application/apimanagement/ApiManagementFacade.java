@@ -4,6 +4,8 @@ import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.CurrentUserDTO;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -39,8 +41,10 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.UUID;
 
-
+@Getter
+@Setter
 public final class ApiManagementFacade { //class made to manage the gamification API
+    private static String x_api_key = "";
     public static Rule CreateRule(String action,String attribute,String pointscale,int amount,String name,String badge){ //crée une rule
         Rule result ;
         RuleIf _if = new RuleIf(action, attribute);
@@ -87,7 +91,8 @@ public final class ApiManagementFacade { //class made to manage the gamification
         return result;
     }
 
-    public static String HttpPost(String address, String payload) throws IOException {
+    public static String HttpPost(String address, String payload) throws IOException, IllegalAccessException {
+        if(x_api_key == ""){x_api_key = RegisterApplication();}
         String result = "";
         URL url = new URL(address);
         URLConnection con = url.openConnection();
@@ -95,6 +100,7 @@ public final class ApiManagementFacade { //class made to manage the gamification
         http.setRequestMethod("POST"); // PUT is another valid option
         http.setDoOutput(true);
         byte[] out = payload.getBytes();
+        http.setRequestProperty("XApiKey", x_api_key);
         http.setRequestProperty("Content-Type", "application/json; charset=UTF-8");try(OutputStream os = http.getOutputStream()) {
             os.write(out);
         }
@@ -109,10 +115,12 @@ public final class ApiManagementFacade { //class made to manage the gamification
         result = HttpPost(address, objectToJsonString(o));
         return result;
     }
-    public static String HttpGet(String address, String argument) throws IOException {
+    public static String HttpGet(String address, String argument) throws IOException, IllegalAccessException {
+        if(x_api_key == ""){x_api_key = RegisterApplication();}
         RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(10 * 1000).build();
         HttpClient client = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build();
         HttpUriRequest request = new HttpGet(address + argument);
+        request.addHeader("XApiKey", x_api_key);
         HttpResponse response = client.execute(request);
         String result = "{\"failure\" : \"true\"}";
         result = EntityUtils.toString(response.getEntity());
@@ -133,7 +141,7 @@ public final class ApiManagementFacade { //class made to manage the gamification
         }
         return result;
     }
-    public static String[] GetStrings(String address, String argument) throws IOException { //query l'endpoint et convertit en array de string la réponse
+    public static String[] GetStrings(String address, String argument) throws IOException, IllegalAccessException { //query l'endpoint et convertit en array de string la réponse
         return JSONTOStringArray(ConvertToJSON(HttpGet(address,argument)));
     }
     public static void SendVoteEvent(HttpServletRequest req) throws IOException, IllegalAccessException {
@@ -149,11 +157,11 @@ public final class ApiManagementFacade { //class made to manage the gamification
             System.out.println(ApiManagementFacade.HttpPostFromObject("http://172.25.0.1:8080/events",ev));
         }else{
             Event ev = ApiManagementFacade.CreateEvent((req.getParameter("vid")), s, "vote","up" );
-            System.out.println(ApiManagementFacade.HttpPostFromObject("http://192.168.42.42/events",ev));
+            System.out.println(ApiManagementFacade.HttpPostFromObject("http://172.25.0.1:8080/events",ev));
         }
     }
-    public static void RegisterApplication() throws IOException, IllegalAccessException {
+    public static String RegisterApplication() throws IOException, IllegalAccessException {
         Registration registration = new Registration("Projet_1", "BufferOverflow", "bufferoverflow@heig-vd.ch");
-        System.out.println(HttpPostFromObject("http://172.25.0.1:8080/applications", registration)); //IP of swagger should be used to avoir error 500
+        return HttpPostFromObject("http://172.25.0.1:8080/applications", registration); //IP of swagger should be used to avoir error 500
     }
 }

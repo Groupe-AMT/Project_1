@@ -31,7 +31,6 @@ public class ProfilePageEndpoint extends HttpServlet {
 
         CurrentUserDTO user = (CurrentUserDTO) currentUser;
 
-        ApiManagementFacade.RegisterApplication();
         Statistic stats = serviceRegistry.getStatisticFacade().getStats(user.getUsername());
 
         req.setAttribute("name", user.getUsername());

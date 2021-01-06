@@ -4,6 +4,7 @@ import ch.heigvd.amt.projet1.application.ServiceRegistry;
 import ch.heigvd.amt.projet1.application.apimanagement.ApiManagementFacade;
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.CurrentUserDTO;
 import ch.heigvd.amt.projet1.domain.statistic.Statistic;
+import lombok.SneakyThrows;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -19,6 +20,7 @@ public class ProfilePageEndpoint extends HttpServlet {
     @Inject
     private ServiceRegistry serviceRegistry;
 
+    @SneakyThrows
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Object errors = req.getSession().getAttribute("errors");
@@ -29,8 +31,7 @@ public class ProfilePageEndpoint extends HttpServlet {
 
         CurrentUserDTO user = (CurrentUserDTO) currentUser;
 
-        System.out.println(ApiManagementFacade.GetStrings("https://jsonplaceholder.typicode.com/todos/1","")[0]);//test line
-
+        ApiManagementFacade.RegisterApplication();
         Statistic stats = serviceRegistry.getStatisticFacade().getStats(user.getUsername());
 
         req.setAttribute("name", user.getUsername());

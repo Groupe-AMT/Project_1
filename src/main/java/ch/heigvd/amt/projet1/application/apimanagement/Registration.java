@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Builder
 public class Registration implements Serializable {
-    private String name;
-    private String description;
-    private String contact;
+    public String name;
+    public String description;
+    public String contact;
 }

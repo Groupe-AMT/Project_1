@@ -5,7 +5,7 @@ import lombok.Builder;
 import java.io.Serializable;
 
 @Builder
-public class Badge implements Serializable {
+public class EntityAPIBadge implements Serializable {
 
     private long id;
 

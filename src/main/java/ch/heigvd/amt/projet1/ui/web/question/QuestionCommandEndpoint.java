@@ -5,18 +5,13 @@ import ch.heigvd.amt.projet1.application.answermanagement.AnswerCommand;
 import ch.heigvd.amt.projet1.application.answermanagement.AnswerException;
 import ch.heigvd.amt.projet1.application.answermanagement.AnswerManagementFacade;
 import ch.heigvd.amt.projet1.application.apimanagement.ApiManagementFacade;
-import ch.heigvd.amt.projet1.application.apimanagement.Event;
 import ch.heigvd.amt.projet1.application.commentmanagement.CommentCommand;
 import ch.heigvd.amt.projet1.application.commentmanagement.CommentException;
 import ch.heigvd.amt.projet1.application.commentmanagement.CommentManagementFacade;
-import ch.heigvd.amt.projet1.application.identitymanagement.IdentityManagementFacade;
 import ch.heigvd.amt.projet1.application.identitymanagement.authentificate.CurrentUserDTO;
-import ch.heigvd.amt.projet1.application.identitymanagement.login.RegisterFailedException;
 import ch.heigvd.amt.projet1.application.votemanagement.VoteCommand;
 import ch.heigvd.amt.projet1.application.votemanagement.VoteException;
 import ch.heigvd.amt.projet1.application.votemanagement.VoteManagementFacade;
-import ch.heigvd.amt.projet1.domain.answer.Answer;
-import ch.heigvd.amt.projet1.domain.question.QuestionId;
 import lombok.SneakyThrows;
 
 import javax.inject.Inject;
@@ -27,9 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 @WebServlet(name = "QuestionCommandEndpoint",urlPatterns = "/repquestion.do")
 public class QuestionCommandEndpoint extends HttpServlet {

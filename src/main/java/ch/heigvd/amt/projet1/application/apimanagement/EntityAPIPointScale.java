@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Builder
 @Getter
-public class PointScale implements Serializable { //fields put to public because field.get() causes exception otherwise
+public class EntityAPIPointScale implements Serializable { //fields put to public because field.get() causes exception otherwise
     public String name;
     public int scale;
 }

@@ -9,10 +9,14 @@ import java.util.UUID;
 
 @Builder
 @Getter
-public class Event implements Serializable { //fields put to public because field.get() causes exception otherwise
+public class EntityAPIEvent implements Serializable { //fields put to public because field.get() causes exception otherwise
     public String idUser; //UUID of an user
     public String userName; //name of an user
     public String action;
     public String attribute;
     public OffsetDateTime timestamp; //OffsetDateTime.ofInstant(Instant.now(), ZoneOffset.UTC) in tests
+
+    public String jsonFormat(){
+        return "{\"IDUser\":\""+this.idUser+"\", \"userName\":\""+this.userName+"\",\"action\":\""+this.action+"\",\"attribute\":\""+this.attribute+"\",\"timestamp\":\""+this.timestamp+"\"}";
+    }
 }

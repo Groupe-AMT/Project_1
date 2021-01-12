@@ -32,6 +32,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -39,12 +40,16 @@ import java.net.*;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.UUID;
 
 @Getter
 @Setter
 public final class ApiManagementFacade { //class made to manage the gamification API
-    private static String x_api_key = "";
+    private static String x_api_key = ""; //apiKey for the current application
+    private static ArrayList<String> eventList = new ArrayList<String>(); //contains the list of event ids created by this application
+    private static String projet2_url = "http://172.25.0.1:8080/";
     public static Rule CreateRule(String action,String attribute,String pointscale,int amount,String name,String badge){ //crée une rule
         Rule result ;
         RuleIf _if = new RuleIf(action, attribute);
@@ -92,7 +97,6 @@ public final class ApiManagementFacade { //class made to manage the gamification
     }
 
     public static String HttpPost(String address, String payload) throws IOException, IllegalAccessException {
-        if(x_api_key == ""){x_api_key = RegisterApplication();}
         String result = "";
         URL url = new URL(address);
         URLConnection con = url.openConnection();
@@ -116,7 +120,6 @@ public final class ApiManagementFacade { //class made to manage the gamification
         return result;
     }
     public static String HttpGet(String address, String argument) throws IOException, IllegalAccessException {
-        if(x_api_key == ""){x_api_key = RegisterApplication();}
         RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(10 * 1000).build();
         HttpClient client = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build();
         HttpUriRequest request = new HttpGet(address + argument);
@@ -144,24 +147,57 @@ public final class ApiManagementFacade { //class made to manage the gamification
     public static String[] GetStrings(String address, String argument) throws IOException, IllegalAccessException { //query l'endpoint et convertit en array de string la réponse
         return JSONTOStringArray(ConvertToJSON(HttpGet(address,argument)));
     }
+    public static String GetAllUserEventDigest(String username) throws IOException, IllegalAccessException {
+        String digest = "";
+        for (Iterator<String> i = eventList.iterator(); i.hasNext();
+             ) {
+            String item = i.next();
+            String[] event = GetStrings(projet2_url + "events/",item);
+            if(username.equals(event[1])){
+                digest += "type : "+event[2] + " value : " +event[3] +"\n";
+            }
+        }
+        return digest;
+    }
+
+    /**
+     * Returns a list of event values for a specific user and type of event
+     */
+    public static String[] GetUserEventDigest(String username, String type) throws IOException, IllegalAccessException {
+        ArrayList<String> list = new ArrayList<String>();
+        for (Iterator<String> i = eventList.iterator(); i.hasNext();
+        ) {
+            String item = i.next();
+            String[] event = GetStrings("http://172.25.0.1:8080/events/",item);
+            if(username.equals(event[1])){
+                if(type.equals(event[2])){
+                    list.add(event[3]);
+                }
+            }
+        }
+        return list.toArray(new String[list.size()]);
+    }
     public static void SendVoteEvent(HttpServletRequest req) throws IOException, IllegalAccessException {
+        if(x_api_key == ""){x_api_key = RegisterApplication();}
         Boolean vote = Boolean.parseBoolean(req.getParameter("vote"));
         HttpSession session = req.getSession(true);
         String s = "";
+        String id = UUID.randomUUID().toString();
+        eventList.add(id);
         if (session.getAttribute("currentUser")!=null) {
             CurrentUserDTO currentUserDTO = (CurrentUserDTO) session.getAttribute("currentUser");
             s = currentUserDTO.getUsername();
         }
         if(vote == true){ //Gamification API call
-            Event ev = ApiManagementFacade.CreateEvent((req.getParameter("vid")), s, "vote","up" );
-            System.out.println(ApiManagementFacade.HttpPostFromObject("http://172.25.0.1:8080/events",ev));
+            Event ev = ApiManagementFacade.CreateEvent(id, s, "vote","up" );
+            System.out.println(ApiManagementFacade.HttpPostFromObject(projet2_url + "events",ev));
         }else{
-            Event ev = ApiManagementFacade.CreateEvent((req.getParameter("vid")), s, "vote","up" );
-            System.out.println(ApiManagementFacade.HttpPostFromObject("http://172.25.0.1:8080/events",ev));
+            Event ev = ApiManagementFacade.CreateEvent(id, s, "vote","down" );
+            System.out.println(ApiManagementFacade.HttpPostFromObject(projet2_url + "events",ev));
         }
     }
     public static String RegisterApplication() throws IOException, IllegalAccessException {
-        Registration registration = new Registration("Projet_1", "BufferOverflow", "bufferoverflow@heig-vd.ch");
-        return HttpPostFromObject("http://172.25.0.1:8080/applications", registration); //IP of swagger should be used to avoir error 500
+        Registration registration = new Registration("Project_1", "BufferOverflow", "bufferoverflow@heig-vd.ch");
+        return JSONTOStringArray(ConvertToJSON(HttpPostFromObject(projet2_url + "applications", registration)))[0]; //IP of swagger should be used to avoid error 500
     }
 }
